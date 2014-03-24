@@ -1,4 +1,4 @@
-dragonfly-latex-templates
+Dragonfly Latex Templates
 =========================
 
-Dragonfly Latex Templates
+
