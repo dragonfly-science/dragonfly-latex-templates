@@ -33,4 +33,8 @@
 *.swp
 example.tex
 simple.pdf
-
+dragonfly.sty
+dragonfly-letter.cls
+dragonfly-article.cls
+dragonfly-report.cls
+dragonfly.pdf
