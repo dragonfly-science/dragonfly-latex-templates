@@ -1,14 +1,17 @@
 all: simple.pdf
 
-package: dragonfly.ins dragonfly.dtx
+package: dragonfly.sty
+
+dragonfly.sty: dragonfly.ins dragonfly.dtx 
 	latex dragonfly.ins
+
+dragonfly.pdf: dragonfly.dtx
 	xelatex dragonfly.dtx
 	xelatex dragonfly.dtx
 
 
-simple.pdf: simple.tex package
-	xelatex simple.tex
-	xelatex simple.tex
+simple.pdf: simple.tex dragonfly.sty
+	latexmk -xelatex simple.tex
 
 example.tex: example.md
 	pandoc --read markdown_github+footnotes+all_symbols_escapable \
