@@ -73,13 +73,69 @@
 %
 % \begin{abstract}
 %  This is a set of classes that are used to format documents according the 
-%  Dragonfly Science formatting requirements
+%  Dragonfly Science formatting requirements. There are three class files 
+%  for different types of documents. There is also a style file which 
+%  provides all of the common implementation.
 % \end{abstract}
 %
 % \section{Introduction}
+% Each different class is based on a different template. 
+% The basic structure is the same as the base latex article,
+% report or letter classes, which small changes to correct the 
+% theme. 
+%    \begin{macrocode}
+%<letter>\LoadClass[a4paper]{article}
+%<article>\LoadClass[a4paper]{article}
+%<report>\LoadClass[a4paper]{report}
+%    \end{macrocode}
+%
+% All of the classese use a commmon style to share general definitions.
+% This is provided by the dragonfly style. 
+%    \begin{macrocode}
+%<report|article|letter>\RequirePackage{dragonfly}   
+%    \end{macrocode}
+%
+% \section{Page Layout}
+%
+%    \begin{macrocode}
+%<*letter>
+\usepackage[
+    hmargin={51mm,30mm},
+    vmargin={26mm,40mm}]{geometry}      
+%</letter>
+%     \end{macrocode}
+
+%    \begin{macrocode}
+%<*letter>
+\setlength{\parskip}{3mm}
+\setlength{\parindent}{0mm}
+%</letter>
+%     \end{macrocode}
+
+% \section{Fonts}
+%    \begin{macrocode}
+%<*common>
+\usepackage{fontspec}
+%\setmainfont[Mapping=tex-text,
+%    ItalicFont     = {Palatino Linotype Italic},
+%    BoldFont       = {Palatino Linotype Bold},
+%    BoldItalicFont = {Palatino Linotype Bold Italic}]{Palatino Linotype}
+
+\newfontfamily\omnes[Mapping=tex-text,
+    ItalicFont     = {OmnesRegular-Italic},
+    BoldFont       = {OmnesSemibold-Roman},
+    BoldItalicFont = {OmnesSemibold-Italic}]{OmnesRegular-Roman}
+    
+\raggedright
+
+\renewcommand{\normalfont}{\fontsize{9pt}{13pt}\selectfont}
+%</common>
+%    \end{macrocode}
+%
+%
 %
 % \section{Coloring}
-% Colouring is common to all the fomats. The list of colours is:
+% Colouring is common to all the fomats. Dragonfly has a common list of colours. 
 %    \begin{macrocode}
 %<*common>
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
@@ -93,7 +149,7 @@
 \definecolor{mint}{RGB}{157,196,169}
 \definecolor{grey}{RGB}{127,127,127}
 %</common>
-%<report|article|letter>\RequirePackage{dragonfly}
+
 %    \end{macrocode}
 
 % \Finale
