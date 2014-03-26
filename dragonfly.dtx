@@ -23,14 +23,15 @@
 % \fi
 %
 % \iffalse
-%<dragonfly>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<dragonfly-report>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<dragonfly-article>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<dragonfly-letter>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<dragonfly>\ProvidesPackage{Dragonfly}[2014/03/23 v0.1 Common formatting requirements for Dragonfly Science]
-%<dragonfly-report>\ProvidesClass{dragonfly-report}[2014/03/20 v0.1 Report format for Dragonfly Science]
-%<dragonfly-article>\ProvidesClass{dragonfly-article}[2014/03/20 v0.1 Article format for Dragonfly Science]
-%<dragonfly-letter>\ProvidesClass{dragonfly-letter}[2014/03/20 v0.1 Letter format for Dragonfly Science]
+%<common>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<report>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<article>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<letter>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%
+%<common>\ProvidesPackage{dragonfly}[2014/03/23 v0.1 Common formatting requirements for Dragonfly Science]
+%<report>\ProvidesClass{dragonfly-report}[2014/03/20 v0.1 Report format for Dragonfly Science]
+%<article>\ProvidesClass{dragonfly-article}[2014/03/20 v0.1 Article format for Dragonfly Science]
+%<letter>\ProvidesClass{dragonfly-letter}[2014/03/20 v0.1 Letter format for Dragonfly Science]
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{dragonfly}
@@ -75,5 +76,25 @@
 %  Dragonfly Science formatting requirements
 % \end{abstract}
 %
+% \section{Introduction}
+%
+% \section{Coloring}
+% Colouring is common to all the fomats. The list of colours is:
+%    \begin{macrocode}
+%<*common>
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\definecolor{logo-blue}{RGB}{28,152,196}
+\definecolor{logo-grey}{RGB}{64,64,64}
+\definecolor{cream}{RGB}{229,222,204}
+\definecolor{green}{RGB}{80,173,133}
+\definecolor{terra-cotta}{RGB}{235,122,89}
+\definecolor{charred-red}{RGB}{207,69,71}
+\definecolor{plum}{RGB}{91,52,87}
+\definecolor{mint}{RGB}{157,196,169}
+\definecolor{grey}{RGB}{127,127,127}
+%</common>
+%<report|article|letter>\RequirePackage{dragonfly}
+%    \end{macrocode}
+
 % \Finale
 \endinput
