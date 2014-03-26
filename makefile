@@ -1,14 +1,14 @@
-all: package
+all: simple.pdf
 
 package: dragonfly.ins dragonfly.dtx
 	latex dragonfly.ins
-	pdflatex dragonfly.dtx
-	pdflatex dragonfly.dtx
+	xelatex dragonfly.dtx
+	xelatex dragonfly.dtx
 
 
-simple.pdf: example.tex simple.tex dragonfly-article.cls dragonfly.sty
-	xelatex simple.tex; xelatex simple.tex
-
+simple.pdf: simple.tex package
+	xelatex simple.tex
+	xelatex simple.tex
 
 example.tex: example.md
 	pandoc --read markdown_github+footnotes+all_symbols_escapable \
@@ -17,4 +17,7 @@ example.tex: example.md
 
 
 clean:
-	rm -f dragonfly.sty dragonfly-report.cls dragonfly-letter.cls dragonfly-article.cls dragonfly.pdf
+	rm -f dragonfly.sty dragonfly-report.cls dragonfly-letter.cls \
+		dragonfly-article.cls dragonfly.pdf simple.pdf \
+		simple.aux simple.log dragonfly.aux dragonfly.dtx.backup \
+		dragonfly.glo dragonfly.idx dragonfly.log 
