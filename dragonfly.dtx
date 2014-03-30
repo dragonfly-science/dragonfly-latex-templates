@@ -23,10 +23,7 @@
 % \fi
 %
 % \iffalse
-%<common>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<report>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<article>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<letter>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<common|report|article|letter>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %
 %<common>\ProvidesPackage{dragonfly}[2014/03/23 v0.1 Common formatting requirements for Dragonfly Science]
 %<report>\ProvidesClass{dragonfly-report}[2014/03/20 v0.1 Report format for Dragonfly Science]
@@ -84,8 +81,7 @@
 % report or letter classes, which small changes to correct the 
 % theme. 
 %    \begin{macrocode}
-%<letter>\LoadClass[a4paper]{article}
-%<article>\LoadClass[a4paper]{article}
+%<letter|article>\LoadClass[a4paper]{article}
 %<report>\LoadClass[a4paper]{report}
 %    \end{macrocode}
 %
@@ -149,8 +145,73 @@
 \definecolor{mint}{RGB}{157,196,169}
 \definecolor{grey}{RGB}{127,127,127}
 %</common>
-
+%
 %    \end{macrocode}
+%
+% \section{Headings}
+%
+% Each kind of documents has a different kind of header. 
+% Each one shall be addressed separately.
+%
+% Since some of the headings require absolute positioning,
+% we load the textpos package.
+%
+%   \begin{macrocode}
+%<*common>
+\usepackage[absolute]{textpos}
+%</common>
+%   \end{macrocode}
+%
+% \subsection{Letter}
+%
+%   \begin{macrocode}
+%<*letter>
+\renewcommand\maketitle{
+    \hypersetup{  
+      pdfinfo={  
+        Title={\@title},  
+        Author={\@author}
+      }  
+    }
+    \begin{textblock*}{\textwidth}(35mm,15mm)
+    \parbox{44mm}{\fontsize{6.5pt}{7.8pt}\selectfont\omnes\noindent\rule{40mm}{0.1mm}
+                  Level 5, 158 Victoria St\\
+                  PO Box 27353, Wellington 6141 \\ 
+                  New Zealand}
+    \end{textblock*}
+    \begin{textblock*}{43mm}(51mm,26mm)
+    \parbox{43mm}{\fontsize{6.5pt}{7.8pt}\selectfont\omnes +64 4 385 9285 Phone\\
+                  inbox@dragonfly.co.nz
+                  \rule[0.5\baselineskip]{30mm}{0.1mm}
+                  {\fontsize{7.5pt}{8pt}\selectfont\bf\color{logo-blue}\omnes www.dragonfly.co.nz}}
+   \end{textblock*}
+    \begin{textblock*}{37mm}(14mm,47mm)
+        \includegraphics[width=37mm]{logo.eps}
+    \end{textblock*}
 
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+  \vspace*{-\parskip}
+  \vspace*{-\baselineskip}
+  \vspace*{47mm}
+}
+%</letter>
+%   \end{macrocode}
+%
+%
+%  \section{Additional Packages}
+% The hyperref package must be the last one loaded, so we load it here.
+%   \begin{macrocode}
+%<common>\usepackage{hyperref}
+%   \end{macrocode}
+%
 % \Finale
 \endinput
