@@ -272,6 +272,15 @@
 % 
 % A letter has a mandatory title and author.
 %
+%    \begin{macrocode}
+%<*letter>
+\AtBeginDocument{
+%Check to make sure that title and author are defined
+}
+%</letter>
+%    \end{macrocode}
+%%
+%
 % The letterhead is printed on the first page without user intervention.
 %    \begin{macrocode}
 %<letter>\AfterEndPreamble{\maketitle}
