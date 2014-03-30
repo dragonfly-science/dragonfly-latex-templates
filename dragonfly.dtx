@@ -112,10 +112,10 @@
 %    \begin{macrocode}
 %<*common>
 \usepackage{fontspec}
-%\setmainfont[Mapping=tex-text,
-%    ItalicFont     = {Palatino Linotype Italic},
-%    BoldFont       = {Palatino Linotype Bold},
-%    BoldItalicFont = {Palatino Linotype Bold Italic}]{Palatino Linotype}
+\setmainfont[Mapping=tex-text,
+    ItalicFont     = {Palatino Linotype Italic},
+    BoldFont       = {Palatino Linotype Bold},
+    BoldItalicFont = {Palatino Linotype Bold Italic}]{Palatino Linotype}
 
 \newfontfamily\omnes[Mapping=tex-text,
     ItalicFont     = {OmnesRegular-Italic},
@@ -159,28 +159,19 @@
 %    \begin{macrocode}
 %<*common>
 \usepackage[absolute]{textpos}
+\usepackage{etoolbox}
 %</common>
 %    \end{macrocode}
 %
 % \subsection{Letter}
 %
-% For letter we want to have a default title and author.
-% These should make it clear that it is a company letter, while allowing 
-% a user to override them.
-%
-%    \begin{macrocode}
-%<*letter>
-\title{Letter from Dragonfly}
-\author{Dragonfly}
-%</letter>
-%    \end{macrocode}
 %
 %    \begin{macrocode}
 %<letter>\renewcommand\maketitle{
 %    \end{macrocode}
-%  
-% We want to set up the document such that the pdf has a sensible title and author set. 
 %
+% We want to set up the document such that the pdf has a sensible title and author set. 
+%  
 %    \begin{macrocode}
 %<*letter>
     \hypersetup{  
@@ -231,7 +222,8 @@
 %    \end{macrocode}
 %
 % This is all that goes in the letter head. At this point we clear all the commands that
-% allow for setting header properties (as is standard in class files). 
+% allow for setting header properties (as is standard in class files). We do not clear the
+% title as we require it for the greeting. 
 %
 %    \begin{macrocode}
 %<*letter>   
@@ -240,8 +232,6 @@
   \global\let\@thanks\@empty
   \global\let\@author\@empty
   \global\let\@date\@empty
-  \global\let\@title\@empty
-  \global\let\title\relax
   \global\let\author\relax
   \global\let\date\relax
   \global\let\and\relax
@@ -278,5 +268,35 @@
 %<letter>\pagestyle{empty}
 %    \end{macrocode}
 %
+% \section{Letter}
+% 
+% A letter has a mandatory title and author.
+%
+% The letterhead is printed on the first page without user intervention.
+%    \begin{macrocode}
+%<letter>\AfterEndPreamble{\maketitle}
+%    \end{macrocode}
+%
+%\DescribeMacro{\greeting}
+% The greeting macro prints out the title of the letter and the greeting line.
+% The title is below the greeting and in bold. This command is not mandatory. 
+%
+% \begin{macro}{\greeting}
+% The command takes a single arugment which is the greeting line and 
+% prints it out follwed by the title in bold. This is the last point where
+% the title is used, so it is deleted. 
+%    \begin{macrocode}
+%<*letter>
+\newcommand{\greeting}[1]{
+ #1
+
+\textbf{\@title}
+
+\global\let\title\relax
+\global\let\@title\@empty 
+}
+%</letter>
+%    \end{macrocode}
+%\end{macro}
 % \Finale
 \endinput
