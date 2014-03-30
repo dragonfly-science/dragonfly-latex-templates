@@ -5,7 +5,7 @@ package: dragonfly.sty
 dragonfly.sty: dragonfly.ins dragonfly.dtx 
 	latex dragonfly.ins
 
-dragonfly.pdf: dragonfly.dtx
+dragonfly.pdf: dragonfly.dtx dragonfly.sty
 	xelatex dragonfly.dtx
 	xelatex dragonfly.dtx
 
