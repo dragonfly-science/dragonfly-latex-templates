@@ -34,7 +34,7 @@
 *.backup
 *.fls
 example.tex
-simple.pdf
+letter.pdf
 dragonfly.sty
 dragonfly-letter.cls
 dragonfly-article.cls
