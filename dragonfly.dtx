@@ -86,9 +86,9 @@
 %    \end{macrocode}
 %
 % All of the classese use a commmon style to share general definitions.
-% This is provided by the dragonfly style. 
+% This is provided by the dragonfly style.
 %    \begin{macrocode}
-%<report|article|letter>\RequirePackage{dragonfly}   
+%<report|article|letter>\RequirePackage{dragonfly}
 %    \end{macrocode}
 %
 % \section{Page Layout}
@@ -97,16 +97,16 @@
 %<*letter>
 \usepackage[
     hmargin={51mm,30mm},
-    vmargin={26mm,40mm}]{geometry}      
+    vmargin={26mm,40mm}]{geometry}
 %</letter>
-%     \end{macrocode}
+%    \end{macrocode}
 
 %    \begin{macrocode}
 %<*letter>
 \setlength{\parskip}{3mm}
 \setlength{\parindent}{0mm}
 %</letter>
-%     \end{macrocode}
+%    \end{macrocode}
 
 % \section{Fonts}
 %    \begin{macrocode}
@@ -156,11 +156,11 @@
 % Since some of the headings require absolute positioning,
 % we load the textpos package.
 %
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*common>
 \usepackage[absolute]{textpos}
 %</common>
-%   \end{macrocode}
+%    \end{macrocode}
 %
 % \subsection{Letter}
 %
@@ -168,20 +168,20 @@
 % These should make it clear that it is a company letter, while allowing 
 % a user to override them.
 %
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*letter>
 \title{Letter from Dragonfly}
 \author{Dragonfly}
 %</letter>
-%   \end{macrocode}
+%    \end{macrocode}
 %
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<letter>\renewcommand\maketitle{
-%   \end{macrocode}
+%    \end{macrocode}
 %  
 % We want to set up the document such that the pdf has a sensible title and author set. 
 %
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*letter>
     \hypersetup{  
       pdfinfo={  
@@ -190,11 +190,11 @@
       }  
     }
 %</letter>
-%   \end{macrocode}
+%    \end{macrocode}
 %
 % We now need to place the company details in the top left hand corner.
 %
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*letter>   
     \begin{textblock*}{\textwidth}(35mm,15mm)
     \parbox{44mm}{\fontsize{6.5pt}{7.8pt}\selectfont\omnes\noindent\rule{40mm}{0.1mm}
@@ -203,12 +203,12 @@
                   New Zealand}
     \end{textblock*}
 %</letter>
-%   \end{macrocode}
+%    \end{macrocode}
 % 
 % We place the bottom of the details block separately from the top, as it has
 % an additional specified location.
 
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*letter>
     \begin{textblock*}{43mm}(51mm,26mm)
     \parbox{43mm}{\fontsize{6.5pt}{7.8pt}\selectfont\omnes +64 4 385 9285 Phone\\
@@ -217,23 +217,23 @@
                   {\fontsize{7.5pt}{8pt}\selectfont\bf\color{logo-blue}\omnes www.dragonfly.co.nz}}
    \end{textblock*}
 %</letter>
-%   \end{macrocode}
+%    \end{macrocode}
 %
 % The logo is placed in the left margin, such that its right edge is touching the 
 %  margin.
 %
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*letter>   
     \begin{textblock*}{37mm}(14mm,47mm)
         \includegraphics[width=37mm]{logo.eps}
     \end{textblock*}
 %</letter>
-%   \end{macrocode}
+%    \end{macrocode}
 %
 % This is all that goes in the letter head. At this point we clear all the commands that
 % allow for setting header properties (as is standard in class files). 
 %
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*letter>   
    \global\let\thanks\relax
   \global\let\maketitle\relax
@@ -246,14 +246,14 @@
   \global\let\date\relax
   \global\let\and\relax
 %</letter>
-%   \end{macrocode}
+%    \end{macrocode}
 %
 % Finally, we need to ensure that the text on the first page is moved down so that
 % it starts 73mm down. Note that in order to make the space the right size, we need
 % to subtract the \texttt{baselineskip} and \texttt{parskip}, as they will be 
 % automatically added. 
 %
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<*letter>   
    
   \vspace*{-\parskip}
@@ -261,14 +261,22 @@
   \vspace*{47mm}
 }
 %</letter>
-%   \end{macrocode}
+%    \end{macrocode}
 %
 %
 %  \section{Additional Packages}
 % The hyperref package must be the last one loaded, so we load it here.
-%   \begin{macrocode}
+%    \begin{macrocode}
 %<common>\usepackage{hyperref}
-%   \end{macrocode}
+%    \end{macrocode}
+%
+%
+% \section{Header and Footer}
+%
+% There should be no header or footer for letters. 
+%    \begin{macrocode}
+%<letter>\pagestyle{empty}
+%    \end{macrocode}
 %
 % \Finale
 \endinput
