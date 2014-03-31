@@ -95,7 +95,7 @@
 %
 %    \begin{macrocode}
 %<*letter>
-\usepackage[
+\RequirePackage[
     hmargin={51mm,30mm},
     vmargin={26mm,40mm}]{geometry}
 %</letter>
@@ -111,7 +111,7 @@
 % \section{Fonts}
 %    \begin{macrocode}
 %<*common>
-\usepackage{fontspec}
+\RequirePackage{fontspec}
 \setmainfont[Mapping=tex-text,
     ItalicFont     = {Palatino Linotype Italic},
     BoldFont       = {Palatino Linotype Bold},
@@ -160,6 +160,7 @@
 %<*common>
 \RequirePackage[absolute]{textpos}
 \RequirePackage{etoolbox}
+\RequirePackage{xparse}
 %</common>
 %    \end{macrocode}
 %
@@ -367,6 +368,29 @@
 %<letter>\newcommand{\@preamble}{}
 %    \end{macrocode}
 %\end{macro}
+%
+%
+% We also introduce a signature command. This is just a helper macro to insert space
+% or a figure (signature) between the closing and the name. This is intended to be used
+% for digital signatures, or leaving space for signing. This preserves linebreaks in the 
+% arguments. As before this requires a redirection macro. 
+%
+%    \begin{macrocode}
+%<*letter>
+\newcommand{\signature}{\bgroup\obeylines\@signature}
+
+\NewDocumentCommand{\@signature}{m o m}{
+  \vspace*{\parskip}
+  \vspace*{\parskip}
+  \begingroup
+  \setlength{\parskip}{0pt}
+  #1
+  \IfNoValueTF{#2}{\vspace*{1.2cm}}{\includegraphics{#2}}
+  #3
+  \endgroup
+}
+%</letter>
+%    \end{macrocode}
 %
 %
 % \Finale
