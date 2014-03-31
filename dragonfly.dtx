@@ -385,7 +385,9 @@
   \begingroup
   \setlength{\parskip}{0pt}
   #1
-  \IfNoValueTF{#2}{\vspace*{1.2cm}}{\includegraphics{#2}}
+
+\IfNoValueTF{#2}{\vspace*{1.2cm}}{\vspace{1ex}\includegraphics[height=1.2cm]{#2}\vspace{1ex}}
+  
   #3
   \endgroup
 }
