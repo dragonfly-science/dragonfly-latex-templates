@@ -158,8 +158,8 @@
 %
 %    \begin{macrocode}
 %<*common>
-\usepackage[absolute]{textpos}
-\usepackage{etoolbox}
+\RequirePackage[absolute]{textpos}
+\RequirePackage{etoolbox}
 %</common>
 %    \end{macrocode}
 %
@@ -333,14 +333,24 @@
 % must occur before |\begin{document}|. 
 %
 % \begin{macro}{\preamble}
-% The command takes two arugments, a date and an address. It s 
+% The command takes two arugments, a date and an address. We need a little bit of indirection
+% in order to be able to use |\obeylines| to preserve line breaks. 
+%
 %    \begin{macrocode}
 %<*letter>
-\newcommand{\preamble}[2]{
-  \renewcommand\@preamble{#1
-  
-    #2
-  }
+\newcommand{\preamble}{\bgroup\obeylines\@preamble@}
+
+\newcommand{\@preamble@}[2]{
+  \gdef\@preamble{
+#1
+
+\vspace*{\parskip}
+\begingroup\setlength{\parskip}{0pt}
+
+#2
+\endgroup
+}
+\egroup
 }
 %</letter>
 %    \end{macrocode}
