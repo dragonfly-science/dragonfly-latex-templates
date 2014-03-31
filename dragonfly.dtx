@@ -238,7 +238,7 @@
 %</letter>
 %    \end{macrocode}
 %
-% Finally, we need to ensure that the text on the first page is moved down so that
+% We need to ensure that the text on the first page is moved down so that
 % it starts 73mm down. Note that in order to make the space the right size, we need
 % to subtract the \texttt{baselineskip} and \texttt{parskip}, as they will be 
 % automatically added. 
@@ -249,6 +249,25 @@
   \vspace*{-\parskip}
   \vspace*{-\baselineskip}
   \vspace*{47mm}
+%</letter>
+%    \end{macrocode}
+%
+% At this point we add in the preamble if it has been declared, followed by the greeting.
+%
+%    \begin{macrocode}
+%<*letter>   
+\@preamble 
+
+\@greeting
+
+\textbf{\@title}
+
+\global\let\title\relax
+\global\let\greeting\relax
+\global\let\preamble\relax
+\global\let\@title\@empty 
+\global\let\@greeting\@empty 
+\global\let\@preamble\@empty 
 }
 %</letter>
 %    \end{macrocode}
@@ -272,14 +291,6 @@
 % 
 % A letter has a mandatory title and author.
 %
-%    \begin{macrocode}
-%<*letter>
-\AtBeginDocument{
-%Check to make sure that title and author are defined
-}
-%</letter>
-%    \end{macrocode}
-%%
 %
 % The letterhead is printed on the first page without user intervention.
 %    \begin{macrocode}
@@ -288,24 +299,64 @@
 %
 %\DescribeMacro{\greeting}
 % The greeting macro prints out the title of the letter and the greeting line.
-% The title is below the greeting and in bold. This command is not mandatory. 
+% The title is below the greeting and in bold. This command is mandatory and 
+% must occur before |\begin{document}|. 
 %
 % \begin{macro}{\greeting}
 % The command takes a single arugment which is the greeting line and 
-% prints it out follwed by the title in bold. This is the last point where
-% the title is used, so it is deleted. 
+% saves it for use in the letter head.
+% 
 %    \begin{macrocode}
 %<*letter>
 \newcommand{\greeting}[1]{
- #1
-
-\textbf{\@title}
-
-\global\let\title\relax
-\global\let\@title\@empty 
+  \renewcommand\@greeting{#1}
 }
 %</letter>
 %    \end{macrocode}
 %\end{macro}
+%
+%\DescribeMacro{\@greeting}
+%
+% |\@greeting| contains the value of the greeting to write. Eg. `Dear John'.
+%
+%\begin{macro}{\@greeting}
+% This starts of with an error value since it is required.
+%    \begin{macrocode}
+%<letter>\newcommand{\@greeting}{\ClassError{dragonly-letter}{No \noexpand\greeting given}{Please insert a \noexpand\greeting before the \noexpand\begin{document} in your file.}}
+%    \end{macrocode}
+%\end{macro}
+%
+%
+%\DescribeMacro{\preamble}
+% The preamble macro prints out the date and recipient addre.
+% The title is below the greeting and in bold. This command is not mandatory, but 
+% must occur before |\begin{document}|. 
+%
+% \begin{macro}{\preamble}
+% The command takes two arugments, a date and an address. It s 
+%    \begin{macrocode}
+%<*letter>
+\newcommand{\preamble}[2]{
+  \renewcommand\@preamble{#1
+  
+    #2
+  }
+}
+%</letter>
+%    \end{macrocode}
+%\end{macro}
+%
+%\DescribeMacro{\@preamble}
+%
+% |\@preamble| contains the address and date.
+%
+%\begin{macro}{\@preamble}
+% This starts of with an empty value since it is not required.
+%    \begin{macrocode}
+%<letter>\newcommand{\@preamble}{}
+%    \end{macrocode}
+%\end{macro}
+%
+%
 % \Finale
 \endinput
