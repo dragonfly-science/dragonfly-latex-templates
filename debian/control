@@ -1,0 +1,16 @@
+Source: dragonfly-latex-templates
+Maintainer: Roma Klapaukh <roma@dragonfly.co.nz>
+Section: TeX
+Priority: extra
+Standards-Version: 3.9.2
+Vcs-git: git@github.com:dragonfly-science/dragonfly-latex-templates.git
+Vcs-browser: https://github.com/dragonfly-science/dragonfly-latex-templates
+Build-Depends: debhelper (>= 9), build-essentials
+
+Package: dragonfly-latex-templates
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, texlive
+Description: LaTeX templates for Dragonfly Science
+ Provides a number of standard classes for producing
+ documents fitting the format used by dragonfly data
+ science. 
