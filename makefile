@@ -1,5 +1,13 @@
+SHELL := /bin/bash
+LATEXMK_VERSION=$(strip $(patsubst Version,,$(shell latexmk -v | grep -oi "version.*")))
+ifeq ($(LATEXMK_VERSION),4.24)
+	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf
+else
+	LATEXMK_OPTIONS=-xelatex
+endif
+
 letter.pdf: letter.tex dragonfly.sty
-	latexmk -xelatex letter.tex
+	latexmk $(LATEXMK_OPTIONS) letter.tex
 
 all: dragonfly.pdf letter.pdf
 
@@ -7,7 +15,7 @@ dragonfly.sty: dragonfly.ins dragonfly.dtx
 	latex dragonfly.ins
 
 dragonfly.pdf: dragonfly.dtx dragonfly.sty
-	latexmk -xelatex dragonfly.dtx
+	latexmk $(LATEXMK_OPTIONS) dragonfly.dtx
 
 example.tex: example.md
 	pandoc --read markdown_github+footnotes+all_symbols_escapable \
