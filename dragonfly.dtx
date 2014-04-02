@@ -134,7 +134,7 @@
 % Colouring is common to all the fomats. Dragonfly has a common list of colours. 
 %    \begin{macrocode}
 %<*common>
-\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \definecolor{logo-blue}{RGB}{28,152,196}
 \definecolor{logo-grey}{RGB}{64,64,64}
 \definecolor{cream}{RGB}{229,222,204}
@@ -277,7 +277,7 @@
 %  \section{Additional Packages}
 % The hyperref package must be the last one loaded, so we load it here.
 %    \begin{macrocode}
-%<common>\usepackage{hyperref}
+%<common>\RequirePackage{hyperref}
 %    \end{macrocode}
 %
 %
