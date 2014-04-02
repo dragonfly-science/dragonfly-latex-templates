@@ -33,11 +33,10 @@
 *.swp
 *.backup
 *.fls
+*.pdf
+*.png
 example.tex
-letter.pdf
 dragonfly.sty
 dragonfly-letter.cls
 dragonfly-article.cls
 dragonfly-report.cls
-dragonfly.pdf
-*.png
