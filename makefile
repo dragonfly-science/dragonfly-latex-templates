@@ -3,8 +3,6 @@ letter.pdf: letter.tex dragonfly.sty
 
 all: dragonfly.pdf letter.pdf
 
-package: dragonfly.sty
-
 dragonfly.sty: dragonfly.ins dragonfly.dtx 
 	latex dragonfly.ins
 
@@ -17,8 +15,13 @@ example.tex: example.md
 		   | sed '/\\itemsep1pt/d' > $@
 
 
-clean:
+.PHONY: cleanClass clean
+
+cleanClass:
 	rm -f dragonfly.sty dragonfly-report.cls dragonfly-letter.cls \
-		dragonfly-article.cls dragonfly.pdf letter.pdf \
-		letter.aux letter.log letter.out dragonfly.aux dragonfly.dtx.backup \
-		dragonfly.glo dragonfly.idx dragonfly.log 
+		dragonfly-article.cls dragonfly.pdf
+
+clean: cleanClass
+	rm -f  *.pdf *.aux *.log *.out *.backup *.glo *.idx \
+		 *.fdb_latexmk *.fls
+
