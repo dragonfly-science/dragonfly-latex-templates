@@ -5,7 +5,7 @@ Priority: extra
 Standards-Version: 3.9.2
 Vcs-git: git@github.com:dragonfly-science/dragonfly-latex-templates.git
 Vcs-browser: https://github.com/dragonfly-science/dragonfly-latex-templates
-Build-Depends: debhelper (>= 9), build-essentials, latexmk, texlive-xetex, texlive-latex-recommended, texlive-latex-extra, texlive-latex3
+Build-Depends: debhelper (>= 9), latexmk, texlive-xetex, texlive-latex-recommended, texlive-latex-extra, texlive-latex3
 
 Package: dragonfly-latex-templates
 Architecture: all
