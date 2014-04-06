@@ -22,6 +22,8 @@ example.tex: example.md
 		   --to latex $< \
 		   | sed '/\\itemsep1pt/d' > $@
 
+pkg:
+	debuild -us -uc
 
 .PHONY: cleanClass clean
 
