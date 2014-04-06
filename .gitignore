@@ -40,3 +40,5 @@ dragonfly.sty
 dragonfly-letter.cls
 dragonfly-article.cls
 dragonfly-report.cls
+*.substvars
+debian/dragonfly-latex-templates
