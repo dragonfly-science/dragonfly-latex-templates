@@ -43,3 +43,4 @@ dragonfly-report.cls
 *.substvars
 debian/dragonfly-latex-templates
 debian/files
+beamerthemeDragonfly.sty
