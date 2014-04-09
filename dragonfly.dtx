@@ -142,6 +142,53 @@
 %</beamer>
 %    \end{macrocode}
 %
+% We now consider the appearance of the title page. First we set the relevant fonts.
+%
+%    \begin{macrocode}
+%<*beamer>
+\setbeamercolor{title}{fg=black}
+\setbeamerfont{title}{family=\omnes,series=\bfseries}
+\setbeamercolor{subtitle}{fg=black}
+\setbeamerfont{subtitle}{parent=date}
+\setbeamerfont{institute}{parent=date,size=20pt}
+%</beamer>
+%    \end{macrocode}
+%
+% We need to set out the layout of the title page, which is slightly different from the
+% default that is used. 
+%
+%    \begin{macrocode}
+%<*beamer>
+\setbeamertemplate{title page}
+{
+  \vbox{}
+  \vfill
+  \begin{centering}
+    \begin{beamercolorbox}[sep=8pt,center]{title}
+      \usebeamerfont{title}\inserttitle
+    \end{beamercolorbox}%
+    \vskip1em\par
+    \begin{beamercolorbox}[center]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}  
+    \begin{beamercolorbox}[center]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center]{date}
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%
+      \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}\vskip2ex
+    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+  \end{centering}
+  \vfill
+}
+
+%</beamer>
+%    \end{macrocode}
 %
 %
 % \section{Coloring}
