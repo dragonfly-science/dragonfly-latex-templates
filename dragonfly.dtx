@@ -80,16 +80,18 @@
 % Each different class is based on a different template. 
 % The basic structure is the same as the base latex article,
 % report or letter classes, which small changes to correct the 
-% theme. 
+% theme. The beamer theme is based on the default with inner theme circles.
 %    \begin{macrocode}
 %<letter|article>\LoadClass[a4paper]{article}
 %<report>\LoadClass[a4paper]{report}
+%<beamer>\useinnertheme{circles}
 %    \end{macrocode}
+%
 %
 % All of the classese use a commmon style to share general definitions.
 % This is provided by the dragonfly style.
 %    \begin{macrocode}
-%<report|article|letter>\RequirePackage{dragonfly}
+%<report|article|letter|beamer>\RequirePackage{dragonfly}
 %    \end{macrocode}
 %
 % \section{Page Layout}
@@ -127,6 +129,17 @@
 
 \renewcommand{\normalfont}{\fontsize{9pt}{13pt}\selectfont}
 %</common>
+%
+% For beamer we need to set the various font elements using special beamer commands. 
+%
+% To start with, we want to make sure that frame titles are right alined, bold, omnes and logo blue.
+%
+%    \begin{macrocode}
+%<*beamer>
+\setbeamertemplate{frametitle}[default][right]
+\setbeamerfont{frametitle}{family=\omnes,series=\bfseries}
+\setbeamercolor{frametitle}{fg=logo-blue}
+%</beamer>
 %    \end{macrocode}
 %
 %
@@ -135,7 +148,7 @@
 % Colouring is common to all the fomats. Dragonfly has a common list of colours. 
 %    \begin{macrocode}
 %<*common>
-\RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\RequirePackage[table]{xcolor}
 \definecolor{logo-blue}{RGB}{28,152,196}
 \definecolor{logo-grey}{RGB}{64,64,64}
 \definecolor{cream}{RGB}{229,222,204}
