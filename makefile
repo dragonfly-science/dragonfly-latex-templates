@@ -6,10 +6,13 @@ else
 	LATEXMK_OPTIONS=-xelatex
 endif
 
+presentation.pdf: presentation.tex dragonfly.sty
+	latexmk $(LATEXMK_OPTIONS) presentation.tex
+
 letter.pdf: letter.tex dragonfly.sty
 	latexmk $(LATEXMK_OPTIONS) letter.tex
 
-all: dragonfly.pdf letter.pdf
+all: dragonfly.pdf letter.pdf presentation.pdf
 
 dragonfly.sty: dragonfly.ins dragonfly.dtx 
 	latex dragonfly.ins
