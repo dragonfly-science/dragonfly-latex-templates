@@ -2,10 +2,7 @@
 
 \usetheme{Dragonfly}
 
-%Set the font for slide titles
 
-
-\titlegraphic{\includegraphics[width=0.4\textwidth]{logo.eps}}
 
 \title{An Example Presentation}
 \institute{3Basdjgf}
@@ -15,15 +12,25 @@
 
 \begin{document}
 
-\begin{frame}
-\maketitle
-\end{frame}
+\titleslide
 
 \begin{frame}
   \frametitle{The fun times of \LaTeX}
-
   Some slide content
 
 \end{frame}
 
+\imageslide{pattern}[w]
+
+
+\begin{frame}{A frame}
+Only image slides have no margins and are full of a figure
+
+
+\begin{enumerate}
+  \item Hello
+  \item Me too
+\end{enumerate}
+
+ \end{frame}
 \end{document}

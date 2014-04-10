@@ -80,11 +80,13 @@
 % Each different class is based on a different template. 
 % The basic structure is the same as the base latex article,
 % report or letter classes, which small changes to correct the 
-% theme. The beamer theme is based on the default with inner theme circles.
+% theme. The beamer theme is based on the default with inner theme circles,
+% and the color theme using Dragonfly colours. 
 %    \begin{macrocode}
 %<letter|article>\LoadClass[a4paper]{article}
 %<report>\LoadClass[a4paper]{report}
 %<beamer>\useinnertheme{circles}
+%<beamer>\usecolortheme[RGB={28,152,196}]{structure}
 %    \end{macrocode}
 %
 %
@@ -157,23 +159,66 @@
 % We need to set out the layout of the title page, which is slightly different from the
 % default that is used. 
 %
+% Every title page uses the Dragonfly logo at the bottom of the slide. 
+%
+%    \begin{macrocode}
+%<beamer>\titlegraphic{\includegraphics[width=0.4\textwidth]{logo.eps}}
+%    \end{macrocode}
+%
+% We now describe the exact layout of the title page. 
+%
 %    \begin{macrocode}
 %<*beamer>
 \setbeamertemplate{title page}
 {
+%</beamer>
+%    \end{macrocode}
+%
+% The top of the title page has a color banner accross the top using a standard
+% dragonfly pattern. 
+%
+%    \begin{macrocode}
+%<*beamer>
   \vbox{}
   \vfill
+  \begin{textblock*}{\paperwidth}(0mm,0mm)
+    \includegraphics[height=10mm,width=\paperwidth]{pattern}
+  \end{textblock*}
+%</beamer>
+%    \end{macrocode}
+%
+% The first thing of the page is the title of the presentation. This is followed by
+% a space.
+%
+%    \begin{macrocode}
+%<*beamer>
   \begin{centering}
     \begin{beamercolorbox}[sep=8pt,center]{title}
       \usebeamerfont{title}\inserttitle
     \end{beamercolorbox}%
     \vskip1em\par
+%</beamer>
+%    \end{macrocode}
+%
+% Following the title is the project code and author. The project code is not always present. It 
+% is currently recorded as the institute to make use of beamers existing implmementation. It is probably
+% necessary to include a |\projectcode| command later. This is followed immediately by the authors.
+%
+%    \begin{macrocode}
+%<*beamer>
     \begin{beamercolorbox}[center]{institute}
       \usebeamerfont{institute}\insertinstitute
     \end{beamercolorbox}  
     \begin{beamercolorbox}[center]{author}
       \usebeamerfont{author}\insertauthor
     \end{beamercolorbox}
+%</beamer>
+%    \end{macrocode}
+%
+% Following this is the subtitle, and the date. These are on separate lines. Followed by a small gap. 
+%
+%    \begin{macrocode}
+%<*beamer>
     \begin{beamercolorbox}[sep=8pt,center]{date}
       \ifx\insertsubtitle\@empty%
       \else%
@@ -182,11 +227,17 @@
       \fi%
       \usebeamerfont{date}\insertdate
     \end{beamercolorbox}\vskip2ex
+%</beamer>
+%    \end{macrocode}
+%
+% Finally the last element is the company logo.
+%
+%    \begin{macrocode}
+%<*beamer>
     {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
   \end{centering}
   \vfill
 }
-
 %</beamer>
 %    \end{macrocode}
 %
@@ -219,7 +270,7 @@
 %
 %    \begin{macrocode}
 %<*common>
-\RequirePackage[absolute]{textpos}
+\RequirePackage[absolute,overlay]{textpos}
 \RequirePackage{etoolbox}
 \RequirePackage{xparse}
 \RequirePackage{graphicx}
@@ -457,5 +508,53 @@
 %    \end{macrocode}
 %
 %
+% \section{Beamer Theme}
+%
+%
+% We need to disable the navigational symbols put in the bottom right of the slides. 
+%
+%    \begin{macrocode}
+%<beamer>\setbeamertemplate{navigation symbols}{}
+%    \end{macrocode}
+%
+%
+% We need a helper function to insert slides which are just a single image with no title 
+% or other text. 
+%
+%    \begin{macrocode}
+%<*beamer>
+\NewDocumentCommand{\imageslide}{m O {w} o}{
+    \newgeometry{top=-0.3mm,left=0mm,right=0mm,bottom=0mm}
+  \begin{frame} %
+     \if#2w %
+         \includegraphics[width=\paperwidth,#3]{#1}
+     \else %
+          \includegraphics[height=\paperheight,#3]{#1}
+        \fi %
+  \end{frame}
+     \restoregeometry
+}
+%</beamer>
+%    \end{macrocode}
+%
+%
+% We need a helper function to insert a title slide.
+%
+%    \begin{macrocode}
+%<*beamer>
+\NewDocumentCommand{\titleslide}{}{
+  \begingroup
+\setbeamertemplate{footline}{
+ \begin{beamercolorbox}[ht=3ex,leftskip=0.8cm,rightskip=0.8cm]{default text}
+   This is a note at the end of the title to give you some general information\vspace*{\baselineskip}
+  \end{beamercolorbox}
+}
+\begin{frame}
+\maketitle
+\end{frame}
+\endgroup
+}
+%</beamer>
+%    \end{macrocode}
 % \Finale
 \endinput
