@@ -2,26 +2,38 @@
 
 \usetheme{Dragonfly}
 
-
-
 \title{An Example Presentation}
-\institute{3Basdjgf}
+\projectcode{3Basdjgf}
 \subtitle{Which is awesome}
 \author{Me}
 \date{\today}
 
+\titlefooter{Cool! But this has to deal with being really long
+and really kind of multiline. The problem is how important this is. so it needs to be
+really kind of super long!}
+\pagefooter{Only a draft - Don't Look!}
 \begin{document}
 
 \titleslide
 
+\section{Part 1}
+
 \begin{frame}
   \frametitle{The fun times of \LaTeX}
   Some slide content
-
+\begin{itemize}
+  \item \the\topmargin
+  \item \the\headheight
+  \item \the\headsep
+  \item \the\textheight
+  \item \the\footskip
+  \item \the\paperheight
+\end{itemize}
 \end{frame}
 
 \imageslide{pattern}[w]
 
+\section{Sheep}
 
 \begin{frame}{A frame}
 Only image slides have no margins and are full of a figure
@@ -31,6 +43,10 @@ Only image slides have no margins and are full of a figure
   \item Hello
   \item Me too
 \end{enumerate}
-
+\begin{itemize}
+  \item \the\paperheight
+  \item \the\footskip
+  \item \the\textheight
+\end{itemize}
  \end{frame}
 \end{document}

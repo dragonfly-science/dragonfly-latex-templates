@@ -519,20 +519,24 @@
 %
 %
 % We need a helper function to insert slides which are just a single image with no title 
-% or other text. 
+% or other text. Ideally the image should be at least a little bit centered. 
 %
 %    \begin{macrocode}
 %<*beamer>
 \NewDocumentCommand{\imageslide}{m O {w} o}{
-    \newgeometry{top=-0.3mm,left=0mm,right=0mm,bottom=0mm}
-  \begin{frame} %
+  \begingroup
+  \usebackgroundtemplate{
+    \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil%
      \if#2w %
          \includegraphics[width=\paperwidth,#3]{#1}
      \else %
           \includegraphics[height=\paperheight,#3]{#1}
         \fi %
+        \hfil}\vfil}
+      }
+  \begin{frame}[plain] 
   \end{frame}
-     \restoregeometry
+  \endgroup
 }
 %</beamer>
 %    \end{macrocode}
@@ -545,14 +549,59 @@
 \NewDocumentCommand{\titleslide}{}{
   \begingroup
 \setbeamertemplate{footline}{
- \begin{beamercolorbox}[ht=3ex,leftskip=0.8cm,rightskip=0.8cm]{default text}
-   This is a note at the end of the title to give you some general information\vspace*{\baselineskip}
+\begin{beamercolorbox}[ht=3ex,dp=1ex,center]{default text}
+   \@titlefooter \vspace*{\baselineskip}
   \end{beamercolorbox}
 }
 \begin{frame}
 \maketitle
 \end{frame}
 \endgroup
+}
+%</beamer>
+%    \end{macrocode}
+%
+% General slides all have to quote the section name after the title in the header box.
+% However, to be in the right place this must occur after the end of the preamble (not 
+% actually sure why this is the case. Update: This is because it happens after the premable). 
+%
+%    \begin{macrocode}
+%<*beamer>
+\AfterEndPreamble{
+\setbeamertemplate{headline}{
+   \vspace*{1.05cm}
+   \begin{beamercolorbox}[ht=3ex,leftskip=0.8cm,rightskip=2.2cm]{default text}
+       \hfill \omnes \insertsection
+   \end{beamercolorbox}
+} 
+}
+
+\setbeamertemplate{footline}{
+\leavevmode
+\begin{beamercolorbox}[left,ht=3ex,dp=3ex,leftskip=0.8cm,wd=0.5\paperwidth]{default text}
+ \includegraphics[width=0.18\textwidth]{logo.eps}
+\end{beamercolorbox}%
+\begin{beamercolorbox}[right,rightskip=2ex,ht=3ex,dp=3ex,wd=0.5\paperwidth]{default text}
+             \hfill   \omnes \@pagefooter   
+\end{beamercolorbox}
+}
+%</beamer>
+%
+%    \begin{macrocode}
+%<*beamer>
+\newcommand{\projectcode}{\institute}
+%</beamer>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*beamer>
+\newcommand{\@titlefooter}{}
+\newcommand{\@pagefooter}{}
+\newcommand{\titlefooter}{%
+  \renewcommand{\@titlefooter}%
+}
+\newcommand{\pagefooter}[1]{%
+  \renewcommand{\@pagefooter}{#1}  
 }
 %</beamer>
 %    \end{macrocode}
