@@ -141,6 +141,7 @@
 \setbeamertemplate{frametitle}[default][right]
 \setbeamerfont{frametitle}{family=\omnes,series=\bfseries}
 \setbeamercolor{frametitle}{fg=logo-blue}
+\usefonttheme{professionalfonts}
 %</beamer>
 %    \end{macrocode}
 %
@@ -152,7 +153,7 @@
 \setbeamerfont{title}{family=\omnes,series=\bfseries}
 \setbeamercolor{subtitle}{fg=black}
 \setbeamerfont{subtitle}{parent=date}
-\setbeamerfont{institute}{parent=date,size={\fontsize{14}{18}}}
+\setbeamerfont{institute}{parent=date,size={\fontsize{12}{13}}}
 %</beamer>
 %    \end{macrocode}
 %
@@ -162,7 +163,7 @@
 % Every title page uses the Dragonfly logo at the bottom of the slide. 
 %
 %    \begin{macrocode}
-%<beamer>\titlegraphic{\includegraphics[width=0.4\textwidth]{logo.eps}}
+%<beamer>\titlegraphic{\includegraphics[width=0.4\textwidth]{/dragonfly/latex/graphics/logo.eps}}
 %    \end{macrocode}
 %
 % We now describe the exact layout of the title page. 
@@ -182,7 +183,7 @@
   \vbox{}
   \vfill
   \begin{textblock*}{\paperwidth}(0mm,0mm)
-    \includegraphics[width=\paperwidth]{pattern}
+    \includegraphics[width=\paperwidth]{/dragonfly/latex/graphics/pattern}
   \end{textblock*}
 %</beamer>
 %    \end{macrocode}
@@ -330,7 +331,7 @@
 %    \begin{macrocode}
 %<*letter>   
     \begin{textblock*}{37mm}(14mm,47mm)
-        \includegraphics[width=37mm]{logo.eps}
+        \includegraphics[width=37mm]{/dragonfly/latex/graphics/logo.eps}
     \end{textblock*}
 %</letter>
 %    \end{macrocode}
@@ -549,7 +550,7 @@
 \NewDocumentCommand{\titleslide}{}{
   \begingroup
 \setbeamertemplate{footline}{
-\begin{beamercolorbox}[ht=3ex,dp=1ex,center]{default text}
+\begin{beamercolorbox}[ht=3ex,dp=1ex,leftskip=1.4cm,rightskip=1.4cm]{default text}
    \omnes \@titlefooter \vspace*{\baselineskip}
   \end{beamercolorbox}
 }
@@ -579,7 +580,7 @@
 \setbeamertemplate{footline}{
 \leavevmode
 \begin{beamercolorbox}[left,ht=3ex,dp=3ex,leftskip=0.8cm,wd=0.5\paperwidth]{default text}
- \includegraphics[width=0.18\textwidth]{logo.eps}
+ \includegraphics[width=0.18\textwidth]{/dragonfly/latex/graphics/logo.eps}
 \end{beamercolorbox}%
 \begin{beamercolorbox}[right,rightskip=2ex,ht=3ex,dp=3ex,wd=0.5\paperwidth]{default text}
              \hfill   \omnes \@pagefooter   
