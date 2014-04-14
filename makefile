@@ -6,7 +6,7 @@ else
 	LATEXMK_OPTIONS=-xelatex
 endif
 
-presentation.pdf: presentation.tex dragonfly.sty pattern.png logo.eps
+presentation.pdf: presentation.tex dragonfly.sty pattern.eps logo.eps
 	latexmk $(LATEXMK_OPTIONS) presentation.tex
 
 letter.pdf: letter.tex dragonfly.sty logo.eps

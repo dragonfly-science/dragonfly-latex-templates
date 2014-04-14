@@ -149,11 +149,11 @@
 %
 %    \begin{macrocode}
 %<*beamer>
-\setbeamercolor{title}{fg=black}
-\setbeamerfont{title}{family=\omnes,series=\bfseries}
-\setbeamercolor{subtitle}{fg=black}
-\setbeamerfont{subtitle}{parent=date}
-\setbeamerfont{institute}{parent=date,size={\fontsize{12}{13}}}
+\setbeamercolor{title}{fg=logo-blue}
+\setbeamerfont{title}{family=\omnes,series=\bfseries,size={\fontsize{18}{20}}}
+\setbeamercolor{subtitle}{fg=logo-blue}
+\setbeamerfont{subtitle}{parent=date,family=\omnes, series=\bfseries}
+\setbeamerfont{institute}{parent=date,size={\fontsize{10}{12}}}
 %</beamer>
 %    \end{macrocode}
 %
@@ -163,7 +163,7 @@
 % Every title page uses the Dragonfly logo at the bottom of the slide. 
 %
 %    \begin{macrocode}
-%<beamer>\titlegraphic{\includegraphics[width=0.4\textwidth]{/dragonfly/latex/graphics/logo.eps}}
+%<beamer>\titlegraphic{\includegraphics[width=0.3\textwidth]{logo}}
 %    \end{macrocode}
 %
 % We now describe the exact layout of the title page. 
@@ -183,7 +183,7 @@
   \vbox{}
   \vfill
   \begin{textblock*}{\paperwidth}(0mm,0mm)
-    \includegraphics[width=\paperwidth]{/dragonfly/latex/graphics/pattern}
+    \includegraphics[width=\paperwidth]{pattern}
   \end{textblock*}
 %</beamer>
 %    \end{macrocode}
@@ -197,6 +197,11 @@
     \begin{beamercolorbox}[sep=8pt,center]{title}
       \usebeamerfont{title}\inserttitle
     \end{beamercolorbox}%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%
     \vskip1em\par
 %</beamer>
 %    \end{macrocode}
@@ -207,37 +212,26 @@
 %
 %    \begin{macrocode}
 %<*beamer>
-    \begin{beamercolorbox}[center]{institute}
-      \usebeamerfont{institute}\insertinstitute
-    \end{beamercolorbox}  
     \begin{beamercolorbox}[center]{author}
       \usebeamerfont{author}\insertauthor
     \end{beamercolorbox}
-%</beamer>
-%    \end{macrocode}
-%
-% Following this is the subtitle, and the date. These are on separate lines. Followed by a small gap. 
-%
-%    \begin{macrocode}
-%<*beamer>
-    \begin{beamercolorbox}[sep=8pt,center]{date}
-      \ifx\insertsubtitle\@empty%
-      \else%
-        \vskip0.25em%
-        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
-      \fi%
+      \vspace{0.2cm}
       \usebeamerfont{date}\insertdate
-    \end{beamercolorbox}\vskip2ex
+      \par
+    \begin{beamercolorbox}[center]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}  
+      \par
+      \vfill
 %</beamer>
 %    \end{macrocode}
-%
 % Finally the last element is the company logo.
 %
 %    \begin{macrocode}
 %<*beamer>
+      \vfill
     {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
   \end{centering}
-  \vfill
 }
 %</beamer>
 %    \end{macrocode}
@@ -275,6 +269,7 @@
 \RequirePackage{etoolbox}
 \RequirePackage{xparse}
 \RequirePackage{graphicx}
+\graphicspath{{./}{/dragonfly/latex/graphics/}}
 %</common>
 %    \end{macrocode}
 %
@@ -326,12 +321,12 @@
 %    \end{macrocode}
 %
 % The logo is placed in the left margin, such that its right edge is touching the 
-%  margin.
+%  margin. 
 %
 %    \begin{macrocode}
 %<*letter>   
     \begin{textblock*}{37mm}(14mm,47mm)
-        \includegraphics[width=37mm]{/dragonfly/latex/graphics/logo.eps}
+        \includegraphics[width=37mm]{logo}
     \end{textblock*}
 %</letter>
 %    \end{macrocode}
@@ -551,7 +546,7 @@
   \begingroup
 \setbeamertemplate{footline}{
 \begin{beamercolorbox}[ht=3ex,dp=1ex,leftskip=1.4cm,rightskip=1.4cm]{default text}
-   \omnes \@titlefooter \vspace*{\baselineskip}
+    \omnes \@titlefooter \vspace*{\baselineskip}
   \end{beamercolorbox}
 }
 \begin{frame}
@@ -580,7 +575,7 @@
 \setbeamertemplate{footline}{
 \leavevmode
 \begin{beamercolorbox}[left,ht=3ex,dp=3ex,leftskip=0.8cm,wd=0.5\paperwidth]{default text}
- \includegraphics[width=0.18\textwidth]{/dragonfly/latex/graphics/logo.eps}
+ \includegraphics[width=0.18\textwidth]{logo}
 \end{beamercolorbox}%
 \begin{beamercolorbox}[right,rightskip=2ex,ht=3ex,dp=3ex,wd=0.5\paperwidth]{default text}
              \hfill   \omnes \@pagefooter   
