@@ -99,18 +99,24 @@
 % \section{Page Layout}
 %
 %    \begin{macrocode}
-%<*letter>
+%<*letter|article>
 \RequirePackage[
     hmargin={51mm,30mm},
     vmargin={26mm,40mm}]{geometry}
-%</letter>
+%</letter|article>
+%<*report>
+\RequirePackage[
+  left=52mm,
+  right=30mm,
+  top=30mm,
+bottom=40mm
+]{geometry}
+%</report>
 %    \end{macrocode}
 
 %    \begin{macrocode}
-%<*letter>
-\setlength{\parskip}{3mm}
-\setlength{\parindent}{0mm}
-%</letter>
+%<common>\setlength{\parskip}{3mm}
+%<common>\setlength{\parindent}{0mm}
 %    \end{macrocode}
 
 % \section{Fonts}
