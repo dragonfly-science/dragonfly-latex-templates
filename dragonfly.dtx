@@ -141,6 +141,10 @@
 \setbeamertemplate{frametitle}[default][right]
 \setbeamerfont{frametitle}{family=\omnes,series=\bfseries}
 \setbeamercolor{frametitle}{fg=logo-blue}
+
+\setbeamerfont{framesubtitle}{family=\omnes,series=\mdseries}
+\setbeamercolor{framesubtitle}{fg=black}
+
 \usefonttheme{professionalfonts}
 %</beamer>
 %    \end{macrocode}
@@ -558,18 +562,29 @@
 %    \end{macrocode}
 %
 % General slides all have to quote the section name after the title in the header box.
-% However, to be in the right place this must occur after the end of the preamble (not 
-% actually sure why this is the case. Update: This is because it happens after the premable). 
+% If there is a frame subtitle then it is printed instead. 
 %
 %    \begin{macrocode}
 %<*beamer>
-\AfterEndPreamble{
-\setbeamertemplate{headline}{
-   \vspace*{1.05cm}
-   \begin{beamercolorbox}[ht=3ex,leftskip=0.8cm,rightskip=2.2cm]{default text}
-       \hfill \omnes \insertsection
-   \end{beamercolorbox}
-} 
+\setbeamertemplate{frametitle}{
+   \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+  \@tempdima=\textwidth%
+  \advance\@tempdima by\beamer@leftmargin%
+  \advance\@tempdima by\beamer@rightmargin%
+  \begin{beamercolorbox}[sep=0.3cm,right,wd=\the\@tempdima]{frametitle}
+    \usebeamerfont{frametitle}%
+    \vbox{}\vskip-1ex%
+    \if@tempswa\else\csname beamer@fteright\endcsname\fi%
+    \strut\insertframetitle\strut\par%
+    {%
+      \ifx\insertframesubtitle\@empty{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertsection\strut\par}%
+      \else%
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\strut\par}%
+      \fi
+    }%
+    \vskip-1ex%
+    \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
+  \end{beamercolorbox}% 
 }
 
 \setbeamertemplate{footline}{
