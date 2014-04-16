@@ -6,13 +6,19 @@ else
 	LATEXMK_OPTIONS=-xelatex
 endif
 
+article.pdf: article.tex dragonfly.sty
+	latexmk $(LATEXMK_OPTIONS) article.tex
+
+report.pdf: report.tex dragonfly.sty
+	latexmk $(LATEXMK_OPTIONS) report.tex
+
 presentation.pdf: presentation.tex dragonfly.sty pattern.eps logo.eps
 	latexmk $(LATEXMK_OPTIONS) presentation.tex
 
 letter.pdf: letter.tex dragonfly.sty logo.eps
 	latexmk $(LATEXMK_OPTIONS) letter.tex
 
-all: dragonfly.pdf letter.pdf presentation.pdf
+all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf
 
 dragonfly.sty: dragonfly.ins dragonfly.dtx 
 	latex dragonfly.ins

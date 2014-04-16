@@ -1,0 +1,37 @@
+\documentclass{dragonfly-report}
+
+\title{An Example Report}
+\usepackage{subcaption}
+
+\usepackage{lipsum}
+\begin{document}
+\maketitle
+
+\lipsum[1]
+
+
+\begin{figure}[h]
+  \includegraphics[width=40mm,height=40mm]{pattern}
+  \caption{This is a caption that is longer than one line. It is improtant to test 
+  this behavoir as this a common feature of the dragon fly templates.}
+\end{figure}
+
+
+\lipsum[2]
+
+\begin{figure}[h]
+
+  \begin{subfigure}{0.45\textwidth}
+  \includegraphics[width=40mm,height=40mm]{pattern}
+  \caption{This is a caption that is longer than one line. It is improtant to test 
+  this behavoir as this a common feature of the dragon fly templates.}
+\end{subfigure}\qquad
+  \begin{subfigure}{0.45\textwidth}
+  \includegraphics[width=40mm,height=40mm]{pattern}
+  \caption{This is a caption that is longer than one line. It is improtant to test 
+  this behavoir as this a common feature of the dragon fly templates.}
+\end{subfigure}
+\end{figure}
+
+
+\end{document}
