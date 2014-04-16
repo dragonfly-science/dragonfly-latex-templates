@@ -72,8 +72,8 @@
 % \begin{abstract}
 %  This is a set of classes that are used to format documents according the 
 %  Dragonfly Science formatting requirements. There are three class files 
-%  for different types of documents. There is also a style file which 
-%  provides all of the common implementation.
+%  for different types of documents, and a beamer theme. There is also a 
+%  style file which provides all of the common implementation.
 % \end{abstract}
 %
 % \section{Introduction}
@@ -591,7 +591,14 @@ bottom=40mm
     \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
   \end{beamercolorbox}% 
 }
-
+%</beamer>
+%    \end{macrocode}
+%
+% The footer should contain the company logo on the left and a message on the right. 
+% The message should be customizable according to the presentation. 
+%
+%    \begin{macrocode}
+%<*beamer>
 \setbeamertemplate{footline}{
 \leavevmode
 \begin{beamercolorbox}[left,ht=3ex,dp=3ex,leftskip=0.8cm,wd=0.5\paperwidth]{default text}
@@ -604,12 +611,19 @@ bottom=40mm
 %</beamer>
 %    \end{macrocode}
 %
+% Dragonfly presentations often contain a project code. This is essentially the 
+% equivalent of institute in a standard beamer document. We define project code
+% to be an alias for institute. 
 %
 %    \begin{macrocode}
 %<*beamer>
 \newcommand{\projectcode}{\institute}
 %</beamer>
 %    \end{macrocode}
+%
+% The presentations require commands to set and store the values used for the 
+% title and normal page footers. These are defined simply with short hand commands
+% to assign a known variable. 
 %
 %    \begin{macrocode}
 %<*beamer>
