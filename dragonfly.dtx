@@ -578,13 +578,9 @@ bottom=40mm
 %<*beamer>
 \setbeamertemplate{frametitle}{
    \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
-  \@tempdima=\textwidth%
-  \advance\@tempdima by\beamer@leftmargin%
-  \advance\@tempdima by\beamer@rightmargin%
-  \begin{beamercolorbox}[sep=0.3cm,right,wd=\the\@tempdima]{frametitle}
+  \begin{beamercolorbox}[right,wd=\textwidth]{frametitle}
     \usebeamerfont{frametitle}%
-    \vbox{}\vskip-1ex%
-    \if@tempswa\else\csname beamer@fteright\endcsname\fi%
+    \vspace*{2ex}\par%
     \strut\insertframetitle\strut\par%
     {%
       \ifx\insertframesubtitle\@empty{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertsection\strut\par}%
