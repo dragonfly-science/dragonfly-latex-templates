@@ -788,13 +788,17 @@ bottom=40mm
 \vspace*{\fill}
 {\omnes \color{logo-blue} \fontsize{11pt}{13.2pt}\selectfont \textbf{Cover Notes}}
 
-Image Reference:
+\@imagereferences
 
-\noindent\begin{tabular}{@{}lll}
+\ifx\@imagereferences\@empty%
+\relax%
+\else%
+\begin{tabular}{@{}lll}
 \@leftimage
 \@middleimage
 \@rightimage
-\end{tabular}
+\end{tabular}%
+\fi
 
 To be cited as:
 
@@ -853,18 +857,23 @@ To be cited as:
 }
 
 \newcommand{\leftimage}[2]{%
+  \renewcommand{\@imagereferences}{Image reference:}
   \renewcommand{\@leftimage}{Left: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
 }
 
 \newcommand{\rightimage}[2]{%
-  \renewcommand{\@rightimage}{Right: &  #1 & \href{#2}{\normalfont\color{black}#2}\\}
+  \renewcommand{\@imagereferences}{Image reference:}
+  \renewcommand{\@rightimage}{Right: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
 }
 \newcommand{\middleimage}[2]{%
-  \renewcommand{\@middleimage}{Middle: &  #1 & \href{#2}{\normalfont\color{black}#2}\\}
+  \renewcommand{\@imagereferences}{Image reference:}
+  \renewcommand{\@middleimage}{Middle: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
 }
 \newcommand{\@leftimage}{}
 \newcommand{\@middleimage}{}
 \newcommand{\@rightimage}{}
+
+\def\@imagereferences{}
 
 \newcommand{\footertitle}{\ClassError{dragonfly-report}{No Footer title defined}{Use title}}
 \newcommand{\@titleimage}{pattern}
