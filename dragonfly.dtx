@@ -737,6 +737,11 @@ bottom=40mm
 %<*report>
 \RequirePackage{lastpage}
 \RequirePackage{wallpaper}
+\RequirePackage{biblatex}
+
+\DeclareNameFormat{firstinits-last}{%
+  \usebibmacro{name:first-last}{#1}{#4}{#5}{#7}%
+  \usebibmacro{name:andothers}}
 
 \RenewDocumentCommand{\maketitle}{}{
 \hypersetup{  
@@ -809,34 +814,11 @@ bottom=40mm
 
 To be cited as:
 
-{
-  \renewcommand{\and}{\unskip; }
-  %\edef\tempauthors{\@citeauthor}
-  %\ExpandNext{\printauthors}{\tempauthors}%
-  \@citeauthor
-  \ (\the\year).\ \@title,\ \pageref{LastPage}\ pages.\ \@subtitle.
-}
+\citename{this}[firstinits-last]{author}\ (\the\year).\ \@title,\ \pageref{LastPage}\ pages.\ \@subtitle.
 
 \@copyright
 \clearpage
 }
-
-\RequirePackage{lazylist}
-\RequirePackage{etextools}
-
-
-\newcommand{\magic}[1]{#1\unskip; }
- 
-\newcommand{\fixname}[1]{#1}
-
-\newcommand{\printauthors}[1]{
-  \@printauthors{\Listize[#1]}
-}
-
-\newcommand{\@printauthors}[1]{
-  \Foldl{\magic}{\Head{#1}}{\Map{\fixname}{\Tail{#1}}}
-}
-
 
 \renewcommand{\date}{
   \ClassError{dragonfly-report}{date is not supported}{Do not use date}
@@ -898,6 +880,25 @@ To be cited as:
 }
 
 \newcommand{\@citeauthor}{\@author}
+
+\AtBeginDocument{
+{
+\renewcommand{\and}{ and }
+\renewcommand{\\}{}
+\edef\text{@report\@charlb this,^^J%
+year = \@charlb \the\year \@charrb,^^J%
+options = \@charlb dataonly = true \@charrb,^^J%
+title = \@charlb \@title \@charrb,^^J%
+author = \@charlb \@author \@charrb^^J%
+\@charrb
+}
+\newwrite\tempfile
+\immediate\openout\tempfile=\jobname-self.bib
+\immediate\write\tempfile{\text}
+\immediate\closeout\tempfile
+}
+}
+\addbibresource{\jobname-self.bib}
 
 \renewcommand{\and}{\\}
 %</report>
