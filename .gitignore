@@ -44,3 +44,6 @@ dragonfly-report.cls
 debian/dragonfly-latex-templates
 debian/files
 beamerthemeDragonfly.sty
+*.run.xml
+*-self.bib
+*-blx.bib
