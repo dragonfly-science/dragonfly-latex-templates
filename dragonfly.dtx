@@ -803,9 +803,11 @@ bottom=40mm
 To be cited as:
 
 {
-  \renewcommand{\and}{,}
-  \edef\tempauthors{\@author}
-  \ExpandNext{\printauthors}{\tempauthors}\ (\the\year).\ \@title,\ \pageref{LastPage}\ pages.\ \@subtitle.
+  \renewcommand{\and}{\unskip; }
+  %\edef\tempauthors{\@citeauthor}
+  %\ExpandNext{\printauthors}{\tempauthors}%
+  \@citeauthor
+  \ (\the\year).\ \@title,\ \pageref{LastPage}\ pages.\ \@subtitle.
 }
 
 \@copyright
@@ -882,6 +884,13 @@ To be cited as:
 \newcommand{\titleimage}[1]{%
   \renewcommand{\@titleimage}{#1}
 }
+
+\RenewDocumentCommand{\author}{o m}{
+  \renewcommand{\@author}{#2}
+  \renewcommand{\@citeauthor}{\IfNoValueTF{#1}{#2}{#1}}  
+}
+
+\newcommand{\@citeauthor}{\@author}
 
 \renewcommand{\and}{\\}
 %</report>
