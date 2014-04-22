@@ -738,7 +738,7 @@ bottom=40mm
 \RequirePackage{lastpage}
 \RequirePackage{wallpaper}
 
-\renewcommand{\maketitle}{
+\RenewDocumentCommand{\maketitle}{}{
 \clearpage
 \newgeometry{top=135mm,bottom=32mm,right=30mm,left=30mm}
 \thispagestyle{empty}
@@ -871,6 +871,7 @@ To be cited as:
 
 \renewcommand{\cfttoctitlefont}{\fontsize{14pt}{16.8pt}\bfseries\sffamily}
 \renewcommand{\cftsecfont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily}
+\renewcommand{\cftsecpagefont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily\color{gray}}
 \renewcommand{\contentsname}{CONTENTS}
 \renewcommand{\cftsubsecafterpnum}{\hspace{1cm}\mbox{}}
 \tocloftpagestyle{empty}
