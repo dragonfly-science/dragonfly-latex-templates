@@ -33,7 +33,6 @@
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{dragonfly}
-\usepackage{hyperref}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -419,7 +418,10 @@ bottom=40mm
 % The hyperref package must be the last one loaded, so we load it here.
 %    \begin{macrocode}
 %<*common>
-\RequirePackage[
+
+\RequirePackage{hyperref}
+
+\hypersetup{
   colorlinks=true,
   urlcolor=black,
   citecolor=black,
@@ -427,7 +429,7 @@ bottom=40mm
   pagecolor=black,
   menucolor=black,
   linkcolor=black
-]{hyperref}
+}
 %</common>
 %    \end{macrocode}
 %
@@ -917,15 +919,25 @@ author = \@charlb \@author \@charrb^^J%
 \renewcommand{\cftsecfont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily}
 \renewcommand{\cftsecpagefont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily\color{gray}}
 \renewcommand{\contentsname}{CONTENTS}
-\renewcommand{\cftsubsecafterpnum}{\hspace{1cm}\mbox{}}
-\tocloftpagestyle{empty}
-\renewcommand{\cftdot}{}
+\renewcommand{\cftdot}{-\kern-2pt}
+
+\renewcommand{\cftsecleader}{\color{gray}\tiny \cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\color{gray}\tiny \cftdotfill{\cftdotsep}}
+
+\renewcommand{\cftsubsecpagefont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily\color{gray}}
+\renewcommand{\cftsubsecfont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily}
 
 %</report>
 %    \end{macrocode}
 %
 %
 % \subsection{Copyright}
+%
+% Published reports have attached copyright with them. Since a large number of 
+% projects are run with the same copyright statements, a number of common 
+% such statements are defined here for ease of use. 
+%
+% \paragraph{Crown} The first such statement is for crown research.
 %
 %    \begin{macrocode}
 %<*report>
