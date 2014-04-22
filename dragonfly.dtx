@@ -800,12 +800,30 @@ To be cited as:
 
 {
   \renewcommand{\and}{,}
-  \@author\ (\the\year). \@title, \pageref{LastPage} pages. \@subtitle.
+  \edef\tempauthors{\@author}
+  \ExpandNext{\printauthors}{\tempauthors}\ (\the\year).\ \@title,\ \pageref{LastPage}\ pages.\ \@subtitle.
 }
 
 \@copyright
 \clearpage
 }
+
+\RequirePackage{lazylist}
+\RequirePackage{etextools}
+
+
+\newcommand{\magic}[1]{#1\unskip; }
+ 
+\newcommand{\fixname}[1]{#1}
+
+\newcommand{\printauthors}[1]{
+  \@printauthors{\Listize[#1]}
+}
+
+\newcommand{\@printauthors}[1]{
+  \Foldl{\magic}{\Head{#1}}{\Map{\fixname}{\Tail{#1}}}
+}
+
 
 \renewcommand{\date}{
   \ClassError{dragonfly-report}{date is not supported}{Do not use date}
