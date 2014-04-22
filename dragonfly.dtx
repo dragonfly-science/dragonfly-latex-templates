@@ -909,28 +909,73 @@ author = \@charlb \@author \@charrb^^J%
 %
 % \subsection{Table of Contents}
 %
+% The table of contents is also specified concretely in the specification
+%
+% The first thing it requires is for the tocloft package to be loaded
+%    \begin{macrocode}
+%<report> \RequirePackage{tocloft}
+%    \end{macrocode}
+%
+%  Next we want the table of contents to be on its own page. So we append 
+% a clear instruction to the end of the writing command
+%
+%    \begin{macrocode}
+%<report>\g@addto@macro\@cfttocfinish{\cleardoublepage}
+%    \end{macrocode}
+%
+% The title of the contents page must be CONTENTS in large, bold, blue omnes.
+%
 %    \begin{macrocode}
 %<*report>
-\RequirePackage{tocloft}
-
-\g@addto@macro\@cfttocfinish{\cleardoublepage}
-
 \renewcommand{\cfttoctitlefont}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\sffamily}
-\renewcommand{\cftsecfont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily}
-\renewcommand{\cftsecpagefont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily\color{gray}}
 \renewcommand{\contentsname}{CONTENTS}
-\renewcommand{\cftdot}{-\kern-2pt}
-
-\renewcommand{\cftsecleader}{\color{gray}\tiny \cftdotfill{\cftdotsep}}
-\renewcommand{\cftsubsecleader}{\color{gray}\tiny \cftdotfill{\cftdotsep}}
-
-\renewcommand{\cftsubsecpagefont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily\color{gray}}
-\renewcommand{\cftsubsecfont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily}
-
 %</report>
 %    \end{macrocode}
 %
+% In this style the toc should only be created to depth 3.
+%    \begin{macrocode}
+%<report>\setcounter{tocdepth}{3}
+%    \end{macrocode}
 %
+% The numbers for all three level of heading are drawn the same. In gray omnes. 
+%
+%    \begin{macrocode}
+%<*report>
+\newcommand{\dfly@pagefont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily\color{gray}}
+\renewcommand{\cftsecpagefont}{\dfly@pagefont}
+\renewcommand{\cftsubsecpagefont}{\dfly@pagefont}
+\renewcommand{\cftsubsubsecpagefont}{\dfly@pagefont}
+%</report>
+%    \end{macrocode}
+% 
+% Similarly all the lines between the heading levels are the same. A line of tiny
+% gray dashes.
+%
+%    \begin{macrocode}
+%<*report>
+\renewcommand{\cftdot}{-}
+\renewcommand{\cftdotsep}{1}
+\newcommand{\dfly@leader}{\phantom{m}\color{gray}\tiny \cftdotfill{\cftdotsep}\phantom{m}}
+
+\renewcommand{\cftsecleader}{\dfly@leader}
+\renewcommand{\cftsubsecleader}{\dfly@leader}
+\renewcommand{\cftsubsubsecleader}{\dfly@leader}
+%</report>
+%    \end{macrocode}
+%
+%   All levels of heading have the same font for being written in. Bold, black omnes. 
+%
+%    \begin{macrocode}
+%<*report>
+\newcommand{\dfly@tocfont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily}
+
+\renewcommand{\cftsecfont}{\dfly@tocfont}
+\renewcommand{\cftsubsecfont}{\dfly@tocfont}
+\renewcommand{\cftsubsubsecfont}{\dfly@tocfont}
+%</report>
+%    \end{macrocode}
+%
+% 
 % \subsection{Copyright}
 %
 % Published reports have attached copyright with them. Since a large number of 
