@@ -83,8 +83,7 @@
 % theme. The beamer theme is based on the default with inner theme circles,
 % and the color theme using Dragonfly colours. 
 %    \begin{macrocode}
-%<letter|article>\LoadClass[a4paper]{article}
-%<report>\LoadClass[a4paper]{report}
+%<letter|article|report>\LoadClass[a4paper]{article}
 %<beamer>\useinnertheme{circles}
 %<beamer>\usecolortheme[RGB={28,152,196}]{structure}
 %    \end{macrocode}
@@ -419,7 +418,17 @@ bottom=40mm
 %  \section{Additional Packages}
 % The hyperref package must be the last one loaded, so we load it here.
 %    \begin{macrocode}
-%<common>\RequirePackage{hyperref}
+%<*common>
+\RequirePackage[
+  colorlinks=true,
+  urlcolor=black,
+  citecolor=black,
+  anchorcolor=black,
+  pagecolor=black,
+  menucolor=black,
+  linkcolor=black
+]{hyperref}
+%</common>
 %    \end{macrocode}
 %
 %
@@ -666,7 +675,10 @@ bottom=40mm
 %    
 %    \begin{macrocode}
 %<*report>
-\RequirePackage[width=150mm]{caption}
+\RequirePackage[labelsep=colon,singlelinecheck=false,width=150mm]{caption}
+
+\renewcommand{\captionfont}{\small\omnes}
+\renewcommand{\captionlabelfont}{\small\bf\omnes}
 
 \let\oldfigure\figure
 \newcommand{\newfigurehead}{\hspace{-22mm}
@@ -681,6 +693,204 @@ bottom=40mm
 %</report>
 %    \end{macrocode}
 %
+% \subsection{Titles}
 %
+% We need to set the headings to be correct
+%
+%    \begin{macrocode}
+%<*report>
+\RequirePackage[bf,sf,pagestyles]{titlesec}
+
+\titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{\thesection.}{1em}{}
+\titleformat{\subsection}{\fontsize{11pt}{13.2pt}\bfseries\omnes}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\fontsize{11pt}{13.2pt}\bfseries\omnes}{\thesubsubsection}{1em}{}
+\titlespacing{\section}{0pt}{\baselineskip}{0pt}
+\titlespacing{\subsection}{0pt}{\baselineskip}{0pt}
+\titlespacing{\subsubsection}{0pt}{\baselineskip}{0pt}
+%</report>
+%    \end{macrocode}
+%
+% \subsection{Page header / footers}
+%
+%    \begin{macrocode}
+%<*report>
+\usepackage{fancyhdr}
+
+\fancypagestyle{toc}{
+    \fancyfoot[LO,RO,LE,RE]{}
+}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[L]{\color{logo-blue}\small\omnes\bf\thepage}
+    \fancyfoot[R]{\color{grey}\small\omnes\bf \footertitle}
+    \renewcommand{\headrulewidth}{0pt} 
+}
+
+
+%</report>
+%    \end{macrocode}
+%
+% \subsection{Title page}
+%
+%    \begin{macrocode}
+%<*report>
+\RequirePackage{lastpage}
+\RequirePackage{wallpaper}
+
+\renewcommand{\maketitle}{
+\clearpage
+\newgeometry{top=135mm,bottom=32mm,right=30mm,left=30mm}
+\thispagestyle{empty}
+
+\begin{textblock*}{\paperwidth}(0mm,10mm)
+    \includegraphics[width=\paperwidth,height=110mm]{\@titleimage}
+\end{textblock*}
+
+{\omnes \fontsize{23pt}{27.5pt}\selectfont\textbf{\@title}}
+\vspace*{8mm}
+\vspace*{-\baselineskip}
+\vspace*{-\parskip}
+
+{\color{logo-blue} \fontsize{11pt}{13.5}\selectfont \textbf{\@subtitle}}
+
+\vfill%
+\hspace*{90mm}%
+\begin{minipage}[h]{65mm}
+  \fontsize{7.5pt}{9pt}\selectfont\omnes
+  \begin{tabular}{l}
+  \textbf{Authors:}\\
+    \@author
+  \end{tabular}
+    \vspace{1mm}
+
+    \noindent\rule{51mm}{0.1mm}
+
+    \vspace{4mm}
+
+    \hspace{15mm}
+    \parbox{44mm}{\fontsize{7.5pt}{9pt}\selectfont PO Box 27353, Wellington 6141 \\ 
+                 New Zealand \\ 
+                 \href{www.dragonfly.co.nz}{\bfseries\color{logo-blue}\omnes dragonfly.co.nz}}
+    
+\end{minipage}
+
+\begin{textblock*}{59mm}(68mm,253mm)
+  \includegraphics[width=\textwidth]{logo}
+\end{textblock*}
+
+
+\restoregeometry
+\clearpage
+\pagestyle{plain}
+\ThisCenterWallPaper{1.0}{wallpaper.png}
+
+\vspace*{\fill}
+{\omnes \color{logo-blue} \fontsize{11pt}{13.2pt}\selectfont \textbf{Cover Notes}}
+
+Image Reference:
+
+\noindent\begin{tabular}{@{}lll}
+\@leftimage
+\@middleimage
+\@rightimage
+\end{tabular}
+
+To be cited as:
+
+{
+  \renewcommand{\and}{,}
+  \@author\ (\the\year). \@title, \pageref{LastPage} pages. \@subtitle.
+}
+
+\@copyright
+\clearpage
+}
+
+\renewcommand{\date}{
+  \ClassError{dragonfly-report}{date is not supported}{Do not use date}
+}
+\renewcommand{\@date}{
+  \ClassError{dragonfly-report}{date is not supported}{Do not use date}
+}
+
+
+\renewcommand{\copyright}[2]{
+  \renewcommand{\@copyright}{\includegraphics[height=20pt,keepaspectratio]{#1} 
+
+#2}
+}
+
+\newcommand{\@copyright}{}
+
+\copyright{by}{\crown}
+
+\renewcommand\title[2]{%
+  \renewcommand\@title{#2}%
+  \renewcommand\footertitle{#1}%
+}
+
+\newcommand{\subtitle}[1]{%
+  \renewcommand\@subtitle{#1}%
+}
+
+\newcommand{\leftimage}[2]{%
+  \renewcommand{\@leftimage}{Left: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
+}
+
+\newcommand{\rightimage}[2]{%
+  \renewcommand{\@rightimage}{Right: &  #1 & \href{#2}{\normalfont\color{black}#2}\\}
+}
+\newcommand{\middleimage}[2]{%
+  \renewcommand{\@middleimage}{Middle: &  #1 & \href{#2}{\normalfont\color{black}#2}\\}
+}
+\newcommand{\@leftimage}{}
+\newcommand{\@middleimage}{}
+\newcommand{\@rightimage}{}
+
+\newcommand{\footertitle}{\ClassError{dragonfly-report}{No Footer title defined}{Use title}}
+\newcommand{\@titleimage}{pattern}
+\newcommand{\@subtitle}{\ClassError{dragonfly-report}{No Subtitle Supplied}{Use subtitle}}
+
+\newcommand{\titleimage}[1]{%
+  \renewcommand{\@titleimage}{#1}
+}
+
+\renewcommand{\and}{\\}
+%</report>
+%    \end{macrocode}
+%
+%
+% \subsection{Table of Contents}
+%
+%    \begin{macrocode}
+%<*report>
+\RequirePackage{tocloft}
+
+\g@addto@macro\@cfttocfinish{\cleardoublepage}
+
+\renewcommand{\cfttoctitlefont}{\fontsize{14pt}{16.8pt}\bfseries\sffamily}
+\renewcommand{\cftsecfont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily}
+\renewcommand{\contentsname}{CONTENTS}
+\renewcommand{\cftsubsecafterpnum}{\hspace{1cm}\mbox{}}
+\tocloftpagestyle{empty}
+\renewcommand{\cftdot}{}
+
+%</report>
+%    \end{macrocode}
+%
+%
+% \subsection{Copyright}
+%
+%    \begin{macrocode}
+%<*report>
+\newcommand{\crown}{
+  Crown copyright \textcopyright{} Following the New Zealand Government Open Access and
+Licensing (NZGOAL) framework, this report is licensed under a Creative
+Commons Attribution 3.0 New Zealand Licence. This allows you to distribute,
+use, and build upon this work, provided credit is given to the original source.
+}
+%</report>
+%    \end{macrocode}
 % \Finale
 \endinput
