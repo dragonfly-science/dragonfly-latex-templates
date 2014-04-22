@@ -739,6 +739,13 @@ bottom=40mm
 \RequirePackage{wallpaper}
 
 \RenewDocumentCommand{\maketitle}{}{
+\hypersetup{  
+  pdfinfo={  
+    Title={\@title},  
+    Author={\@author}
+   }  
+}
+    
 \clearpage
 \newgeometry{top=135mm,bottom=32mm,right=30mm,left=30mm}
 \thispagestyle{empty}
