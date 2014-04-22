@@ -42,5 +42,6 @@ cleanClass:
 
 clean: cleanClass
 	rm -f  *.pdf *.aux *.log *.out *.backup *.glo *.idx \
-		 *.fdb_latexmk *.fls
+		 *.fdb_latexmk *.fls *-self.bib *.toc *.snm *.nav \
+		 *.ilg *-blx.bib *.run.xml *.bbl *.ind *.blg
 
