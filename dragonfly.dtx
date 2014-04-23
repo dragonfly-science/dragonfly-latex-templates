@@ -902,7 +902,7 @@ bottom=40mm
 {
 \renewcommand{\and}{ and }
 \renewcommand{\\}{}
-\edef\text{@report\@charlb this,^^J%
+\def\text{@report\@charlb this,^^J%
 year = \@charlb \@date \@charrb,^^J%
 options = \@charlb dataonly = true \@charrb,^^J%
 title = \@charlb \@title \@charrb,^^J%
@@ -1015,6 +1015,18 @@ To be cited as:
 %</report>
 %    \end{macrocode}
 %
+% The document will also contain a summary section. We create a sepecial command
+% for putting this in.
+%
+%    \begin{macrocode}
+%<*report>
+\NewDocumentCommand{\summary}{O {Executive Summary}}{
+  \phantomsection
+  \addcontentsline{toc}{section}{#1}
+  \section*{#1}
+}
+%</report>
+%    \end{macrocode}
 %
 % \subsection{Table of Contents}
 %
