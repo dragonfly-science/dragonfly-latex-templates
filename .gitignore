@@ -47,3 +47,4 @@ beamerthemeDragonfly.sty
 *.run.xml
 *-self.bib
 *-blx.bib
+*.bcf

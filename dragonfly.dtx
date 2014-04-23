@@ -779,7 +779,7 @@ bottom=40mm
 %<*report>
 \RequirePackage{lastpage}
 \RequirePackage{wallpaper}
-\RequirePackage{biblatex}
+\RequirePackage[style=apa,backend=biber]{biblatex}
 %</report>
 %    \end{macrocode}
 %
@@ -1009,7 +1009,7 @@ To be cited as:
 
 {
   \renewcommand{\\}{}
-\citename{this}[firstinits-last]{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \@subtitle.
+\citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \@subtitle.
 }
 
 \@copyright
