@@ -1060,6 +1060,14 @@ To be cited as:
 %</report>
 %    \end{macrocode}
 %
+% Finally we need to make sure that section heading are always shown in capitals
+% in the contents page. 
+%
+%    \begin{macrocode}
+%<*report>
+\patchcmd{\l@section}{#1}{\uppercase{#1}}{}{}
+%</report>
+%    \end{macrocode}
 %
 % \subsection{Copyright}
 %
