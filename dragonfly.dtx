@@ -673,7 +673,8 @@ bottom=40mm
 %
 % Since we are using biblatex with apa we need to use polyglossia to tell
 % biblatex which language we are using. Actually polyglossia doesn't support 
-% british directly so we need a slight hack.
+% british directly so we need a slight hack. We also need the bibliography to be
+% a proper section
 %
 %    \begin{macrocode}
 %<*report>
@@ -681,6 +682,7 @@ bottom=40mm
 \setdefaultlanguage[variant=british]{english}
 \RequirePackage[style=apa,backend=biber]{biblatex}
 \DeclareLanguageMapping{english}{english-apa}
+\defbibheading{bibliography}[References]{\section{#1}}
 %</report>
 %    \end{macrocode}
 %
