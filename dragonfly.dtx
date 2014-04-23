@@ -895,6 +895,8 @@ bottom=40mm
 % In order to automatically generate the citation using biblatex, we
 % write out a generated bib file that contains an entry for the current document.
 % This must happen at the end of the prelude, so that the title and so on are defined.
+% Note that new lines have the be suppressed while doing this, and |\emph| commands
+% need to print out the command rather than actually do emphasis. 
 %
 %    \begin{macrocode}
 %<*report>
