@@ -901,8 +901,9 @@ bottom=40mm
 \AtBeginDocument{
 {
 \renewcommand{\and}{ and }
+\renewcommand{\emph}[1]{\@backslashchar emph\@charlb #1\@charrb}
 \renewcommand{\\}{}
-\def\text{@report\@charlb this,^^J%
+\edef\text{@report\@charlb this,^^J%
 year = \@charlb \@date \@charrb,^^J%
 options = \@charlb dataonly = true \@charrb,^^J%
 title = \@charlb \@title \@charrb,^^J%
