@@ -48,15 +48,30 @@ This has some boring text in it
   \caption{This is a caption that is longer than one line. It is improtant to test 
   this behavoir as this a common feature of the dragon fly templates.}
 \end{subfigure}
+\end{figure}
 
 \subsubsection{What's This?}
-\lipsum[3]
+\lipsum[3] 
 \paragraph{A minor heading}
-\lipsum[5]
+\lipsum[5] 
 \subparagraph{A really minor heading}
 \lipsum[4]
 
-\end{figure}
+Apa comes with a number of ways of citing things.
+The interesting ones are:
+
+
+\begin{itemize}
+  \item \cite{brandao_estimates_2010}
+  \item \parencite{ _birdlife_2009}
+  \item \nptextcite{acap_summary_2011b}
+  %\item \fullcite{acap_summary_2011b}
+  %\item \fullcitebib{acap_summary_2011b}
+  \item \citeyear{acap_summary_2011b}
+  %\item \footcite{acap_summary_2011b}
+  \item \textcite{acap_summary_2011b}
+\end{itemize}
+
 
 \clearpage
 \printbibliography
