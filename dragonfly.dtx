@@ -973,7 +973,10 @@ author = \@charlb \@author \@charrb^^J%
 
 To be cited as:
 
+{
+  \renewcommand{\\}{}
 \citename{this}[firstinits-last]{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \@subtitle.
+}
 
 \@copyright
 \clearpage
