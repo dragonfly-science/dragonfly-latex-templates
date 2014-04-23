@@ -671,6 +671,20 @@ bottom=40mm
 %
 % \section{Report}
 %
+% Since we are using biblatex with apa we need to use polyglossia to tell
+% biblatex which language we are using. Actually polyglossia doesn't support 
+% british directly so we need a slight hack.
+%
+%    \begin{macrocode}
+%<*report>
+\RequirePackage{polyglossia}
+\setdefaultlanguage[variant=british]{english}
+\RequirePackage[style=apa,backend=biber]{biblatex}
+\DeclareLanguageMapping{english}{english-apa}
+%</report>
+%    \end{macrocode}
+%
+%
 % \subsection{Floats}
 %
 % Reports need special figures and tables that go into the left margin. 
@@ -772,14 +786,13 @@ bottom=40mm
 %
 %
 % In order to lay out the title page we require a number of additional packages.
-% These are for creating bibilographic entries, finding out the number of pages, 
+% These are for creating finding out the number of pages, 
 % and adding in a background image. 
 %
 %    \begin{macrocode}
 %<*report>
 \RequirePackage{lastpage}
 \RequirePackage{wallpaper}
-\RequirePackage[style=apa,backend=biber]{biblatex}
 %</report>
 %    \end{macrocode}
 %
