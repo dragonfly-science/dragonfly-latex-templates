@@ -1,5 +1,6 @@
 *.sty /usr/share/texlive/texmf-dist/tex/latex/dragonfly
 *.cls /usr/share/texlive/texmf-dist/tex/latex/dragonfly
+*.lbx /usr/share/texlive/texmf-dist/tex/latex/dragonfly
 logo.eps /dragonfly/latex/graphics/
 pattern.eps /dragonfly/latex/graphics/
 biber /usr/bin
