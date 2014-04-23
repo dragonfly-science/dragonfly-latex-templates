@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 LATEXMK_VERSION=$(strip $(patsubst Version,,$(shell latexmk -v | grep -oi "version.*")))
 ifeq ($(LATEXMK_VERSION),4.24)
-	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf
+	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf -e '$$biber = q/.\/biber %B/'
 else
 	LATEXMK_OPTIONS=-xelatex
 endif
