@@ -671,17 +671,30 @@ bottom=40mm
 %
 % \section{Report}
 %
-% Reports need special figures that go into the left margin. To deal with this we will
-% insert some commands into the figure command. We also need to tell the caption that
-% it should be wider.
+% \subsection{Floats}
+%
+% Reports need special figures and tables that go into the left margin. 
+% To deal with this we will insert some commands into the figure command. 
+%
+% We start by telling the caption that it should be wider.
 %    
 %    \begin{macrocode}
+%<report>\RequirePackage[labelsep=colon,singlelinecheck=false,width=150mm]{caption}
+%    \end{macrocode}
+%
+% The captions are written in the omnes font, and with a bold Figure label. 
+%
+%    \begin{macrocode}
 %<*report>
-\RequirePackage[labelsep=colon,singlelinecheck=false,width=150mm]{caption}
-
 \renewcommand{\captionfont}{\small\omnes}
 \renewcommand{\captionlabelfont}{\small\bf\omnes}
-
+%</report>
+%    \end{macrocode}
+%
+% We insert into the start and end of the figure command a 22mm indented minipage. 
+%
+%    \begin{macrocode}
+%<*report>
 \let\oldfigure\figure
 \newcommand{\newfigurehead}{\hspace{-22mm}
   \addtolength{\textwidth}{22mm}
@@ -694,6 +707,24 @@ bottom=40mm
 \def\endfigure{\end{minipage}\endoldfigure}
 %</report>
 %    \end{macrocode}
+%
+% We then do the same thing for tables. 
+%
+%    \begin{macrocode}
+%<*report>
+\let\oldtable\table
+\newcommand{\newtablehead}{\hspace{-22mm}
+  \addtolength{\textwidth}{22mm}
+  \begin{minipage}[t]{\textwidth}}
+\def\table{\@ifnextchar[\table@i \table@ii}
+\def\table@i[#1]{\oldtable[#1]\newtablehead}
+\def\table@ii{\oldtable\newtablehead}
+
+\let\endoldtable\endtable
+\def\endtable{\end{minipage}\endoldtable}
+%</report>
+%    \end{macrocode}
+%
 %
 % \subsection{Titles}
 %
