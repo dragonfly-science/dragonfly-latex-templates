@@ -735,12 +735,169 @@ bottom=40mm
 %
 % \subsection{Title page}
 %
+% The title page for the report class actually spans two pages. The first is cover page
+% for the document, while the second is an inside flap that contains additional
+% information.
+%
+%
+% In order to lay out the title page we require a number of additional packages.
+% These are for creating bibilographic entries, finding out the number of pages, 
+% and adding in a background image. 
+%
 %    \begin{macrocode}
 %<*report>
 \RequirePackage{lastpage}
 \RequirePackage{wallpaper}
 \RequirePackage{biblatex}
+%</report>
+%    \end{macrocode}
+%
+% The document has two titles. The first is the main title which goes on
+% the cover of the document, while the second is a short title that goes 
+% in the page footer. Both are required.  
+%
+%    \begin{macrocode}
+%<*report>
+\renewcommand\title[2]{%
+  \renewcommand\@title{#2}%
+  \renewcommand\footertitle{#1}%
+}
+\newcommand{\footertitle}{\ClassError{dragonfly-report}{No Footer title defined}{Use \noexpand\title}}
+%</report>
+%    \end{macrocode}
+%
+% Each document starts with a large title image on the front page.
+% The |\titleimage| macro allows users to specify the image to appear.
+% Ideally the image should be at least 600dpi and ideally 210x110 mm.
+% The image must be 210mm wide, and no more than 110 mm high. The default 
+% Image is the wing pattern as a narrow band.
+%
+%    \begin{macrocode}
+%<*report>
+\newcommand{\@titleimage}{pattern}
+\newcommand{\titleimage}[1]{%
+  \renewcommand{\@titleimage}{#1}
+}
+%</report>
+%    \end{macrocode}
+%
+% Additionally to a full title, the document has a subtitle. This goes below the main
+% title and is included in every document
+%    \begin{macrocode}
+%<*report>
+\newcommand{\subtitle}[1]{\renewcommand\@subtitle{#1}}
+\newcommand{\@subtitle}{%
+  \ClassError{dragonfly-report}{No Subtitle Supplied}{Use subtitle}}
+%</report>
+%    \end{macrocode}
+%
+% Authors must be separeted by |\and|. We then need to make the separater
+% work correctly for printing. 
+%
+%    \begin{macrocode}
+%<*report>
+  \renewcommand{\and}{\\}
+%</report>
+%    \end{macrocode}
+% 
+% Like in standard document |\date| is allowed. However, it is only used for
+% creating citations, and as such should contain only the year. As such the 
+% default is changed from |\today| to the current year. 
+%
+%    \begin{macrocode}
+%<*report>
+  \renewcommand{\@date}{\the\year}
+%</report>
+%    \end{macrocode}
+%
+% Since the title image is supposed to be a mixture of three images, we 
+% may be required to cite the source of the images. This is also done on 
+% the inside cover. We create three commands that take a licence image name
+% and a source to cite the images. If no images are cited the block does not appear.
+%
+%    \begin{macrocode}
+%<*report>
+\newcommand{\leftimage}[2]{%
+\renewcommand{\@imagereferences}{Image reference:}
+\renewcommand{\@leftimage}{Left: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
+}
 
+\newcommand{\rightimage}[2]{%
+  \renewcommand{\@imagereferences}{Image reference:}
+  \renewcommand{\@rightimage}{Right: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
+}
+\newcommand{\middleimage}[2]{%
+  \renewcommand{\@imagereferences}{Image reference:}
+  \renewcommand{\@middleimage}{Middle: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
+}
+\newcommand{\@leftimage}{}
+\newcommand{\@middleimage}{}
+\newcommand{\@rightimage}{}
+
+\def\@imagereferences{}
+%</report>
+%    \end{macrocode}
+%
+% Each document contains a copyright notice. This has an image for the licence, as well
+% as text. 
+%
+%    \begin{macrocode}
+%<*report>
+\renewcommand{\copyright}[2]{
+  \renewcommand{\@copyright}{\includegraphics[height=20pt,keepaspectratio]{#1} 
+
+#2}
+}
+
+\newcommand{\@copyright}{}
+%</report>
+%    \end{macrocode}
+%
+%  The default licence is Crown copyright.
+%
+%    \begin{macrocode}
+%<*report>
+\copyright{by}{\crown}
+%</report>
+%    \end{macrocode}
+%
+% In order to automatically generate the citation using biblatex, we
+% write out a generated bib file that contains an entry for the current document.
+% This must happen at the end of the prelude, so that the title and so on are defined.
+%
+%    \begin{macrocode}
+%<*report>
+\AtBeginDocument{
+{
+\renewcommand{\and}{ and }
+\renewcommand{\\}{}
+\edef\text{@report\@charlb this,^^J%
+year = \@charlb \@date \@charrb,^^J%
+options = \@charlb dataonly = true \@charrb,^^J%
+title = \@charlb \@title \@charrb,^^J%
+author = \@charlb \@author \@charrb^^J%
+\@charrb
+}
+\newwrite\tempfile
+\immediate\openout\tempfile=\jobname-self.bib
+\immediate\write\tempfile{\text}
+\immediate\closeout\tempfile
+}
+}
+%</report>
+%    \end{macrocode}
+%
+% We then inform biblatex about this document. 
+%
+%    \begin{macrocode}
+%<*report>
+\addbibresource{\jobname-self.bib}
+%</report>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*report>
 \DeclareNameFormat{firstinits-last}{%
   \usebibmacro{name:first-last}{#1}{#4}{#5}{#7}%
   \usebibmacro{name:andothers}}
@@ -816,93 +973,11 @@ bottom=40mm
 
 To be cited as:
 
-\citename{this}[firstinits-last]{author}\ (\the\year).\ \@title,\ \pageref{LastPage}\ pages.\ \@subtitle.
+\citename{this}[firstinits-last]{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \@subtitle.
 
 \@copyright
 \clearpage
 }
-
-\renewcommand{\date}{
-  \ClassError{dragonfly-report}{date is not supported}{Do not use date}
-}
-\renewcommand{\@date}{
-  \ClassError{dragonfly-report}{date is not supported}{Do not use date}
-}
-
-
-\renewcommand{\copyright}[2]{
-  \renewcommand{\@copyright}{\includegraphics[height=20pt,keepaspectratio]{#1} 
-
-#2}
-}
-
-\newcommand{\@copyright}{}
-
-\copyright{by}{\crown}
-
-\renewcommand\title[2]{%
-  \renewcommand\@title{#2}%
-  \renewcommand\footertitle{#1}%
-}
-
-\newcommand{\subtitle}[1]{%
-  \renewcommand\@subtitle{#1}%
-}
-
-\newcommand{\leftimage}[2]{%
-  \renewcommand{\@imagereferences}{Image reference:}
-  \renewcommand{\@leftimage}{Left: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
-
-\newcommand{\rightimage}[2]{%
-  \renewcommand{\@imagereferences}{Image reference:}
-  \renewcommand{\@rightimage}{Right: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
-\newcommand{\middleimage}[2]{%
-  \renewcommand{\@imagereferences}{Image reference:}
-  \renewcommand{\@middleimage}{Middle: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
-\newcommand{\@leftimage}{}
-\newcommand{\@middleimage}{}
-\newcommand{\@rightimage}{}
-
-\def\@imagereferences{}
-
-\newcommand{\footertitle}{\ClassError{dragonfly-report}{No Footer title defined}{Use title}}
-\newcommand{\@titleimage}{pattern}
-\newcommand{\@subtitle}{\ClassError{dragonfly-report}{No Subtitle Supplied}{Use subtitle}}
-
-\newcommand{\titleimage}[1]{%
-  \renewcommand{\@titleimage}{#1}
-}
-
-\RenewDocumentCommand{\author}{o m}{
-  \renewcommand{\@author}{#2}
-  \renewcommand{\@citeauthor}{\IfNoValueTF{#1}{#2}{#1}}  
-}
-
-\newcommand{\@citeauthor}{\@author}
-
-\AtBeginDocument{
-{
-\renewcommand{\and}{ and }
-\renewcommand{\\}{}
-\edef\text{@report\@charlb this,^^J%
-year = \@charlb \the\year \@charrb,^^J%
-options = \@charlb dataonly = true \@charrb,^^J%
-title = \@charlb \@title \@charrb,^^J%
-author = \@charlb \@author \@charrb^^J%
-\@charrb
-}
-\newwrite\tempfile
-\immediate\openout\tempfile=\jobname-self.bib
-\immediate\write\tempfile{\text}
-\immediate\closeout\tempfile
-}
-}
-\addbibresource{\jobname-self.bib}
-
-\renewcommand{\and}{\\}
 %</report>
 %    \end{macrocode}
 %
