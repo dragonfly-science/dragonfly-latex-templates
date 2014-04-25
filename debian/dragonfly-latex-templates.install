@@ -3,4 +3,6 @@
 *.lbx /usr/share/texlive/texmf-dist/tex/latex/dragonfly
 logo.eps /dragonfly/latex/graphics/
 pattern.eps /dragonfly/latex/graphics/
-biber /usr/bin
+wallpaper.png /dragonfly/latex/graphics/
+by.png /dragonfly/latex/graphics/
+biber /usr/bin/
