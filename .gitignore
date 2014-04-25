@@ -37,9 +37,7 @@
 *.png
 example.tex
 dragonfly.sty
-dragonfly-letter.cls
-dragonfly-article.cls
-dragonfly-report.cls
+*.cls
 *.substvars
 debian/dragonfly-latex-templates
 debian/files

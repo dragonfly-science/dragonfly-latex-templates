@@ -9,6 +9,9 @@ endif
 report.pdf: report.tex dragonfly.sty wallpaper.png logo.eps
 	latexmk $(LATEXMK_OPTIONS) report.tex
 
+proposal.pdf: proposal.tex dragonfly.sty wallpaper.png logo.eps
+	latexmk $(LATEXMK_OPTIONS) proposal.tex
+
 article.pdf: article.tex dragonfly.sty
 	latexmk $(LATEXMK_OPTIONS) article.tex
 
@@ -18,7 +21,7 @@ presentation.pdf: presentation.tex dragonfly.sty pattern.eps logo.eps
 letter.pdf: letter.tex dragonfly.sty logo.eps
 	latexmk $(LATEXMK_OPTIONS) letter.tex
 
-all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf
+all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf
 
 dragonfly.sty: dragonfly.ins dragonfly.dtx 
 	latex dragonfly.ins
