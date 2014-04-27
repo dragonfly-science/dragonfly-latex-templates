@@ -538,8 +538,10 @@
     {}
     {\newunit
      \printfield{series}
-     \setunit{\space}}%
-  \printfield{volume}%
+     \setunit{\addspace}}%
+     \iffieldundef{volume}
+     {}
+     {\printfield{volume}:}
   \printfield{number}%
   \setunit{\addspace}\newblock
   \usebibmacro{issuename}%
