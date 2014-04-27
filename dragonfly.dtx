@@ -1189,11 +1189,13 @@ To be cited as:
 %    \end{macrocode}
 %
 % Finally we need to make sure that section heading are always shown in capitals
-% in the contents page. 
+% in the contents page. This involves rebinding contents line, so that when the 
+% title is used to construct a hyperref url, it doesn't break the url. 
 %
 %    \begin{macrocode}
 %<*report>
-\patchcmd{\l@section}{#1}{\uppercase{#1}}{}{}
+\let\dfly@contentsline=\contentsline
+\renewcommand\contentsline[4]{\dfly@contentsline{#1}{\ifstrequal{#1}{section}{\MakeUppercase{#2}}{#2}}{#3}{#4}}
 %</report>
 %    \end{macrocode}
 %
