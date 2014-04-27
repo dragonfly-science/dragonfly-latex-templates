@@ -533,12 +533,12 @@
 
 \renewbibmacro*{journal+issuetitle}{%
   \usebibmacro{journal}%
-  \setunit*{\addcomma\addspace}%
+  \setunit*{\addspace}%
   \iffieldundef{series}
     {}
     {\newunit
      \printfield{series}
-     \setunit{\addcomma\space}}%
+     \setunit{\space}}%
   \printfield{volume}%
   \printfield{number}%
   \setunit{\addspace}\newblock
