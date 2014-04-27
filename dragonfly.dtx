@@ -83,7 +83,8 @@
 % theme. The beamer theme is based on the default with inner theme circles,
 % and the color theme using Dragonfly colours. 
 %    \begin{macrocode}
-%<letter|article|report|proposal>\LoadClass[a4paper]{article}
+%<letter|article|report>\LoadClass[a4paper]{article}
+%<proposal>\LoadClass[a4paper]{dragonfly-report}
 %<beamer>\useinnertheme{circles}
 %<beamer>\usecolortheme[RGB={28,152,196}]{structure}
 %    \end{macrocode}
@@ -92,7 +93,7 @@
 % All of the classese use a commmon style to share general definitions.
 % This is provided by the dragonfly style.
 %    \begin{macrocode}
-%<report|article|letter|beamer|proposal>\RequirePackage{dragonfly}
+%<report|article|letter|beamer>\RequirePackage{dragonfly}
 %    \end{macrocode}
 %
 % \section{Page Layout}
@@ -103,14 +104,14 @@
     hmargin={51mm,30mm},
     vmargin={26mm,40mm}]{geometry}
 %</letter|article>
-%<*report|proposal>
+%<*report>
 \RequirePackage[
   left=52mm,
   right=30mm,
   top=30mm,
 bottom=40mm
 ]{geometry}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 
 %    \begin{macrocode}
@@ -678,22 +679,22 @@ bottom=40mm
 % a proper section
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \RequirePackage{polyglossia}
-\setdefaultlanguage[variant=british]{english}
+\setdefaultlanguage[variant=newzealand]{english}
 \RequirePackage[style=apa,backend=biber]{biblatex}
 \DeclareLanguageMapping{english}{english-apa}
 \defbibheading{bibliography}[References]{\section{#1}}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % We define some helper cite commands for familiarity. 
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \newcommand{\citet}{\cite}
 \newcommand{\citep}{\parencite}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % \subsection{Floats}
@@ -704,22 +705,22 @@ bottom=40mm
 % We start by telling the caption that it should be wider.
 %    
 %    \begin{macrocode}
-%<report|proposal>\RequirePackage[labelsep=colon,singlelinecheck=false,width=150mm]{caption}
+%<report>\RequirePackage[labelsep=colon,singlelinecheck=false,width=150mm]{caption}
 %    \end{macrocode}
 %
 % The captions are written in the omnes font, and with a bold Figure label. 
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \renewcommand{\captionfont}{\small\omnes}
 \renewcommand{\captionlabelfont}{\small\bf\omnes}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % We insert into the start and end of the figure command a 22mm indented minipage. 
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \let\oldfigure\figure
 \newcommand{\newfigurehead}{\hspace{-22mm}
   \addtolength{\textwidth}{22mm}
@@ -730,13 +731,13 @@ bottom=40mm
 
 \let\endoldfigure\endfigure
 \def\endfigure{\end{minipage}\endoldfigure}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % We then do the same thing for tables. 
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \let\oldtable\table
 \newcommand{\newtablehead}{\hspace{-22mm}
   \addtolength{\textwidth}{22mm}
@@ -747,7 +748,7 @@ bottom=40mm
 
 \let\endoldtable\endtable
 \def\endtable{\end{minipage}\endoldtable}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 %
@@ -756,7 +757,7 @@ bottom=40mm
 % We need to set the headings to be correct
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \RequirePackage[bf,sf,pagestyles]{titlesec}
 
 \titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{\thesection.}{1em}{}
@@ -765,13 +766,13 @@ bottom=40mm
 \titlespacing{\section}{0pt}{\baselineskip}{0pt}
 \titlespacing{\subsection}{0pt}{\baselineskip}{0pt}
 \titlespacing{\subsubsection}{0pt}{\baselineskip}{0pt}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % \subsection{Page header / footers}
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \usepackage{fancyhdr}
 
 \fancypagestyle{toc}{
@@ -786,7 +787,7 @@ bottom=40mm
 }
 
 
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % \subsection{Title page}
@@ -801,10 +802,10 @@ bottom=40mm
 % and adding in a background image. 
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \RequirePackage{lastpage}
 \RequirePackage{wallpaper}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % The document has two titles. The first is the main title which goes on
@@ -812,13 +813,13 @@ bottom=40mm
 % in the page footer. Both are required.  
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \renewcommand\title[2]{%
   \renewcommand\@title{#2}%
   \renewcommand\footertitle{#1}%
 }
 \newcommand{\footertitle}{\ClassError{dragonfly-report}{No Footer title defined}{Use \noexpand\title}}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % Each document starts with a large title image on the front page.
@@ -828,41 +829,46 @@ bottom=40mm
 % Image is the wing pattern as a narrow band.
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \newcommand{\@titleimage}{pattern}
 \newcommand{\titleimage}[1]{%
   \renewcommand{\@titleimage}{#1}
 }
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % Additionally to a full title, the document has a subtitle. This goes below the main
 % title and is included in every document
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \newcommand{\subtitle}[1]{\renewcommand\@subtitle{#1}}
 \newcommand{\@subtitle}{%
   \ClassError{dragonfly-report}{No Subtitle Supplied}{Use subtitle}}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % Authors must be seperated by |\and|. We then need to make the seperator
 % work correctly for printing. 
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
   \renewcommand{\and}{\\}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
-% 
+%
+% The authors list starts with the title ``Authors:'':
+%    \begin{macrocode}
+%<report>\newcommand\@authorslabel{Authors}
+%    \end{macrocode}
+%
 % Like in standard document |\date| is allowed. However, it is only used for
 % creating citations, and as such should contain only the year. As such the 
 % default is changed from |\today| to the current year. 
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
   \renewcommand{\@date}{\the\year}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % Since the title image is supposed to be a mixture of three images, we 
@@ -871,7 +877,7 @@ bottom=40mm
 % and a source to cite the images. If no images are cited the block does not appear.
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \newcommand{\leftimage}[2]{%
 \renewcommand{\@imagereferences}{Image reference:}
 \renewcommand{\@leftimage}{Left: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
@@ -890,17 +896,17 @@ bottom=40mm
 \newcommand{\@rightimage}{}
 
 \def\@imagereferences{}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % Each document may contain a copyright notice. This has an image for the licence, as well
 % as text. 
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \newcommand{\licence}[1]{\renewcommand{\@licence}{#1}}
 \newcommand{\@licence}{}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 %
@@ -941,38 +947,74 @@ author = \@charlb \@author \@charrb^^J%
 %</report>
 %    \end{macrocode}
 %
-%
+% 
 %    \begin{macrocode}
-%<report>\newcommand\@authorslabel{Authors}
-%<proposal>\newcommand\@authorslabel{Prepared by}
+%
+% We start now describing the title page. This is also the title page for the 
+% proposal as well. For simplicity, the proposal titlepage is the same as for
+% the report, except that certain parts have been ommitted. 
+%
+% We start by redefining the maketitle command to custmize the title. 
+%    \begin{macrocode}
+%<report|proposal>\RenewDocumentCommand{\maketitle}{}{
+%    \end{macrocode}
+%
+% The title infomation should also be used in the metadata of the PDF. 
+%    \begin{macrocode}
 %<*report|proposal>
-\DeclareNameFormat{firstinits-last}{%
-  \usebibmacro{name:first-last}{#1}{#4}{#5}{#7}%
-  \usebibmacro{name:andothers}}
-
-\RenewDocumentCommand{\maketitle}{}{
+{
+\renewcommand{\and}{, }
 \hypersetup{  
   pdfinfo={  
     Title={\footertitle},  
     Author={\@author}
-   }  
+  } 
+} 
 }
-    
+%</report|proposal>
+%    \end{macrocode}
+%
+% The title page takes up a whole page which is blank and larger than usual.
+%    \begin{macrocode}
+%<*report|proposal>
 \clearpage
 \newgeometry{top=135mm,bottom=32mm,right=30mm,left=30mm}
 \thispagestyle{empty}
-
+%</report|proposal>
+%    \end{macrocode}
+%
+% The title page starts with a full page with banner image 10mm from the top
+% of the page. The rules around this image are described in detail where the 
+% title image command is defined. 
+%    \begin{macrocode}
+%<*report|proposal>
 \begin{textblock*}{\paperwidth}(0mm,10mm)
     \includegraphics[width=\paperwidth]{\@titleimage}
 \end{textblock*}
-
+%</report|proposal>
+%    \begin{macrocode}
+%
+% The main text is the title of the document in large black omnes. It also has some
+% extra spacing following it.
+%    \begin{macrocode}
+%<*report|proposal>
 {\omnes \fontsize{23pt}{27.5pt}\selectfont\textbf{\@title}}
 \vspace*{8mm}
 \vspace*{-\baselineskip}
 \vspace*{-\parskip}
 
-{\color{logo-blue} \fontsize{11pt}{13.5}\selectfont \textbf{\@subtitle}}
-
+%</report|proposal>
+%    \end{macrocode}
+%
+% The main title is followed by the subtitle in logo-blue.
+%    \begin{macrocode}
+%<report|proposal>{\color{logo-blue} \fontsize{11pt}{13.5}\selectfont \textbf{\@subtitle}}
+%    \end{macrocode}
+%
+%    The rest of the page only contains the author information as the bottom of
+%    the page. 
+%    \begin{macrocode}
+%<*report|proposal>
 \vfill%
 \hspace*{90mm}%
 \begin{minipage}[h]{65mm}
@@ -993,11 +1035,23 @@ author = \@charlb \@author \@charrb^^J%
                  \href{www.dragonfly.co.nz}{\bfseries\color{logo-blue}\omnes dragonfly.co.nz}}
     
 \end{minipage}
-
+%</report|proposal>
+%    \end{macrocode}
+%    
+% The Dragonfly logo is placed next to the author block. 
+%    \begin{macrocode}
+%<*report|proposal>
 \begin{textblock*}{59mm}(68mm,253mm)
   \includegraphics[width=\textwidth]{logo}
 \end{textblock*}
-
+%</report|proposal>
+%    \end{macrocode}
+%
+% This finishes the title page, and now the inside cover begins.
+% This is a normal size page with no footer and a patterned background. 
+% All text on this page is aligned to the bottom. 
+%    \begin{macrocode}
+%<*report|proposal>
 
 \restoregeometry
 \clearpage
@@ -1006,6 +1060,9 @@ author = \@charlb \@author \@charrb^^J%
 
 \vspace*{\fill}
 %</report|proposal>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 %<*report>
 {\omnes \color{logo-blue} \fontsize{11pt}{13.2pt}\selectfont \textbf{Cover Notes}}
 
@@ -1033,7 +1090,6 @@ To be cited as:
 %<*report|proposal>
 \clearpage
 \pagestyle{plain}
-\setcounter{page}{1}
 }
 %</report|proposal>
 %    \end{macrocode}
@@ -1042,61 +1098,64 @@ To be cited as:
 % for putting this in.
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \NewDocumentCommand{\summary}{O {Executive Summary}}{
   \phantomsection
   \addcontentsline{toc}{section}{\hspace{1.4em}#1}
   \section*{#1}
 }
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % \subsection{Table of Contents}
 %
 % The table of contents is also specified concretely in the specification
 %
-% The first thing it requires is for the tocloft package to be loaded
+% The first thing it requires is for the tocloft package to be loaded. This requires
+% the titles option to deal with the language settings. 
 %    \begin{macrocode}
-%<report|proposal> \RequirePackage{tocloft}
+%<report> \RequirePackage[titles]{tocloft}
 %    \end{macrocode}
 %
 %  Next we want the table of contents to be on its own page. So we append 
 % a clear instruction to the end of the writing command
 %
 %    \begin{macrocode}
-%<report|proposal>\g@addto@macro\@cfttocfinish{\cleardoublepage}
+%<report>\g@addto@macro\@cfttocfinish{\cleardoublepage}
 %    \end{macrocode}
 %
 % The title of the contents page must be CONTENTS in large, bold, blue omnes.
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \renewcommand{\cfttoctitlefont}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\sffamily}
-\renewcommand{\contentsname}{CONTENTS}
-%</report|proposal>
+\addto\captionsenglish{%
+  \renewcommand{\contentsname}{CONTENTS}
+}
+%</report>
 %    \end{macrocode}
 %
 % In this style the toc should only be created to depth 3.
 %    \begin{macrocode}
-%<report|proposal>\setcounter{tocdepth}{3}
+%<report>\setcounter{tocdepth}{3}
 %    \end{macrocode}
 %
 % The numbers for all three level of heading are drawn the same. In gray omnes. 
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \newcommand{\dfly@pagefont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily\color{gray}}
 \renewcommand{\cftsecpagefont}{\dfly@pagefont}
 \renewcommand{\cftsubsecpagefont}{\dfly@pagefont}
 \renewcommand{\cftsubsubsecpagefont}{\dfly@pagefont}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 % 
 % Similarly all the lines between the heading levels are the same. A line of tiny
 % gray dashes.
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \renewcommand{\cftdot}{-}
 \renewcommand{\cftdotsep}{1}
 \newcommand{\dfly@leader}{\phantom{m}\color{gray}\tiny \cftdotfill{\cftdotsep}\phantom{m}}
@@ -1104,38 +1163,38 @@ To be cited as:
 \renewcommand{\cftsecleader}{\dfly@leader}
 \renewcommand{\cftsubsecleader}{\dfly@leader}
 \renewcommand{\cftsubsubsecleader}{\dfly@leader}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 %   All levels of heading have the same font for being written in. Bold, black omnes. 
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \newcommand{\dfly@tocfont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily}
 
 \renewcommand{\cftsecfont}{\dfly@tocfont}
 \renewcommand{\cftsubsecfont}{\dfly@tocfont}
 \renewcommand{\cftsubsubsecfont}{\dfly@tocfont}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % The spacing in the default table of contents is too small for this report format. 
 % As a result, we increase the item spacing to make it less crowded.
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \setlength{\cftparskip}{1ex}
 \setlength{\cftbeforesecskip}{2ex}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % Finally we need to make sure that section heading are always shown in capitals
 % in the contents page. 
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \patchcmd{\l@section}{#1}{\uppercase{#1}}{}{}
-%</report|proposal>
+%</report>
 %    \end{macrocode}
 %
 % \subsection{Creative commons reuse}
@@ -1145,7 +1204,7 @@ To be cited as:
 % commons attribution license is used.
 %
 %    \begin{macrocode}
-%<*report|proposal>
+%<*report>
 \RequirePackage{lettrine}
 \newcommand{\bydragonfly}{
   \lettrine[lines=2]{\includegraphics[width=2cm]{by}}{}
@@ -1159,7 +1218,20 @@ use, and build upon this work, provided credit is given to the original source.
 Commons Attribution 3.0 New Zealand Licence. This allows you to distribute,
 use, and build upon this work, provided credit is given to the original source.
 }
-%</report|proposal>
+%</report>
 %    \end{macrocode}
+%
+% \section{Proposal}
+%
+% The proposal is essentially a report, but it does not need to have all the stuff on
+% the inside cover. 
+%
+% The first point of difference is that the authors are shown differently on 
+% the title page. 
+%    \begin{macrocode}
+%<proposal>\renewcommand\@authorslabel{Prepared by}
+%    \end{macrocode}
+%
+%
 % \Finale
 \endinput
