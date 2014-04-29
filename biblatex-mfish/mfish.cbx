@@ -40,7 +40,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.11) requires comma separator between authors and years
 
-\renewcommand*{\nameyeardelim}{\addcomma\space}
+\renewcommand*{\nameyeardelim}{\addspace}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -218,6 +218,29 @@
           {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \setunit{\nameyeardelim}%
       \usebibmacro{cite:plabelyear+extrayear}%
+      \savefield{namehash}{\cbx@lasthash}}}%
+   \setunit{\multicitedelim}}
+
+\newbibmacro*{cite:byear}{%
+  \iffieldequals{namehash}{\cbx@lasthash}
+% Multiple cites in one command
+   {\setunit{\compcitedelim}%
+    \usebibmacro{cite:plabelyear+extrayear}}%
+% Single cite
+   {\ifthenelse{\ifnameundef{labelname}\OR\iffieldequalstr{entrytype}{patent}}
+% No author/editor
+     {\usebibmacro{cite:noname}%
+       \setunit{\nameyeardelim}%
+       \usebibmacro{cite:plabelyear+extrayear}%
+       \savefield{namehash}{\cbx@lasthash}}
+% Normal cite
+     {\ifnameundef{shortauthor}
+        {\printnames[labelname][-\value{listtotal}]{labelname}}%
+        {\cbx@mfish@ifnamesaved
+          {\printnames{shortauthor}}
+          {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+      \setunit{\nameyeardelim(}%
+      \usebibmacro{cite:plabelyear+extrayear})%
       \savefield{namehash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
 
@@ -428,7 +451,7 @@
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{cite}}
+   \usebibmacro{cite:byear}}
   {}
   {\usebibmacro{postnote}%
    \usebibmacro{cite:post}}
