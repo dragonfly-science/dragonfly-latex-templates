@@ -556,13 +556,13 @@
 
 \renewbibmacro*{journal+issuetitle}{%
   \usebibmacro{journal}%
-  \setunit*{\addcomma\addspace}%
+  \setunit*{\addspace}%
   \iffieldundef{series}
     {}
     {\newunit
      \printfield{series}
-     \setunit{\addcomma\space}}%
-  \printfield{volume}%
+     \setunit{\space}}%
+  \iffieldundef{volume}{}{\printfield{volume}:}%
   \printfield{number}%
   \setunit{\addspace}\newblock
   \usebibmacro{issuename}%
