@@ -393,12 +393,14 @@
 % (APA 6.27) Use blank for long lists
 % (APA 4.03) Serial comma for lists of three or more
 
-\AtBeginBibliography{\renewcommand*{\finalnamedelim}{%
+\AtBeginBibliography{
+  \renewcommand*{\multinamedelim}{;\space}
+  \renewcommand*{\finalnamedelim}{%
     \ifthenelse{\value{listcount}>\maxprtauth}
       {}
       {\ifthenelse{\value{liststop}>2}
-         {\finalandcomma\addspace\&\space}
-         {\addspace\&\space}}}}
+         {;\space}
+         {;\space}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
