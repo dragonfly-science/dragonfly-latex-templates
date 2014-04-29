@@ -44,9 +44,10 @@
   abstractloc,
   doubtfulauthor,
   doubtfuldate,
-  titleisdescription,
+  titleisdescription
   newspaper,
-  urldescription}
+  urldescription,
+  lastchecked}
 
 \DeclareDatamodelFields[type=field, datatype=verbatim]{
   abstracturl}
