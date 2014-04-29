@@ -30,7 +30,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Allow variable max authors/editors limit
 
-\newcommand{\maxprtauth}{7}
+\newcommand{\maxprtauth}{12}
 \DeclareBibliographyOption{mfishmaxprtauth}{%
   \ifstrempty{#1}
     {}
@@ -988,7 +988,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 7.05) Unpublished theses
 
-\DeclareFieldFormat[unpublished]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[unpublished]{title}{#1}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
