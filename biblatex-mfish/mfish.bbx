@@ -688,10 +688,7 @@
        \mkbibnameprefix{#4}%
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \mkbibnamelast{#1\isdot}%
-     \ifblank{#2}{}{\addcomma\addlowpenspace\mkbibnamefirst{#3}\isdot%
-                    \ifthenelse{\value{uniquename}>1}
-                      {\addspace\mkbibbrackets{#2}}
-                      {}}%
+     \ifblank{#2}{}{\addcomma\addlowpenspace\mkbibnamefirst{#3}\isdot}%
      \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}
     {\usebibmacro{name:delim}{#1}%
      \usebibmacro{name:hook}{#1}%
