@@ -1,4 +1,5 @@
 SHELL := /bin/bash
+PREFIX := TEXINPUTS=.///:
 LATEXMK_VERSION=$(strip $(patsubst Version,,$(shell latexmk -v | grep -oi "version.*")))
 ifeq ($(LATEXMK_VERSION),4.24)
 	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf -e '$$biber = q/.\/biber %B/'
@@ -7,10 +8,10 @@ else
 endif
 
 report.pdf: report.tex dragonfly.sty wallpaper.png logo.eps mfish.bbx mfish.cbx
-	latexmk $(LATEXMK_OPTIONS) report.tex
+	$(PREFIX) latexmk $(LATEXMK_OPTIONS) report.tex
 
 proposal.pdf: proposal.tex dragonfly.sty wallpaper.png logo.eps
-	latexmk $(LATEXMK_OPTIONS) proposal.tex
+	$(PREFIX) latexmk $(LATEXMK_OPTIONS) proposal.tex
 
 article.pdf: article.tex dragonfly.sty
 	latexmk $(LATEXMK_OPTIONS) article.tex
