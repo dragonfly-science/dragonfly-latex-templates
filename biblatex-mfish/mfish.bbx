@@ -451,11 +451,13 @@
 \DeclareFieldFormat[inbook]{title}{#1\isdot}
 \DeclareFieldFormat[inbook]{origtitle}{\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[incollection]{title}{#1\isdot}
+\DeclareFieldFormat[incollection]{booktitle}{#1\adddot}
 \DeclareFieldFormat[incollection]{origtitle}{\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[inproceedings]{title}{#1\isdot}
 \DeclareFieldFormat[inproceedings]{origtitle}{\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[proceedings]{title}{#1\isdot}
 \DeclareFieldFormat[proceedings]{origtitle}{\MakeSentenceCase*{#1}\isdot}
+\DeclareFieldFormat[book]{title}{#1\adddot}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -869,7 +871,7 @@
 \renewbibmacro*{maintitle+booktitle}{%
   \ifthenelse{\iffieldundef{maintitle}\AND\iffieldundef{booktitle}}
     {}
-    {\usebibmacro{in}%
+    {\usebibmacro{in}\addcomma%
      \iffieldundef{maintitle}
       {}
       {\usebibmacro{maintitle}%
@@ -1138,9 +1140,9 @@
          {\printtext{\bibcpstring{abstract}}\addspace}%
           \printtext{\bibstring{retrieved}}%
           \setunit{\addspace}%
-          \iffieldundef{urlyear}
+          \iffieldundef{lastchecked}
             {}
-            {\printurldate%
+            {\printfield{lastchecked}%
              \setunit*{\addcomma\addspace}}%
           \printtext{\bibstring{from}}%
           \setunit*{\addspace}%
@@ -1463,13 +1465,13 @@
   \setunit*{\addcomma\addspace}\newblock
   \usebibmacro{maintitle+booktitle}%
   \newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
   \usebibmacro{addinfo}%
   \newunit\newblock
   \printfield{series}%
   \newunit\newblock
   \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{location+publisher}%
   \newunit\newblock
   \usebibmacro{origyear}%
   \newunit\newblock
@@ -2062,9 +2064,9 @@
 
 % APA 6th 
 \newbibmacro*{location+publisher}{%
-  \printlist[default][1-1]{location}%
-  \setunit*{\addcolon\space}%
   \printlist{publisher}%
+  \setunit*{\addcomma\space}%
+  \printlist[default][1-1]{location}%
   \newunit}
 
 \newbibmacro*{type+institution}{%
