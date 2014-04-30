@@ -449,7 +449,7 @@
 \DeclareFieldFormat[inbook]{title}{#1\isdot}
 \DeclareFieldFormat[inbook]{origtitle}{\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[incollection]{title}{#1\isdot}
-\DeclareFieldFormat[incollection]{booktitle}{#1\adddot}
+\DeclareFieldFormat[incollection]{booktitle}{#1}
 \DeclareFieldFormat[incollection]{origtitle}{\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[inproceedings]{title}{#1\isdot}
 \DeclareFieldFormat[inproceedings]{origtitle}{\MakeSentenceCase*{#1}\isdot}
@@ -593,7 +593,7 @@
               \iffieldundef{number}\AND%
               \(\iffieldundef{volume}\OR\boolean{bbx:volseen}\)}
   {}
-  {\printtext{\bibopenparen}%
+  {%\printtext{\bibopenparen}%
    \printfield{edition}%
    \setunit*{\addcomma\addspace}%
    \printfield{chapter}%
@@ -609,7 +609,7 @@
    \setunit*{\addcomma\addspace}%
    \printfield{pages}%
    \setunit{}%
-   \printtext{\bibcloseparen}%
+   %\printtext{\bibcloseparen}%
    \newunit}}
 
 %
@@ -1459,10 +1459,10 @@
   \usebibmacro{editor+trans}%
   \setunit*{\addcomma\addspace}\newblock
   \usebibmacro{maintitle+booktitle}%
-  \newblock
-  \usebibmacro{location+publisher}%
-  \newunit\newblock
+  \setunit{\addcomma\addspace}
   \usebibmacro{addinfo}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
   \newunit\newblock
   \printfield{series}%
   \newunit\newblock
