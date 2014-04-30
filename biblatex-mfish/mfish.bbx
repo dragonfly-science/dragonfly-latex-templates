@@ -562,8 +562,10 @@
     {\newunit
      \printfield{series}
      \setunit{\space}}%
-  \iffieldundef{volume}{}{\printfield{volume}:}%
-  \printfield{number}%
+     \ifthenelse{\iffieldundef{volume}\AND\iffieldundef{number}}
+     {}
+     {\printfield{volume}%
+     \printfield{number}:}%
   \setunit{\addspace}\newblock
   \usebibmacro{issuename}%
   \newunit}
