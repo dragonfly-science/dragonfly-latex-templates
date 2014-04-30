@@ -398,9 +398,7 @@
   \renewcommand*{\finalnamedelim}{%
     \ifthenelse{\value{listcount}>\maxprtauth}
       {}
-      {\ifthenelse{\value{liststop}>2}
-         {;\space}
-         {;\space}}}}
+      {;\space}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -793,7 +791,7 @@
          \printtext{\bibcpstring{translator}}}%
          \clearname{translator}%
          \setunit{\adddot\addspace}}%
-       \usebibmacro{in}%
+       \usebibmacro{in}\addcomma\space%
        \usebibmacro{editorx}}%
      \setunit{\addcomma\addspace}}}
 
