@@ -388,10 +388,8 @@
 
 \AtBeginBibliography{
   \renewcommand*{\multinamedelim}{;\space}
-  \renewcommand*{\finalnamedelim}{%
-    \ifthenelse{\value{listcount}>\maxprtauth}
-      {}
-      {;\space}}}
+  \renewcommand*{\finalnamedelim}{;\space}%
+}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
