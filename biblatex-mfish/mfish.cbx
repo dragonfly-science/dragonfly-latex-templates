@@ -122,29 +122,8 @@
 %  all of the names in the list to work on here
 
 \DeclareNameFormat{labelname}{%
-  \ifthenelse{\value{uniquelist}>1}
-    {\numdef\cbx@min{\value{uniquelist}}}
-    {\numdef\cbx@min{\value{minnames}}}%
-  \ifboolexpr{test {\ifnumcomp{\value{listcount}}{=}{1}}
-              or test {\ifnumcomp{\value{listtotal}}{=}{2}}}
-    {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}
-    {\ifboolexpr{test {\ifnumcomp{\value{listtotal}}{>}{5}}
-                 or test {\ifciteseen}}
-     {\ifnumcomp{\value{listcount}}{<}{\cbx@min + 1}% normal name
-       {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}%
-       {}%
-      \ifnumcomp{\value{listcount}}{=}{\cbx@min + 1}% first past ul is et al
-      % but enforce plurality of et al - only truncate here if there is at
-      % least one more element after the current potential truncation point
-      % so that "et al" covers at least two elements.
-       {\ifnumcomp{\value{listcount}}{<}{\value{listtotal}}
-         {\andothersdelim\bibstring{andothers}}
-         {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}}%
-       {}%
-      \ifnumcomp{\value{listcount}}{>}{\cbx@min + 1}% nothing thereafter
-       {\relax}%
-       {}}%
-     {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}}}
+     \usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}%
+}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -191,10 +170,10 @@
        \savefield{namehash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
-        {\printnames[labelname][-\value{listtotal}]{labelname}}%
+        {\printnames[labelname]{labelname}}%
         {\cbx@mfish@ifnamesaved
           {\printnames{shortauthor}}
-          {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+          {\printnames[labelname]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \savefield{namehash}{\cbx@lasthash}}}%
    \setunit{\multicitedelim}}
 
@@ -212,10 +191,10 @@
        \savefield{namehash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
-        {\printnames[labelname][-\value{listtotal}]{labelname}}%
+        {\printnames[labelname]{labelname}}%
         {\cbx@mfish@ifnamesaved
           {\printnames{shortauthor}}
-          {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+          {\printnames[labelname]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \setunit{\nameyeardelim}%
       \usebibmacro{cite:plabelyear+extrayear}%
       \savefield{namehash}{\cbx@lasthash}}}%
@@ -235,10 +214,10 @@
        \savefield{namehash}{\cbx@lasthash}}
 % Normal cite
      {\ifnameundef{shortauthor}
-        {\printnames[labelname][-\value{listtotal}]{labelname}}%
+        {\printnames[labelname]{labelname}}%
         {\cbx@mfish@ifnamesaved
           {\printnames{shortauthor}}
-          {\printnames[labelname][-\value{listtotal}]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
+          {\printnames[labelname]{author}\addspace\printnames[sabrackets]{shortauthor}}}%
       \setunit{\nameyeardelim(}%
       \usebibmacro{cite:plabelyear+extrayear})%
       \savefield{namehash}{\cbx@lasthash}}}%
@@ -270,11 +249,11 @@
   % Normal full cite
        {\ifnameundef{shortauthor}%
     % Normal full cite
-         {\printnames[labelname][-\value{listtotal}]{labelname}}
+         {\printnames[labelname]{labelname}}
     % Cite using short author
          {\cbx@mfish@ifnamesaved
            {\printnames{shortauthor}}
-           {\printnames[labelname][-\value{listtotal}]{author}}}%
+           {\printnames[labelname]{author}}}%
   % Year
         \setunit{\ifbool{cbx:np}
                   {\nameyeardelim}
@@ -303,7 +282,7 @@
 \newbibmacro*{cite:shorthand}{%
   \ifciteseen
     {\printfield{shorthand}}
-    {\printnames[labelname][-\value{listtotal}]{labelname}%
+    {\printnames[labelname]{labelname}%
      \setunit{\nameyeardelim}%
      \printfield{title}\space\printfield{shorthand}}}
 
