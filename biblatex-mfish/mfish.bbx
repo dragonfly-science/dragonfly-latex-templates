@@ -445,6 +445,7 @@
 \DeclareFieldFormat[incollection]{title}{#1\isdot}
 \DeclareFieldFormat[incollection]{booktitle}{#1}
 \DeclareFieldFormat[incollection]{origtitle}{\MakeSentenceCase*{#1}\isdot}
+\DeclareFieldFormat[inproceedings]{booktitle}{#1}
 \DeclareFieldFormat[inproceedings]{title}{#1\isdot}
 \DeclareFieldFormat[inproceedings]{origtitle}{\MakeSentenceCase*{#1}\isdot}
 \DeclareFieldFormat[proceedings]{title}{#1\isdot}
@@ -881,7 +882,7 @@
   \ifthenelse{\iffieldundef{booktitle}\AND\iffieldundef{booksubtitle}}
     {}
     {\printtext[booktitle]{%
-       \printfield[mfishcase]{booktitle}%
+      \iffieldundef{booktitle}{}{\printfield[mfishcase]{booktitle}\addcomma}%
        \setunit{\subtitlepunct}%
        \printfield[mfishcase]{booksubtitle}}%
      \setunit{\addspace}}%
