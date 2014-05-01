@@ -972,7 +972,7 @@
 % (APA 7.02 Example 40--44) Theses titles and volume
 %                           Titles are not emph if only an abstract
 
-\DeclareFieldFormat[thesis]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[thesis]{title}{#1}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1674,7 +1674,7 @@
   \usebibmacro{author}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
-  \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit{\addspace}}\newblock
+  \ifthenelse{\NOT\iffieldundef{title}\OR\boolean{bbx:titleinauthpos}}{\newunit}{\setunit*{.}}\newblock
   \usebibmacro{type+institution}%
   \newunit\newblock
   \printfield{note}%
@@ -2062,18 +2062,17 @@
   \newunit}
 
 \newbibmacro*{type+institution}{%
-  \setunit{\addspace}%
+  \newunit%
   \ifthenelse{\iffieldundef{type}\AND\iffieldundef{institution}}
     {}
-    {\printtext[parens]{%
-       \iflistundef{institution}
+    {\iflistundef{institution}
          {\setunit*{\addspace}}
          {\setunit*{\addcolon\space}}%
        \printfield{type}%
        \setunit*{\addcomma\space}%
        \printlist{institution}%
        \setunit*{\addcomma\space}%
-       \printlist{location}}%
+       \printlist{location}%
      \newunit}}
 
 \newbibmacro*{labeltitle}{%
