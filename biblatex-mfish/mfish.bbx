@@ -557,12 +557,13 @@
     {\newunit
      \printfield{series}
      \setunit{\space}}%
-     \ifthenelse{\iffieldundef{volume}\AND\iffieldundef{number}}
+  \ifthenelse{\iffieldundef{volume}\AND\iffieldundef{number}}
      {}
      {\printfield{volume}%
-     \printfield{number}:}%
-  \setunit{\addspace}\newblock
+     \printfield{number}}%
+  \setunit{\addspace}%
   \usebibmacro{issuename}%
+  \iffieldundef{journaltitle}{}{: }%
   \newunit}
 
 \newbibmacro*{issuename}{%
