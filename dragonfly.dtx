@@ -23,7 +23,7 @@
 % \fi
 %
 % \iffalse
-%<common|report|article|letter|beamer|proposal>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<common|report|article|letter|beamer|proposal|aebr>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %
 %<common>\ProvidesPackage{dragonfly}[2014/03/23 v0.1 Common formatting requirements for Dragonfly Science]
 %<report>\ProvidesClass{dragonfly-report}[2014/03/20 v0.1 Report format for Dragonfly Science]
@@ -31,6 +31,7 @@
 %<letter>\ProvidesClass{dragonfly-letter}[2014/03/20 v0.5 Letter format for Dragonfly Science]
 %<beamer>\ProvidesClass{beamerthemeDragonfly}[2014/04/07 v0.1 Beamer format for Dragonfly Science]
 %<proposal>\ProvidesClass{dragonfly-proposal}[2014/04/25 v0.1 Proposal format for Dragonfly Science]
+%<aebr>\ProvidesClass{aebr}[2014/05/05 v0.1 AEBR format]
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{dragonfly}
@@ -84,6 +85,7 @@
 % and the color theme using Dragonfly colours. 
 %    \begin{macrocode}
 %<letter|article|report>\LoadClass[a4paper]{article}
+%<aebr>\LoadClass[a4paper,twoside]{article}
 %<proposal>\LoadClass[a4paper]{dragonfly-report}
 %<beamer>\useinnertheme{circles}
 %<beamer>\usecolortheme[RGB={28,152,196}]{structure}
@@ -93,7 +95,7 @@
 % All of the classese use a commmon style to share general definitions.
 % This is provided by the dragonfly style.
 %    \begin{macrocode}
-%<report|article|letter|beamer>\RequirePackage{dragonfly}
+%<report|article|letter|beamer|aebr>\RequirePackage{dragonfly}
 %    \end{macrocode}
 %
 % \section{Page Layout}
@@ -112,6 +114,7 @@
 bottom=40mm
 ]{geometry}
 %</report>
+%<aebr>\RequirePackage[margin=2.5cm]{geometry}
 %    \end{macrocode}
 
 %    \begin{macrocode}
@@ -161,6 +164,8 @@ bottom=40mm
 
 \renewcommand{\normalfont}{\fontsize{9pt}{13pt}\selectfont}
 %</common>
+%
+% \section{Beamer}
 %
 % For beamer we need to set the various font elements using special beamer commands. 
 %
@@ -671,7 +676,7 @@ bottom=40mm
 %</beamer>
 %    \end{macrocode}
 %
-% \section{Report}
+% \section{Bibliography}
 %
 % Since we are using biblatex with apa we need to use polyglossia to tell
 % biblatex which language we are using. Actually polyglossia doesn't support 
@@ -679,23 +684,27 @@ bottom=40mm
 % a proper section
 %
 %    \begin{macrocode}
-%<*report>
+%<*report|aebr>
 \RequirePackage{polyglossia}
 \setdefaultlanguage[variant=newzealand]{english}
 \RequirePackage[style=mfish,backend=biber]{biblatex}
 \DeclareLanguageMapping{english}{english-mfish}
 \defbibheading{bibliography}[References]{\section{#1}}
-%</report>
+%</report|aebr>
 %    \end{macrocode}
 %
 % We define some helper cite commands for familiarity. 
 %
 %    \begin{macrocode}
-%<*report>
+%<*report|aebr>
 \newcommand{\citet}{\cite}
 \newcommand{\citep}{\parencite}
-%</report>
+%</report|aebr>
 %    \end{macrocode}
+%
+%
+% \section{Report}
+%
 %
 % \subsection{Floats}
 %
@@ -1234,6 +1243,72 @@ use, and build upon this work, provided credit is given to the original source.
 %<proposal>\renewcommand\@authorslabel{Prepared by}
 %    \end{macrocode}
 %
+% \section{AEBR}
+%
+% Unlike dragonfly reports, AEBR reports do not use colour in their section
+% headings.
+%
+%    \begin{macrocode}
+%<*aebr>
+\usepackage[bf,sf,pagestyles]{titlesec}
+
+\titleformat{\section}{\normalfont\bfseries\sffamily}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries\sffamily}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\bfseries\sffamily}{\thesubsubsection}{1em}{}
+\titlespacing{\section}{0pt}{\baselineskip}{0pt}
+\titlespacing{\subsection}{0pt}{\baselineskip}{0pt}
+\titlespacing{\subsubsection}{0pt}{\baselineskip}{0pt}
+%</aebr>
+%    \end{macrocode}
+%
+% However, it does require both a short and a long title, similar to a report.
+% Additionally, as reports should be easily convertible to AEBR we will define
+% some of the report only macros to do nothing, so that changing format is easy.
+%
+%    \begin{macrocode}
+%<*aebr>
+\renewcommand\title[2]{%
+  \renewcommand\@title{#2}%
+  \renewcommand\footertitle{#1}%
+}
+
+\newcommand{\subtitle}[1]{}
+\newcommand{\titleimage}[1]{}
+\newcommand{\licence}[1]{}
+
+\newcommand{\footertitle}{\ClassError{dragonfly-report}{No Footer title defined}{Use \noexpand\title}}
+%</aebr>
+%    \end{macrocode}
+%
+%    Again, like the report there is space for an executive summary, or some other
+% unnumbered starting section. 
+%
+%    \begin{macrocode}
+%<*aebr>
+ \NewDocumentCommand{\summary}{O {Executive Summary}}{
+  \phantomsection
+  \addcontentsline{toc}{section}{\hspace{1.4em}#1}
+  \section*{#1}
+} 
+%</aebr>
+%    \end{macrocode}
+%
+%    Page footers must contain the report name, page and publisher. 
+%
+%    \begin{macrocode}
+%<*aebr>
+\usepackage{fancyhdr}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[LO,RE]{\sffamily\scriptsize Ministry for Primary Industries}
+    \fancyfoot[LE]{\sffamily\scriptsize\thepage\ {\normalsize$\bullet$}\ \footertitle}
+    \fancyfoot[RO]{\sffamily\scriptsize\footertitle\ {\normalsize$\bullet$}\ \thepage}
+    \renewcommand{\footrulewidth}{0.3pt} 
+    \renewcommand{\headrulewidth}{0pt} 
+  }
+%</aebr>
+%   \end{macrocode}
 %
 % \Finale
 \endinput
