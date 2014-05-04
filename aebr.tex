@@ -1,0 +1,82 @@
+\documentclass{aebr}
+\title{Example}{An Example\\ Report about \emph{sheep}}
+\subtitle{A report for testing purposes}
+
+\author{John Smith \and Jane E. Smith}
+\usepackage{subcaption}
+
+%\leftimage{by-nc-nd}{https://www.flickr.com/photos/naoc0804/13923065676/in/explore-2014-04-20}
+
+\titleimage{pattern} %>= 600dpi, 210x110 mm
+\licence{\bydragonfly}
+
+\usepackage{lipsum}
+
+\addbibresource{test.bib}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\summary%[Custom Summary]
+This has some boring text in it
+
+\section{The First}
+\lipsum[1]
+
+
+\begin{figure}[h]
+  \includegraphics[width=40mm,height=40mm]{pattern}
+  \caption{This is a caption that is longer than one line. It is improtant to test 
+  this behavoir as this a common feature of the dragon fly templates.}
+\end{figure}
+
+\subsection{Details}
+
+\lipsum[2]
+
+
+\begin{figure}[h]
+
+  \begin{subfigure}{0.45\textwidth}
+  \includegraphics[width=40mm,height=40mm]{pattern}
+  \caption{This is a caption that is longer than one line. It is improtant to test 
+  this behavoir as this a common feature of the dragon fly templates.}
+\end{subfigure}\qquad
+  \begin{subfigure}{0.45\textwidth}
+  \includegraphics[width=40mm,height=40mm]{pattern}
+  \caption{This is a caption that is longer than one line. It is improtant to test 
+  this behavoir as this a common feature of the dragon fly templates.}
+\end{subfigure}
+\end{figure}
+
+\subsubsection{What's This?}
+\lipsum[3] 
+\paragraph{A minor heading}
+\lipsum[5] 
+\subparagraph{A really minor heading}
+\lipsum[4]
+
+Apa comes with a number of ways of citing things.
+The interesting ones are:
+
+
+\begin{itemize}
+  \item \cite{abraham_summary_98-09}
+  \item \citet{baker_nzclassification_2010}
+  \item \citep{doc_sealion_2009}
+  \item \parencite{gales_phocarctos_2008}
+  \item \nptextcite{ mpi_review_2012}
+  %\item \fullcite{acap_summary_2011b}
+  %\item \fullcitebib{acap_summary_2011b}
+  \item \citeyear{robertson_population_2011}
+  %\item \footcite{acap_summary_2011b}
+  \item \textcite{roe_necropsy_2007}
+  \item \cite{baker_marinemammals_2010}
+  \item \cite{baker_census_2010}
+\end{itemize}
+
+
+\clearpage
+\printbibliography
+\end{document}
