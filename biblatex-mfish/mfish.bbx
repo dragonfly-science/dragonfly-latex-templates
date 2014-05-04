@@ -563,7 +563,7 @@
      \printfield{number}}%
   \setunit{\addspace}%
   \usebibmacro{issuename}%
-  \iffieldundef{journaltitle}{}{: }%
+  %\iffieldundef{journaltitle}{}{: }%
   \newunit}
 
 \newbibmacro*{issuename}{%
@@ -1254,7 +1254,7 @@
   \usebibmacro{title}%
   \newunit\newblock
   \usebibmacro{journal+issuetitle}%
-  \setunit{\bibpagespunct}%
+  \setunit{:\addspace}%
   \printfield{pages}%
   \newunit\newblock
   \printfield{note}%
