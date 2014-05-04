@@ -7,6 +7,9 @@ else
 	LATEXMK_OPTIONS=-xelatex
 endif
 
+aebr.pdf: aebr.tex test.bib dragonfly.sty AEBR.jpg biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
+	$(PREFIX) latexmk $(LATEXMK_OPTIONS) aebr.tex
+
 report.pdf: report.tex test.bib dragonfly.sty wallpaper.png logo.eps biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
 	$(PREFIX) latexmk $(LATEXMK_OPTIONS) report.tex
 
