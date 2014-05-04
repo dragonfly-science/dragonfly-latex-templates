@@ -1199,13 +1199,14 @@ To be cited as:
 %
 % Finally we need to make sure that section heading are always shown in capitals
 % in the contents page. This involves rebinding contents line, so that when the 
-% title is used to construct a hyperref url, it doesn't break the url. 
+% title is used to construct a hyperref url, it doesn't break the url. This is
+% also used in AEBR.
 %
 %    \begin{macrocode}
-%<*report>
+%<*report|aebr>
 \let\dfly@contentsline=\contentsline
 \renewcommand\contentsline[4]{\dfly@contentsline{#1}{\ifstrequal{#1}{section}{\MakeUppercase{#2}}{#2}}{#3}{#4}}
-%</report>
+%</report|aebr>
 %    \end{macrocode}
 %
 % \subsection{Creative commons reuse}
@@ -1252,7 +1253,7 @@ use, and build upon this work, provided credit is given to the original source.
 %<*aebr>
 \usepackage[bf,sf,pagestyles]{titlesec}
 
-\titleformat{\section}{\normalfont\bfseries\sffamily}{\thesection.}{1em}{}
+\titleformat{\section}{\normalfont\bfseries\sffamily\uppercase}{\thesection.}{1em}{}
 \titleformat{\subsection}{\normalfont\bfseries\sffamily}{\thesubsection}{1em}{}
 \titleformat{\subsubsection}{\normalfont\bfseries\sffamily}{\thesubsubsection}{1em}{}
 \titlespacing{\section}{0pt}{\baselineskip}{0pt}
@@ -1309,6 +1310,23 @@ use, and build upon this work, provided credit is given to the original source.
   }
 %</aebr>
 %   \end{macrocode}
+%
+% Captions are all bold.
+%    \begin{macrocode}
+%<aebr>\usepackage[font={small,bf},labelsep=colon,singlelinecheck=false]{caption}
+%    \end{macrocode}
+%
+% The table of contents should have it's own page. And since it is printed it should
+% clear a double page. It should be called the TABLE OF CONTENTS. 
+%    \begin{macrocode}
+%<*aebr>
+\RequirePackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\bfseries}
+\addto\captionsenglish{%
+  \renewcommand{\contentsname}{TABLE OF CONTENTS}
+}  
+\g@addto@macro\@cfttocfinish{\cleardoublepage}
+%</aebr>
 %
 % \Finale
 \endinput
