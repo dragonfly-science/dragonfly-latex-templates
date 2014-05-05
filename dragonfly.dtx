@@ -160,10 +160,10 @@ bottom=40mm
     BoldItalicFont = {OmnesSemibold-Italic}]{OmnesRegular-Roman}   
 
     
-    \raggedright
 
 \renewcommand{\normalsize}{\fontsize{9pt}{13pt}\selectfont}
 %</common>
+%<letter|article|beamer|proposal>\raggedright
 %
 % \section{Beamer}
 %
@@ -1330,11 +1330,13 @@ use, and build upon this work, provided credit is given to the original source.
 %    \begin{macrocode}
 %<*aebr>
 \RequirePackage{tocloft}
-\renewcommand{\cfttoctitlefont}{\bfseries}
+\renewcommand{\cfttoctitlefont}{\bfseries\sffamily}
 \addto\captionsenglish{%
   \renewcommand{\contentsname}{TABLE OF CONTENTS}
 }  
 \g@addto@macro\@cfttocfinish{\cleardoublepage}
+\g@addto@macro\cftsecpagefont{\sffamily}
+\g@addto@macro\cftsecfont{\sffamily}
 %</aebr>
 %
 % And we need the special titlepage
@@ -1434,12 +1436,14 @@ This publication is also available on the Ministry for Primary Industries websit
 %    \begin{macrocode}
 %<*aebr>
 \newcommand{\citeself}{
-  \citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \emph{\citefield{this}{journaltitle}}. \pageref{LastPage}\ p.
+  \textbf{\citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title}.}
+  
+  \textbf{\emph{\citefield{this}{journaltitle}}. \pageref{LastPage}\ p.}
 }
 %</aebr>
 %    \end{macrocode}
 % 
-% AEBR requires special fonts.
+% AEBR requires special fonts and justified text.
 %    
 %    \begin{macrocode}
 %<*aebr>
@@ -1452,6 +1456,7 @@ This publication is also available on the Ministry for Primary Industries websit
   BoldFont = {Nimbus Sans L Bold},
   BoldItalicFont = {Nimbus Sans L Bold Italic}]%
 {Nimbus Sans L Regular}
+
 %</aebr>
 %    \end{macrocode}
 %
