@@ -702,6 +702,52 @@ bottom=40mm
 %</report|aebr>
 %    \end{macrocode}
 %
+% \section{Self Citing}
+%
+% In order to automatically generate the citation using biblatex, we
+% write out a generated bib file that contains an entry for the current document.
+% This must happen at the end of the prelude, so that the title and so on are defined.
+% Note that new lines have the be suppressed while doing this, and |\emph| commands
+% need to print out the command rather than actually do emphasis. 
+%
+%    \begin{macrocode}
+%<*report|aebr>
+\RequirePackage{lastpage}
+\AtBeginDocument{
+{
+\renewcommand{\and}{ and }
+\renewcommand{\emph}[1]{\@backslashchar emph\@charlb #1\@charrb}
+\renewcommand{\\}{}
+\edef\text{@article\@charlb this,^^J%
+options = \@charlb skipbib \@charrb,^^J%
+year = \@charlb \@date \@charrb,^^J%
+title = \@charlb \@title \@charrb,^^J%
+author = \@charlb \@author \@charrb,^^J%
+%</report|aebr>
+%<*aebr>
+journal = \@charlb New Zealand Aquatic Environment and Biodiversity Report No. \@reportno \@charrb,^^J%
+%</aebr>
+%<*report|aebr>
+\@charrb
+}
+\newwrite\tempfile
+\immediate\openout\tempfile=\jobname-self.bib
+\immediate\write\tempfile{\text}
+\immediate\closeout\tempfile
+}
+}
+%</report|aebr>
+%    \end{macrocode}
+%
+% We then inform biblatex about this document. 
+%
+%    \begin{macrocode}
+%<*report|aebr>
+\addbibresource{\jobname-self.bib}
+%</report|aebr>
+%    \end{macrocode}
+%
+% 
 %
 % \section{Report}
 %
@@ -812,7 +858,6 @@ bottom=40mm
 %
 %    \begin{macrocode}
 %<*report>
-\RequirePackage{lastpage}
 \RequirePackage{wallpaper}
 %</report>
 %    \end{macrocode}
@@ -919,44 +964,6 @@ bottom=40mm
 %    \end{macrocode}
 %
 %
-% In order to automatically generate the citation using biblatex, we
-% write out a generated bib file that contains an entry for the current document.
-% This must happen at the end of the prelude, so that the title and so on are defined.
-% Note that new lines have the be suppressed while doing this, and |\emph| commands
-% need to print out the command rather than actually do emphasis. 
-%
-%    \begin{macrocode}
-%<*report>
-\AtBeginDocument{
-{
-\renewcommand{\and}{ and }
-\renewcommand{\emph}[1]{\@backslashchar emph\@charlb #1\@charrb}
-\renewcommand{\\}{}
-\edef\text{@report\@charlb this,^^J%
-year = \@charlb \@date \@charrb,^^J%
-options = \@charlb dataonly \@charrb,^^J%
-title = \@charlb \@title \@charrb,^^J%
-author = \@charlb \@author \@charrb^^J%
-\@charrb
-}
-\newwrite\tempfile
-\immediate\openout\tempfile=\jobname-self.bib
-\immediate\write\tempfile{\text}
-\immediate\closeout\tempfile
-}
-}
-%</report>
-%    \end{macrocode}
-%
-% We then inform biblatex about this document. 
-%
-%    \begin{macrocode}
-%<*report>
-\addbibresource{\jobname-self.bib}
-%</report>
-%    \end{macrocode}
-%
-% 
 %    \begin{macrocode}
 %
 % We start now describing the title page. This is also the title page for the 
@@ -1335,8 +1342,10 @@ use, and build upon this work, provided credit is given to the original source.
 %<*aebr>
 \RequirePackage{wallpaper}
 
+\newcommand{\reportmonth}[1]{\renewcommand{\@month}{#1}}
 \newcommand{\issn}[1]{\renewcommand{\@issn}{#1}}
 \newcommand{\isbn}[1]{\renewcommand{\@isbn}{#1}}
+\newcommand{\@month}{}
 \newcommand{\@issn}{XXXX-XXXX}
 \newcommand{\@isbn}{XX-XXXXX-XX}
 \newcommand{\@reportno}{??}
@@ -1372,7 +1381,7 @@ use, and build upon this work, provided credit is given to the original source.
 ISSN \@issn{} (online)\\
 ISBN \@isbn{} (online)
 
-\textbf{\@date}
+\textbf{\@month{} \@date}
 \end{textblock*}
 \mbox{}
 \clearpage
@@ -1400,6 +1409,15 @@ This publication is also available on the Ministry for Primary Industries websit
 \clearpage
 \addtocounter{page}{-2}
 \pagestyle{plain}
+}
+%</aebr>
+%    \end{macrocode}
+%
+% We also need a facility to cite the paper that is currently being written (for AEBR). 
+%    \begin{macrocode}
+%<*aebr>
+\newcommand{\citeself}{
+  \citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \emph{\citefield{this}{journaltitle}}. \pageref{LastPage}\ p.
 }
 %</aebr>
 %    \end{macrocode}
