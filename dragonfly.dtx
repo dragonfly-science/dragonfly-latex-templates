@@ -1438,5 +1438,23 @@ This publication is also available on the Ministry for Primary Industries websit
 }
 %</aebr>
 %    \end{macrocode}
+% 
+% AEBR requires special fonts.
+%    
+%    \begin{macrocode}
+%<*aebr>
+\setmainfont[Mapping=tex-text,
+    ItalicFont     = {Nimbus Roman No9 L Regular Italic},
+    BoldFont       = {Nimbus Roman No9 L Medium},
+    BoldItalicFont = {Nimbus Roman No9 L Medium Italic}]{Nimbus Roman No9 L Regular}
+\setsansfont[Mapping=tex-text,
+  ItalicFont = {Nimbus Sans L Regular Italic},
+  BoldFont = {Nimbus Sans L Bold},
+  BoldItalicFont = {Nimbus Sans L Bold Italic}]%
+{Nimbus Sans L Regular}
+%</aebr>
+%    \end{macrocode}
+%
+%
 % \Finale
 \endinput
