@@ -685,6 +685,7 @@ bottom=40mm
 %
 %    \begin{macrocode}
 %<*report|aebr>
+\RequirePackage{csquotes}
 \RequirePackage{polyglossia}
 \setdefaultlanguage[variant=newzealand]{english}
 \RequirePackage[style=mfish,backend=biber]{biblatex}
@@ -1337,20 +1338,37 @@ use, and build upon this work, provided credit is given to the original source.
 %</aebr>
 %
 % And we need the special titlepage
-%
+% 
+% This title page requires a bunch of extra fields that the AEBR needs to 
+% know about. All should have sensible defaults. 
 %    \begin{macrocode}
 %<*aebr>
-\RequirePackage{wallpaper}
-
 \newcommand{\reportmonth}[1]{\renewcommand{\@month}{#1}}
 \newcommand{\issn}[1]{\renewcommand{\@issn}{#1}}
 \newcommand{\isbn}[1]{\renewcommand{\@isbn}{#1}}
-\newcommand{\@month}{}
+\newcommand{\@month}{MMM}
 \newcommand{\@issn}{XXXX-XXXX}
 \newcommand{\@isbn}{XX-XXXXX-XX}
 \newcommand{\@reportno}{??}
 \newcommand{\reportno}[1]{\renewcommand{\@reportno}{#1}}
-
+%</aebr>
+%    \end{macrocode}
+%
+% However, since this needs to work with report, these commands should also be
+% declared for report, but not do anything.
+%    \begin{macrocode}
+%<*report>
+\newcommand{\reportmonth}[1]{}
+\newcommand{\issn}[1]{}
+\newcommand{\isbn}[1]{}
+\newcommand{\reportno}[1]{}
+%</report>
+%    \end{macrocode}
+%
+% Now we describe the AEBR title page
+%    \begin{macrocode}
+%<*aebr>
+\RequirePackage{wallpaper}
 \renewcommand{\maketitle}{
   {
     \renewcommand{\and}{ and }
@@ -1363,7 +1381,6 @@ use, and build upon this work, provided credit is given to the original source.
   }
 \pagestyle{empty}
 \clearpage
-\thispagestyle{empty}
 \ThisCenterWallPaper{1.0}{AEBR.jpg}
 \begin{textblock*}{0.7\textwidth}(86.1mm,61.5mm)
   {\sffamily\LARGE\textbf{\@title}}
@@ -1407,8 +1424,8 @@ This publication is also available on the Ministry for Primary Industries websit
 \textbf{\copyright{} Crown Copyright - Ministry for Primary Industries}
 }
 \clearpage
-\addtocounter{page}{-2}
 \pagestyle{plain}
+\addtocounter{page}{-2}
 }
 %</aebr>
 %    \end{macrocode}
