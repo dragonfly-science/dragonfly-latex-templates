@@ -1385,7 +1385,16 @@ use, and build upon this work, provided credit is given to the original source.
 \clearpage
 \ThisCenterWallPaper{1.0}{AEBR.jpg}
 \begin{textblock*}{0.7\textwidth}(86.1mm,61.5mm)
-  {\sffamily\fontsize{18pt}{25pt}\selectfont\textbf{\raggedright \@title}}
+  {
+    \hyphenpenalty=10000
+    \raggedright 
+    \fontsize{18pt}{22pt}
+    \sffamily
+    \bfseries
+    \selectfont
+    \@title\par
+  }
+
   
   New Zealand Aquatic Environment and Biodiversity Report No. {\@reportno}
  
