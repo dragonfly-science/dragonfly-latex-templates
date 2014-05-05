@@ -162,7 +162,7 @@ bottom=40mm
     
     \raggedright
 
-\renewcommand{\normalfont}{\fontsize{9pt}{13pt}\selectfont}
+\renewcommand{\normalsize}{\fontsize{9pt}{13pt}\selectfont}
 %</common>
 %
 % \section{Beamer}
@@ -1251,6 +1251,7 @@ use, and build upon this work, provided credit is given to the original source.
 %
 %    \begin{macrocode}
 %<*aebr>
+\renewcommand{\normalsize}{\fontsize{10pt}{13.5pt}\selectfont}
 \usepackage[bf,sf,pagestyles]{titlesec}
 
 \titleformat{\section}{\normalfont\bfseries\sffamily\uppercase}{\thesection.}{1em}{}
@@ -1328,5 +1329,79 @@ use, and build upon this work, provided credit is given to the original source.
 \g@addto@macro\@cfttocfinish{\cleardoublepage}
 %</aebr>
 %
+% And we need the special titlepage
+%
+%    \begin{macrocode}
+%<*aebr>
+\RequirePackage{wallpaper}
+
+\newcommand{\issn}[1]{\renewcommand{\@issn}{#1}}
+\newcommand{\isbn}[1]{\renewcommand{\@isbn}{#1}}
+\newcommand{\@issn}{XXXX-XXXX}
+\newcommand{\@isbn}{XX-XXXXX-XX}
+\newcommand{\@reportno}{??}
+\newcommand{\reportno}[1]{\renewcommand{\@reportno}{#1}}
+
+\renewcommand{\maketitle}{
+  {
+    \renewcommand{\and}{ and }
+    \hypersetup{  
+      pdfinfo={  
+        Title={\footertitle},  
+        Author={\@author}
+      }  
+    }
+  }
+\pagestyle{empty}
+\clearpage
+\thispagestyle{empty}
+\ThisCenterWallPaper{1.0}{AEBR.jpg}
+\begin{textblock*}{0.7\textwidth}(86.1mm,61.5mm)
+  {\sffamily\LARGE\textbf{\@title}}
+  
+  New Zealand Aquatic Environment and Biodiversity Report No. {\@reportno}
+ 
+  {
+    \renewcommand{\and}{\\}
+    \hspace{3em}
+    \begin{tabular}{l}
+    \@author
+  \end{tabular}
+}
+
+ISSN \@issn{} (online)\\
+ISBN \@isbn{} (online)
+
+\textbf{\@date}
+\end{textblock*}
+\mbox{}
+\clearpage
+{
+  \setlength{\parskip}{4ex}
+  \vspace*{4ex}
+Requests for further copies should be directed to:
+
+
+Publications Logistics Officer\\
+Ministry for Primary Industries\\
+PO Box 2526\\
+WELLINGTON 6140
+
+Email: brand@mpi.govt.nz\\
+Telephone: 0800 00 83 33\\
+Facsimile: 04-894 0300
+
+This publication is also available on the Ministry for Primary Industries websites at:\\
+\url{http://www.mpi.govt.nz/news-resources/publications.aspx}\\
+\url{http://fs.fish.govt.nz} go to Document library/Research reports
+
+\textbf{\copyright{} Crown Copyright - Ministry for Primary Industries}
+}
+\clearpage
+\addtocounter{page}{-2}
+\pagestyle{plain}
+}
+%</aebr>
+%    \end{macrocode}
 % \Finale
 \endinput
