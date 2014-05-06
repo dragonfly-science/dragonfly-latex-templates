@@ -303,6 +303,24 @@ bottom=40mm
 %
 % \subsection{Beamer}
 %
+%
+%
+% To start with, we want to make sure that frame titles are right alined, 
+% bold, omnes and logo blue.
+%
+%    \begin{macrocode}
+%<*beamer>
+\setbeamertemplate{frametitle}[default][right]
+
+\setbeamerfont{frametitle}{family=\omnes,series=\bfseries}
+\setbeamercolor{frametitle}{fg=logo-blue}
+
+\setbeamerfont{framesubtitle}{family=\omnes,series=\mdseries}
+\setbeamercolor{framesubtitle}{fg=black}
+%</beamer>
+%    \end{macrocode}
+
+%
 % General slides all have to quote the section name after the title in the header box.
 % If there is a frame subtitle then it is printed instead. 
 %
@@ -627,9 +645,10 @@ bottom=40mm
 %
 % The title block is now finished. 
 %
-% \subsection{Report And AEBR}
+% \subsection{Report, Proposal And AEBR}
 %
 % Report are a very strictly specified template the has a large number of fields.
+% Note that since the proposal is a modified report, all these commands exist as well. 
 % Additionaly, since the report template is subsititable for AEBR, all report commands
 % should have an AEBR clone (that will often do nothing). This section will define the
 % common metadata for both the report and AEBR formats.
@@ -733,6 +752,37 @@ bottom=40mm
 %</aebr>
 %    \end{macrocode}
 %
+%
+% Each report may contain a copyright notice. This has an image for the licence,
+% as well as text. 
+%
+%    \begin{macrocode}
+%<*report>
+\newcommand{\licence}[1]{\renewcommand{\@licence}{#1}}
+\newcommand{\@licence}{}
+%</report>
+%<aebr>\newcommand{\licence}[1]{}
+%    \end{macrocode}
+%
+% AEBR documens require and ISSN, ISBN and report number. All of these must have 
+% sensible defaults for before they are finished. These should not be implemented
+% in report.
+%    \begin{macrocode}
+%<*aebr>
+\newcommand{\issn}[1]{\renewcommand{\@issn}{#1}}
+\newcommand{\isbn}[1]{\renewcommand{\@isbn}{#1}}
+\newcommand{\@issn}{XXXX-XXXX}
+\newcommand{\@isbn}{XX-XXXXX-XX}
+\newcommand{\@reportno}{??}
+\newcommand{\reportno}[1]{\renewcommand{\@reportno}{#1}}
+%</aebr>
+%<*report>
+\newcommand{\issn}[1]{}
+\newcommand{\isbn}[1]{}
+\newcommand{\reportno}[1]{}
+%</report>
+%    \end{macrocode}
+%
 % \subsection{Beamer}
 % Beamer title pages are similar to the default beamer ones, but we add some helper
 % function and metadata.
@@ -751,9 +801,98 @@ bottom=40mm
 %
 % \subsubsection{Titlepage}
 %
+% We now consider the appearance of the title page. First we set the relevant fonts.
 %
-% Since the titleslide contains more than just the standard title, it also changes
-% the way the page looks, we define a helper function to insert a title slide.
+%    \begin{macrocode}
+%<*beamer>
+\setbeamercolor{title}{fg=logo-blue}
+\setbeamerfont{title}{family=\omnes,series=\bfseries,size={\fontsize{18}{20}}}
+\setbeamercolor{subtitle}{fg=logo-blue}
+\setbeamerfont{subtitle}{parent=date,family=\omnes, series=\bfseries}
+\setbeamerfont{institute}{parent=date,size={\fontsize{10}{12}}}
+%</beamer>
+%    \end{macrocode}
+%
+% Every title page uses the Dragonfly logo at the bottom of the slide. 
+%
+%    \begin{macrocode}
+%<beamer>\titlegraphic{\includegraphics[width=0.3\textwidth]{logo}}
+%    \end{macrocode}
+%
+% We now describe the exact layout of the title page. 
+%
+%    \begin{macrocode}
+%<*beamer>
+\setbeamertemplate{title page}
+{
+%</beamer>
+%    \end{macrocode}
+%
+% The top of the title page has a color banner accross the top using a standard
+% dragonfly pattern. 
+%
+%    \begin{macrocode}
+%<*beamer>
+  \vbox{}
+  \vfill
+  \begin{textblock*}{\paperwidth}(0mm,0mm)
+    \includegraphics[width=\paperwidth]{pattern}
+  \end{textblock*}
+%</beamer>
+%    \end{macrocode}
+%
+% The first thing of the page is the title of the presentation. This is followed by
+% a space.
+%
+%    \begin{macrocode}
+%<*beamer>
+  \begin{centering}
+    \begin{beamercolorbox}[sep=8pt,center]{title}
+      \usebeamerfont{title}\inserttitle
+    \end{beamercolorbox}%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%
+    \vskip1em\par
+%</beamer>
+%    \end{macrocode}
+%
+% Following the title is the project code and author. The project code is not always present. It 
+% is currently recorded as the institute to make use of beamers existing implmementation. It is probably
+% necessary to include a |\projectcode| command later. This is followed immediately by the authors.
+%
+%    \begin{macrocode}
+%<*beamer>
+    \begin{beamercolorbox}[center]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+      \vspace{0.2cm}
+      \usebeamerfont{date}\insertdate
+      \par
+    \begin{beamercolorbox}[center]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}  
+      \par
+      \vfill
+%</beamer>
+%    \end{macrocode}
+% Finally the last element is the company logo.
+%
+%    \begin{macrocode}
+%<*beamer>
+      \vfill
+    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+  \end{centering}
+}
+%</beamer>
+%    \end{macrocode}
+%
+%
+% Finally, since the titleslide contains more than just the standard title,
+% it also changes the way the page looks, we define a helper function to 
+% insert a title slide.
 %
 %    \begin{macrocode}
 %<*beamer>
@@ -947,19 +1086,6 @@ journal = \@charlb New Zealand Aquatic Environment and Biodiversity Report No. \
 %</report>
 %    \end{macrocode}
 %
-% Each document may contain a copyright notice. This has an image for the licence, as well
-% as text. 
-%
-%    \begin{macrocode}
-%<*report>
-\newcommand{\licence}[1]{\renewcommand{\@licence}{#1}}
-\newcommand{\@licence}{}
-%</report>
-%    \end{macrocode}
-%
-%
-%    \begin{macrocode}
-%
 % We start now describing the title page. This is also the title page for the 
 % proposal as well. For simplicity, the proposal titlepage is the same as for
 % the report, except that certain parts have been ommitted. 
@@ -1002,7 +1128,7 @@ journal = \@charlb New Zealand Aquatic Environment and Biodiversity Report No. \
     \includegraphics[width=\paperwidth]{\@titleimage}
 \end{textblock*}
 %</report|proposal>
-%    \begin{macrocode}
+%    \end{macrocode}
 %
 % The main text is the title of the document in large black omnes. It also has some
 % extra spacing following it.
@@ -1266,15 +1392,6 @@ use, and build upon this work, provided credit is given to the original source.
 %</aebr>
 %    \end{macrocode}
 %
-% However, it does require both a short and a long title, similar to a report.
-% Additionally, as reports should be easily convertible to AEBR we will define
-% some of the report only macros to do nothing, so that changing format is easy.
-%
-%    \begin{macrocode}
-%<*aebr>
-\newcommand{\licence}[1]{}
-%</aebr>
-%    \end{macrocode}
 %
 %    Again, like the report there is space for an executive summary, or some other
 % unnumbered starting section. 
@@ -1325,30 +1442,6 @@ use, and build upon this work, provided credit is given to the original source.
 \g@addto@macro\cftsecfont{\sffamily}
 %</aebr>
 %
-% And we need the special titlepage
-% 
-% This title page requires a bunch of extra fields that the AEBR needs to 
-% know about. All should have sensible defaults. 
-%    \begin{macrocode}
-%<*aebr>
-\newcommand{\issn}[1]{\renewcommand{\@issn}{#1}}
-\newcommand{\isbn}[1]{\renewcommand{\@isbn}{#1}}
-\newcommand{\@issn}{XXXX-XXXX}
-\newcommand{\@isbn}{XX-XXXXX-XX}
-\newcommand{\@reportno}{??}
-\newcommand{\reportno}[1]{\renewcommand{\@reportno}{#1}}
-%</aebr>
-%    \end{macrocode}
-%
-% However, since this needs to work with report, these commands should also be
-% declared for report, but not do anything.
-%    \begin{macrocode}
-%<*report>
-\newcommand{\issn}[1]{}
-\newcommand{\isbn}[1]{}
-\newcommand{\reportno}[1]{}
-%</report>
-%    \end{macrocode}
 %
 % Now we describe the AEBR title page
 %    \begin{macrocode}
@@ -1469,115 +1562,9 @@ This publication is also available on the Ministry for Primary Industries websit
 %</beamer>
 %    \end{macrocode}
 %
-%
-% For beamer we need to set the various font elements using special beamer commands. 
-%
-% To start with, we want to make sure that frame titles are right alined, bold, omnes and logo blue.
-%
+%The beamer template ends by stopping being specific to presentation
 %    \begin{macrocode}
-%<*beamer>
-\setbeamertemplate{frametitle}[default][right]
-\setbeamerfont{frametitle}{family=\omnes,series=\bfseries}
-\setbeamercolor{frametitle}{fg=logo-blue}
-
-\setbeamerfont{framesubtitle}{family=\omnes,series=\mdseries}
-\setbeamercolor{framesubtitle}{fg=black}
-
-%</beamer>
+%<beamer>\mode<all>
 %    \end{macrocode}
-%
-% We now consider the appearance of the title page. First we set the relevant fonts.
-%
-%    \begin{macrocode}
-%<*beamer>
-\setbeamercolor{title}{fg=logo-blue}
-\setbeamerfont{title}{family=\omnes,series=\bfseries,size={\fontsize{18}{20}}}
-\setbeamercolor{subtitle}{fg=logo-blue}
-\setbeamerfont{subtitle}{parent=date,family=\omnes, series=\bfseries}
-\setbeamerfont{institute}{parent=date,size={\fontsize{10}{12}}}
-%</beamer>
-%    \end{macrocode}
-%
-% We need to set out the layout of the title page, which is slightly different from the
-% default that is used. 
-%
-% Every title page uses the Dragonfly logo at the bottom of the slide. 
-%
-%    \begin{macrocode}
-%<beamer>\titlegraphic{\includegraphics[width=0.3\textwidth]{logo}}
-%    \end{macrocode}
-%
-% We now describe the exact layout of the title page. 
-%
-%    \begin{macrocode}
-%<*beamer>
-\setbeamertemplate{title page}
-{
-%</beamer>
-%    \end{macrocode}
-%
-% The top of the title page has a color banner accross the top using a standard
-% dragonfly pattern. 
-%
-%    \begin{macrocode}
-%<*beamer>
-  \vbox{}
-  \vfill
-  \begin{textblock*}{\paperwidth}(0mm,0mm)
-    \includegraphics[width=\paperwidth]{pattern}
-  \end{textblock*}
-%</beamer>
-%    \end{macrocode}
-%
-% The first thing of the page is the title of the presentation. This is followed by
-% a space.
-%
-%    \begin{macrocode}
-%<*beamer>
-  \begin{centering}
-    \begin{beamercolorbox}[sep=8pt,center]{title}
-      \usebeamerfont{title}\inserttitle
-    \end{beamercolorbox}%
-      \ifx\insertsubtitle\@empty%
-      \else%
-        \vskip0.25em%
-        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
-      \fi%
-    \vskip1em\par
-%</beamer>
-%    \end{macrocode}
-%
-% Following the title is the project code and author. The project code is not always present. It 
-% is currently recorded as the institute to make use of beamers existing implmementation. It is probably
-% necessary to include a |\projectcode| command later. This is followed immediately by the authors.
-%
-%    \begin{macrocode}
-%<*beamer>
-    \begin{beamercolorbox}[center]{author}
-      \usebeamerfont{author}\insertauthor
-    \end{beamercolorbox}
-      \vspace{0.2cm}
-      \usebeamerfont{date}\insertdate
-      \par
-    \begin{beamercolorbox}[center]{institute}
-      \usebeamerfont{institute}\insertinstitute
-    \end{beamercolorbox}  
-      \par
-      \vfill
-%</beamer>
-%    \end{macrocode}
-% Finally the last element is the company logo.
-%
-%    \begin{macrocode}
-%<*beamer>
-      \vfill
-    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
-  \end{centering}
-}
-\mode<all>
-%</beamer>
-%    \end{macrocode}
-%
-%
 %
 \endinput
