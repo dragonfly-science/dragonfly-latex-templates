@@ -914,16 +914,6 @@ journal = \@charlb New Zealand Aquatic Environment and Biodiversity Report No. \
 %    \end{macrocode}
 %
 %
-% Authors must be seperated by |\and|. We then need to make the seperator
-% work correctly for printing. 
-%
-%    \begin{macrocode}
-%<*report>
-  \renewcommand{\and}{\\}
-%</report>
-%    \end{macrocode}
-%
-
 %
 %
 % Since the title image is supposed to be a mixture of three images, we 
@@ -1036,10 +1026,13 @@ journal = \@charlb New Zealand Aquatic Environment and Biodiversity Report No. \
 \hspace*{90mm}%
 \begin{minipage}[h]{65mm}
   \fontsize{7.5pt}{9pt}\selectfont\omnes
+  {
+    \renewcommand{\and}{\\}
   \begin{tabular}{l}
   \textbf{\@authorslabel:}\\
     \@author
   \end{tabular}
+  }
     \vspace{1mm}
 
     \noindent\rule{51mm}{0.1mm}
