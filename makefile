@@ -25,7 +25,7 @@ presentation.pdf: presentation.tex dragonfly.sty pattern.eps logo.eps
 letter.pdf: letter.tex dragonfly.sty logo.eps
 	latexmk $(LATEXMK_OPTIONS) letter.tex
 
-all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf
+all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf aebr.pdf
 
 dragonfly.sty: dragonfly.ins dragonfly.dtx 
 	latex dragonfly.ins
