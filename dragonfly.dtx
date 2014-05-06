@@ -35,6 +35,42 @@
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{dragonfly}
+\usepackage[toc]{multitoc}
+
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\sffamily}
+\setcounter{tocdepth}{2}
+
+\renewcommand{\contentsname}{CONTENTS}
+\makeatletter
+\newcommand\dfly@pagefont{\fontsize{9pt}{13.2pt}\bfseries\sffamily\color{gray}}
+\renewcommand{\cftsecpagefont}{\dfly@pagefont}
+\renewcommand{\cftsubsecpagefont}{\dfly@pagefont}
+\renewcommand{\cftsubsubsecpagefont}{\dfly@pagefont}
+\renewcommand{\cftdot}{-}
+\renewcommand{\cftdotsep}{1}
+\newcommand{\dfly@leader}{\phantom{m}\color{gray}\tiny \cftdotfill{\cftdotsep}\phantom{m}}
+
+\renewcommand{\cftsecleader}{\dfly@leader}
+\renewcommand{\cftsubsecleader}{\dfly@leader}
+\renewcommand{\cftsubsubsecleader}{\dfly@leader}
+\newcommand{\dfly@tocfont}{\fontsize{9pt}{13.2pt}\bfseries\sffamily}
+
+\renewcommand{\cftsecfont}{\dfly@tocfont}
+\renewcommand{\cftsubsecfont}{\dfly@tocfont}
+\renewcommand{\cftsubsubsecfont}{\dfly@tocfont}
+\setlength{\cftparskip}{1ex}
+\setlength{\cftbeforesecskip}{2ex}
+
+\makeatother
+\usepackage{titlesec}
+
+\titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{\thesection.}{1em}{}
+\titleformat{\subsection}{\fontsize{11pt}{13.2pt}\bfseries\omnes}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\fontsize{11pt}{13.2pt}\bfseries\omnes}{\thesubsubsection}{1em}{}
+\titlespacing{\section}{0pt}{\baselineskip}{0pt}
+\titlespacing{\subsection}{0pt}{\baselineskip}{0pt}
+\titlespacing{\subsubsection}{0pt}{\baselineskip}{0pt}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -72,21 +108,35 @@
 %
 % \begin{abstract}
 %  This is a set of classes that are used to format documents according the 
-%  Dragonfly Science formatting requirements. There are three class files 
-%  for different types of documents, and a beamer theme. There is also a 
-%  style file which provides all of the common implementation.
+%  Dragonfly Science formatting requirements. There are a range of different
+%  document classes as well as a style file which provides all of the common 
+%  implementation.
 % \end{abstract}
-%
+% \clearpage
+% \tableofcontents
+%  \clearpage
 % \section{Introduction}
-% Each different class is based on a different template. 
-% The basic structure is the same as the base latex article,
-% report or letter classes, which small changes to correct the 
+% Each different class is based on a different template. The following
+% styles have classes implemented:
+%
+% \begin{itemize}
+% \item Dragonfly report
+% \item Dragonfly letter
+% \item Dragonfly article
+% \item Dragonfly letter
+% \item Dragonfly beamer theme
+% \item Aquatic Environment and Biodiversity Report
+% \end{itemize}
+%
+% The basic structure is the same as the base latex article class
+% with small changes to correct the 
 % theme. The beamer theme is based on the default with inner theme circles,
 % and the color theme using Dragonfly colours. 
 %    \begin{macrocode}
 %<letter|article|report>\LoadClass[a4paper]{article}
 %<aebr>\LoadClass[a4paper,twoside]{article}
 %<proposal>\LoadClass[a4paper]{dragonfly-report}
+%<beamer>\mode<presentation>
 %<beamer>\useinnertheme{circles}
 %<beamer>\usecolortheme[RGB={28,152,196}]{structure}
 %    \end{macrocode}
@@ -100,12 +150,22 @@
 %
 % \section{Page Layout}
 %
+% \subsection{Letter and Article}
+% Letters and articles are very similar looking formats. They have the same margins
+% which match what has been used historically. 
 %    \begin{macrocode}
 %<*letter|article>
 \RequirePackage[
     hmargin={51mm,30mm},
     vmargin={26mm,40mm}]{geometry}
 %</letter|article>
+%    \end{macrocode}
+%
+% \subsection{Report}
+%
+% The report template has been created by a designer and has very strict 
+% rules about exactly what all the margins are.
+%    \begin{macrocode}
 %<*report>
 \RequirePackage[
   left=52mm,
@@ -114,15 +174,19 @@
 bottom=40mm
 ]{geometry}
 %</report>
+%    \end{macrocode}
+%
+% \subsection{AEBR}
+%
+% The AEBR style uses estimated margins based on existing reports.
+%
+%    \begin{macrocode}
 %<aebr>\RequirePackage[margin=2.5cm]{geometry}
 %    \end{macrocode}
-
-%    \begin{macrocode}
-%<common>\setlength{\parskip}{3mm}
-%<common>\setlength{\parindent}{0mm}
-%    \end{macrocode}
-
+%
 % \section{Fonts}
+%
+% Dragonfly reports in general use Palatino linotype and Omnes as their fonts. 
 %    \begin{macrocode}
 %<*common>
 \RequirePackage{fontspec}
@@ -158,125 +222,44 @@ bottom=40mm
     ItalicFont     = {OmnesRegular-Italic},
     BoldFont       = {OmnesSemibold-Roman},
     BoldItalicFont = {OmnesSemibold-Italic}]{OmnesRegular-Roman}   
-
-    
-
-\renewcommand{\normalsize}{\fontsize{9pt}{13pt}\selectfont}
 %</common>
+%    \end{macrocode}
+%
+% AEBR uses standard times like fonts.
+%    
+%    \begin{macrocode}
+%<*aebr>
+\setmainfont[Mapping=tex-text,
+    ItalicFont     = {Nimbus Roman No9 L Regular Italic},
+    BoldFont       = {Nimbus Roman No9 L Medium},
+    BoldItalicFont = {Nimbus Roman No9 L Medium Italic}]{Nimbus Roman No9 L Regular}
+\setsansfont[Mapping=tex-text,
+  ItalicFont = {Nimbus Sans L Regular Italic},
+  BoldFont = {Nimbus Sans L Bold},
+  BoldItalicFont = {Nimbus Sans L Bold Italic}]%
+{Nimbus Sans L Regular}
+%</aebr>
+%    \end{macrocode}
+%
+% We also set the fontsize to be 9pt.
+%
+%    \begin{macrocode}
+%<common>\renewcommand{\normalsize}{\fontsize{9pt}{13pt}\selectfont}
+%    \end{macrocode}
+%
+% All formats except for reports need are ragged right.
+%    \begin{macrocode}
 %<letter|article|beamer|proposal>\raggedright
-%
-% \section{Beamer}
-%
-% For beamer we need to set the various font elements using special beamer commands. 
-%
-% To start with, we want to make sure that frame titles are right alined, bold, omnes and logo blue.
-%
-%    \begin{macrocode}
-%<*beamer>
-\setbeamertemplate{frametitle}[default][right]
-\setbeamerfont{frametitle}{family=\omnes,series=\bfseries}
-\setbeamercolor{frametitle}{fg=logo-blue}
-
-\setbeamerfont{framesubtitle}{family=\omnes,series=\mdseries}
-\setbeamercolor{framesubtitle}{fg=black}
-
-%</beamer>
 %    \end{macrocode}
 %
-% We now consider the appearance of the title page. First we set the relevant fonts.
-%
+% Paragraphs are not indented, but there is extra spacing between them. 
 %    \begin{macrocode}
-%<*beamer>
-\setbeamercolor{title}{fg=logo-blue}
-\setbeamerfont{title}{family=\omnes,series=\bfseries,size={\fontsize{18}{20}}}
-\setbeamercolor{subtitle}{fg=logo-blue}
-\setbeamerfont{subtitle}{parent=date,family=\omnes, series=\bfseries}
-\setbeamerfont{institute}{parent=date,size={\fontsize{10}{12}}}
-%</beamer>
+%<common>\setlength{\parskip}{3mm}
+%<common>\setlength{\parindent}{0mm}
 %    \end{macrocode}
-%
-% We need to set out the layout of the title page, which is slightly different from the
-% default that is used. 
-%
-% Every title page uses the Dragonfly logo at the bottom of the slide. 
-%
-%    \begin{macrocode}
-%<beamer>\titlegraphic{\includegraphics[width=0.3\textwidth]{logo}}
-%    \end{macrocode}
-%
-% We now describe the exact layout of the title page. 
-%
-%    \begin{macrocode}
-%<*beamer>
-\setbeamertemplate{title page}
-{
-%</beamer>
-%    \end{macrocode}
-%
-% The top of the title page has a color banner accross the top using a standard
-% dragonfly pattern. 
-%
-%    \begin{macrocode}
-%<*beamer>
-  \vbox{}
-  \vfill
-  \begin{textblock*}{\paperwidth}(0mm,0mm)
-    \includegraphics[width=\paperwidth]{pattern}
-  \end{textblock*}
-%</beamer>
-%    \end{macrocode}
-%
-% The first thing of the page is the title of the presentation. This is followed by
-% a space.
-%
-%    \begin{macrocode}
-%<*beamer>
-  \begin{centering}
-    \begin{beamercolorbox}[sep=8pt,center]{title}
-      \usebeamerfont{title}\inserttitle
-    \end{beamercolorbox}%
-      \ifx\insertsubtitle\@empty%
-      \else%
-        \vskip0.25em%
-        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
-      \fi%
-    \vskip1em\par
-%</beamer>
-%    \end{macrocode}
-%
-% Following the title is the project code and author. The project code is not always present. It 
-% is currently recorded as the institute to make use of beamers existing implmementation. It is probably
-% necessary to include a |\projectcode| command later. This is followed immediately by the authors.
-%
-%    \begin{macrocode}
-%<*beamer>
-    \begin{beamercolorbox}[center]{author}
-      \usebeamerfont{author}\insertauthor
-    \end{beamercolorbox}
-      \vspace{0.2cm}
-      \usebeamerfont{date}\insertdate
-      \par
-    \begin{beamercolorbox}[center]{institute}
-      \usebeamerfont{institute}\insertinstitute
-    \end{beamercolorbox}  
-      \par
-      \vfill
-%</beamer>
-%    \end{macrocode}
-% Finally the last element is the company logo.
-%
-%    \begin{macrocode}
-%<*beamer>
-      \vfill
-    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
-  \end{centering}
-}
-%</beamer>
-%    \end{macrocode}
-%
 %
 % \section{Coloring}
-% Colouring is common to all the fomats. Dragonfly has a common list of colours. 
+% Dragonfly uses a set of common custom colours. These are defined as follows. 
 %    \begin{macrocode}
 %<*common>
 \RequirePackage[table]{xcolor}
@@ -294,17 +277,144 @@ bottom=40mm
 %
 % \section{Headings}
 %
+% Some styles need to be able to customise their headings if needed.
+% Notably titlesec breaks beamer, so should not be loaded in that case.
+%    \begin{macrocode}
+%<*common>
+\@ifclassloaded{beamer}{}{\RequirePackage{titlesec}}
+%</common>
+%    \end{macrocode}
+%
+%
+% \subsection{Report}
+% We need to set the headings to be correct
+%
+%    \begin{macrocode}
+%<*report>
+\titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{\thesection.}{1em}{}
+\titleformat{\subsection}{\fontsize{11pt}{13.2pt}\bfseries\omnes}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\fontsize{11pt}{13.2pt}\bfseries\omnes}{\thesubsubsection}{1em}{}
+\titlespacing{\section}{0pt}{\baselineskip}{0pt}
+\titlespacing{\subsection}{0pt}{\baselineskip}{0pt}
+\titlespacing{\subsubsection}{0pt}{\baselineskip}{0pt}
+%</report>
+%    \end{macrocode}
+%
+%
+% \subsection{Beamer}
+%
+% General slides all have to quote the section name after the title in the header box.
+% If there is a frame subtitle then it is printed instead. 
+%
+%    \begin{macrocode}
+%<*beamer>
+\setbeamertemplate{frametitle}{
+   \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+  \begin{beamercolorbox}[right,wd=\textwidth]{frametitle}
+    \usebeamerfont{frametitle}%
+    \vspace*{2ex}\par%
+    \strut\insertframetitle\strut\par%
+    {%
+      \ifx\insertframesubtitle\@empty{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertsection\strut\par}%
+      \else%
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\strut\par}%
+      \fi
+    }%
+    \vskip-1ex%
+    \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
+  \end{beamercolorbox}% 
+}
+%</beamer>
+%    \end{macrocode}
+%
+% \section{Header and Footer}
+%
+% Each document class has it's own settings for headers and footers.
+% As a result every package should use fancyhdr
+%    \begin{macrocode}
+%<common>\usepackage{fancyhdr}
+%    \end{macrocode}
+%
+% \subsection{Letter}
+% There should be no header or footer for letters. 
+%    \begin{macrocode}
+%<letter>\pagestyle{empty}
+%    \end{macrocode}
+%
+% \subsection{Report}
+%
+% Reports have a page number in the bottom left, and the short report title in the 
+% bottom right. There are no head or foot rules. 
+%    \begin{macrocode}
+%<*report>
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[L]{\color{logo-blue}\small\omnes\bf\thepage}
+    \fancyfoot[R]{\color{grey}\small\omnes\bf \footertitle}
+    \renewcommand{\headrulewidth}{0pt} 
+}
+%</report>
+%    \end{macrocode}
+%
+%
+% \subsection{Beamer}
+%
+%    \subsubsection{Meta Data}
+% The presentations require commands to set and store the values used for the 
+% title and normal page footers. These are defined simply with short hand commands
+% to assign a known variable. This is because the footers are not constatnt. Also
+% note that the titlepage footer and general footers are different.
+%
+%    \begin{macrocode}
+%<*beamer>
+\newcommand{\@titlefooter}{}
+\newcommand{\@pagefooter}{}
+\newcommand{\titlefooter}{%
+  \renewcommand{\@titlefooter}%
+}
+\newcommand{\pagefooter}[1]{%
+  \renewcommand{\@pagefooter}{#1}  
+}
+%</beamer>
+%    \end{macrocode}
+%
+%
+% \subsubsection{Footline}
+%
+% The footer should contain the company logo on the left and a message on the right. 
+% The message should be customizable according to the presentation using |\pagefooter|.
+%
+%    \begin{macrocode}
+%<*beamer>
+\setbeamertemplate{footline}{
+\leavevmode
+\begin{beamercolorbox}[left,ht=3ex,dp=3ex,leftskip=0.8cm,wd=0.5\paperwidth]{default text}
+ \includegraphics[width=0.18\textwidth]{logo}
+\end{beamercolorbox}%
+\begin{beamercolorbox}[right,rightskip=2ex,ht=3ex,dp=3ex,wd=0.5\paperwidth]{default text}
+             \hfill   \omnes \@pagefooter   
+\end{beamercolorbox}
+}
+%</beamer>
+%    \end{macrocode}
+%
+%
+% \section{Title page}
+%
 % Each kind of documents has a different kind of header. 
-% Each one shall be addressed separately.
+% Each one shall be addressed separately. Additionally,
+% each title page section for a class will be split into two parts:
+% the first defines new commands for entering metadata into the titlepage
+% and the second defines the actual creation of the title page. 
 %
 % Since some of the headings require absolute positioning,
-% we load the textpos package.
+% we load the textpos package, and a number of other packages to help with the
+% title pages. We also set the graphics path so we can find common images.
 %
 %    \begin{macrocode}
 %<*common>
 \RequirePackage[absolute,overlay]{textpos}
 \RequirePackage{etoolbox}
-\RequirePackage{booktabs}
 \RequirePackage{xparse}
 \RequirePackage{graphicx}
 \graphicspath{{./}{/dragonfly/latex/graphics/}}
@@ -313,7 +423,102 @@ bottom=40mm
 %
 % \subsection{Letter}
 %
+% A letter must have a tile, author and greeting or else it will fail to compile. 
 %
+% The letterhead is printed on the first page without user intervention.
+% There is no case where the letterhead should be ommited. 
+%    \begin{macrocode}
+%<letter>\AfterEndPreamble{\maketitle}
+%    \end{macrocode}
+%
+% \subsubsection{Meta Data}
+%
+% The greeting macro sets the greeting of the document. This command is mandatory
+% and must occur before |\begin{document}|. It takes a single arugment which is 
+% the greeting line and saves it for use in the letter head. E.g |\greeting{Dear John}|.
+% 
+%    \begin{macrocode}
+%<*letter>
+\newcommand{\greeting}[1]{
+  \renewcommand\@greeting{#1}
+}
+%</letter>
+%    \end{macrocode}
+%
+% |\@greeting| contains the value of the greeting to write. This is to be used
+% in printing the title page. This starts of with an error value since it is required.
+%
+%    \begin{macrocode}
+%<*letter>
+\newcommand{\@greeting}{\ClassError{dragonfly-letter}
+{No \noexpand\greeting given}
+{Please insert a \noexpand\greeting before the \noexpand\begin{document} in your file.}
+}
+%</letter>
+%    \end{macrocode}
+%
+% The preamble macro sets the  date and recipient address.
+% This command is not mandatory, but must occur before |\begin{document}|. 
+%
+% The command takes two arugments, a date and an address.
+% We need a little bit of indirection in order to be able to use 
+% |\obeylines| to preserve line breaks (which is also why |\preameble|
+% is point free. 
+%
+%    \begin{macrocode}
+%<*letter>
+\newcommand{\preamble}{\bgroup\obeylines\@preamble@}
+
+\newcommand{\@preamble@}[2]{
+  \gdef\@preamble{
+#1
+
+\vspace*{\parskip}
+\begingroup\setlength{\parskip}{0pt}
+
+#2
+\endgroup
+\vspace*{\parskip}
+}
+\egroup
+}
+%</letter>
+%    \end{macrocode}
+%
+% |\@preamble| contains the address and date for use in the title.
+%
+% This starts of with an empty value since it is not required.
+%    \begin{macrocode}
+%<letter>\newcommand{\@preamble}{}
+%    \end{macrocode}
+%
+%
+% We also introduce a signature command. This is just a helper macro to insert space
+% or a figure (signature) between the closing and the name. This is intended to be used
+% for digital signatures, or leaving space for signing. This preserves linebreaks in 
+% the arguments. As for |\preamble| this requires an indirect point free macro. 
+%
+%    \begin{macrocode}
+%<*letter>
+\newcommand{\signature}{\bgroup\obeylines\@signature}
+
+\NewDocumentCommand{\@signature}{m o m}{
+  \vspace*{\parskip}
+  \vspace*{\parskip}
+  \begingroup
+  \setlength{\parskip}{0pt}
+  #1
+
+\IfNoValueTF{#2}{\vspace*{1.2cm}}{\vspace{1ex}\includegraphics[height=1.2cm]{#2}\vspace{1ex}}
+  
+  #3
+  \endgroup
+}
+%</letter>
+%    \end{macrocode}
+%
+%
+% \subsubsection{Maketitle}
 %    \begin{macrocode}
 %<letter>\renewcommand\maketitle{
 %    \end{macrocode}
@@ -420,176 +625,101 @@ bottom=40mm
 %</letter>
 %    \end{macrocode}
 %
+% The title block is now finished. 
 %
-%  \section{Additional Packages}
-% The hyperref package must be the last one loaded, so we load it here.
+% \subsection{Report And AEBR}
+%
+% Report are a very strictly specified template the has a large number of fields.
+% Additionaly, since the report template is subsititable for AEBR, all report commands
+% should have an AEBR clone (that will often do nothing). This section will define the
+% common metadata for both the report and AEBR formats.
+%
+% \subsubsection{Meta Data}
+%
+% The document has two titles. The first is the main title which goes on
+% the cover of the document, while the second is a short title that goes 
+% in the page footer. Both are required.  
+%
 %    \begin{macrocode}
-%<*common>
-
-\RequirePackage{hyperref}
-
-\hypersetup{
-  colorlinks=true,
-  urlcolor=black,
-  citecolor=black,
-  anchorcolor=black,
-  pagecolor=black,
-  menucolor=black,
-  linkcolor=black
+%<*report|aebr>
+\renewcommand\title[2]{%
+  \renewcommand\@title{#2}%
+  \renewcommand\footertitle{#1}%
 }
-%</common>
+\newcommand{\footertitle}{\ClassError{dragonfly-report}{No Footer title defined}{Use \noexpand\title}}
+%</report|aebr>
+%    \end{macrocode}%
+%
+% Additionally to a full title, the report has a subtitle. This goes below the main
+% title and is included in every document. In the AEBR this is ignored.
+%    \begin{macrocode}
+%<*report>
+\newcommand{\subtitle}[1]{\renewcommand\@subtitle{#1}}
+\newcommand{\@subtitle}{%
+  \ClassError{dragonfly-report}{No Subtitle Supplied}{Use subtitle}}
+%</report>
+%<aebr>\newcommand{\subtitle}[1]{}
 %    \end{macrocode}
 %
 %
-% \section{Header and Footer}
+% Reports start with a large title image on the front page.
+% The |\titleimage| macro allows users to specify the image to appear.
+% Ideally the image should be at least 600dpi and ideally 210x110 mm.
+% The image must be 210mm wide, and no more than 110 mm high. The default 
+% Image is the wing pattern as a narrow band. This command is ignored in AEBR.
 %
-% There should be no header or footer for letters. 
 %    \begin{macrocode}
-%<letter>\pagestyle{empty}
-%    \end{macrocode}
-%
-% \section{Letter}
-% 
-% A letter has a mandatory title and author.
-%
-%
-% The letterhead is printed on the first page without user intervention.
-%    \begin{macrocode}
-%<letter>\AfterEndPreamble{\maketitle}
-%    \end{macrocode}
-%
-%\DescribeMacro{\greeting}
-% The greeting macro prints out the title of the letter and the greeting line.
-% The title is below the greeting and in bold. This command is mandatory and 
-% must occur before |\begin{document}|. 
-%
-% \begin{macro}{\greeting}
-% The command takes a single arugment which is the greeting line and 
-% saves it for use in the letter head.
-% 
-%    \begin{macrocode}
-%<*letter>
-\newcommand{\greeting}[1]{
-  \renewcommand\@greeting{#1}
+%<*report>
+\newcommand{\@titleimage}{pattern}
+\newcommand{\titleimage}[1]{%
+  \renewcommand{\@titleimage}{#1}
 }
-%</letter>
+%</report>
+%<aebr>\newcommand{\titleimage}[1]{}
 %    \end{macrocode}
-%\end{macro}
 %
-%\DescribeMacro{\@greeting}
-%
-% |\@greeting| contains the value of the greeting to write. Eg. `Dear John'.
-%
-%\begin{macro}{\@greeting}
-% This starts of with an error value since it is required.
+% In the report the authors list starts with the title ``Authors:'':
 %    \begin{macrocode}
-%<letter>\newcommand{\@greeting}{\ClassError{dragonfly-letter}{No \noexpand\greeting given}{Please insert a \noexpand\greeting before the \noexpand\begin{document} in your file.}}
+%<report>\newcommand\@authorslabel{Authors}
 %    \end{macrocode}
-%\end{macro}
 %
-%
-%\DescribeMacro{\preamble}
-% The preamble macro prints out the date and recipient addre.
-% The title is below the greeting and in bold. This command is not mandatory, but 
-% must occur before |\begin{document}|. 
-%
-% \begin{macro}{\preamble}
-% The command takes two arugments, a date and an address. We need a little bit of indirection
-% in order to be able to use |\obeylines| to preserve line breaks. 
+% Like in standard document |\date| is allowed. However, it is only used for
+% creating citations, and as such should contain only the year. As such the 
+% default is changed from |\today| to the current year. In the AEBR format there
+% is also a reportmonth command to set the month. 
 %
 %    \begin{macrocode}
-%<*letter>
-\newcommand{\preamble}{\bgroup\obeylines\@preamble@}
-
-\newcommand{\@preamble@}[2]{
-  \gdef\@preamble{
-#1
-
-\vspace*{\parskip}
-\begingroup\setlength{\parskip}{0pt}
-
-#2
-\endgroup
-\vspace*{\parskip}
-}
-\egroup
-}
-%</letter>
+%<*report|aebr>
+  \renewcommand{\@date}{\the\year}
+%</report|aebr>
+%<report>\newcommand{\reportmonth}[1]{}
+%<*aebr>
+\newcommand{\reportmonth}[1]{\renewcommand{\@month}{#1}}
+\newcommand{\@month}{MMM}
+%</aebr>
 %    \end{macrocode}
-%\end{macro}
+%  
+% \subsection{Beamer}
+% Beamer title pages are similar to the default beamer ones, but we add some helper
+% function and metadata.
 %
-%\DescribeMacro{\@preamble}
+%    \subsubsection{Meta Data}
 %
-% |\@preamble| contains the address and date.
-%
-%\begin{macro}{\@preamble}
-% This starts of with an empty value since it is not required.
-%    \begin{macrocode}
-%<letter>\newcommand{\@preamble}{}
-%    \end{macrocode}
-%\end{macro}
-%
-%
-% We also introduce a signature command. This is just a helper macro to insert space
-% or a figure (signature) between the closing and the name. This is intended to be used
-% for digital signatures, or leaving space for signing. This preserves linebreaks in the 
-% arguments. As before this requires a redirection macro. 
-%
-%    \begin{macrocode}
-%<*letter>
-\newcommand{\signature}{\bgroup\obeylines\@signature}
-
-\NewDocumentCommand{\@signature}{m o m}{
-  \vspace*{\parskip}
-  \vspace*{\parskip}
-  \begingroup
-  \setlength{\parskip}{0pt}
-  #1
-
-\IfNoValueTF{#2}{\vspace*{1.2cm}}{\vspace{1ex}\includegraphics[height=1.2cm]{#2}\vspace{1ex}}
-  
-  #3
-  \endgroup
-}
-%</letter>
-%    \end{macrocode}
-%
-%
-% \section{Beamer Theme}
-%
-%
-% We need to disable the navigational symbols put in the bottom right of the slides. 
-%
-%    \begin{macrocode}
-%<beamer>\setbeamertemplate{navigation symbols}{}
-%    \end{macrocode}
-%
-%
-% We need a helper function to insert slides which are just a single image with no title 
-% or other text. Ideally the image should be at least a little bit centered. 
+% Dragonfly presentations often contain a project code. This is essentially the 
+% equivalent of institute in a standard beamer document. We define project code
+% to be an alias for institute. 
 %
 %    \begin{macrocode}
 %<*beamer>
-\NewDocumentCommand{\imageslide}{m O {w} o}{
-  \begingroup
-  \usebackgroundtemplate{
-    \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil%
-     \if#2w%
-         \includegraphics[width=\paperwidth,#3]{#1}
-     \else%
-          \includegraphics[height=\paperheight,#3]{#1}
-        \fi%
-        \hfil}\vfil}
-      }
-  \begin{frame}[plain] 
-  \end{frame}
-  \endgroup
-}
+\newcommand{\projectcode}{\institute}
 %</beamer>
 %    \end{macrocode}
 %
+% \subsubsection{Titlepage}
 %
-% We need a helper function to insert a title slide.
+%
+% Since the titleslide contains more than just the standard title, it also changes
+% the way the page looks, we define a helper function to insert a title slide.
 %
 %    \begin{macrocode}
 %<*beamer>
@@ -608,72 +738,31 @@ bottom=40mm
 %</beamer>
 %    \end{macrocode}
 %
-% General slides all have to quote the section name after the title in the header box.
-% If there is a frame subtitle then it is printed instead. 
+%  \section{Additional Packages}
+% The hyperref package must be the last one loaded, so we load it here.
+% We also load booktabs as that is expected to be used for all tables. 
 %
 %    \begin{macrocode}
-%<*beamer>
-\setbeamertemplate{frametitle}{
-   \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
-  \begin{beamercolorbox}[right,wd=\textwidth]{frametitle}
-    \usebeamerfont{frametitle}%
-    \vspace*{2ex}\par%
-    \strut\insertframetitle\strut\par%
-    {%
-      \ifx\insertframesubtitle\@empty{\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertsection\strut\par}%
-      \else%
-      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\strut\par}%
-      \fi
-    }%
-    \vskip-1ex%
-    \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
-  \end{beamercolorbox}% 
-}
-%</beamer>
+%<*common>
+\RequirePackage{booktabs}
+\RequirePackage{hyperref}
+%</common>
 %    \end{macrocode}
 %
-% The footer should contain the company logo on the left and a message on the right. 
-% The message should be customizable according to the presentation. 
-%
+%    Hyperref should be used, but the links should not be coloured or have boxes around
+% them. 
 %    \begin{macrocode}
-%<*beamer>
-\setbeamertemplate{footline}{
-\leavevmode
-\begin{beamercolorbox}[left,ht=3ex,dp=3ex,leftskip=0.8cm,wd=0.5\paperwidth]{default text}
- \includegraphics[width=0.18\textwidth]{logo}
-\end{beamercolorbox}%
-\begin{beamercolorbox}[right,rightskip=2ex,ht=3ex,dp=3ex,wd=0.5\paperwidth]{default text}
-             \hfill   \omnes \@pagefooter   
-\end{beamercolorbox}
+%<*common>
+\hypersetup{
+  colorlinks=true,
+  urlcolor=black,
+  citecolor=black,
+  anchorcolor=black,
+  pagecolor=black,
+  menucolor=black,
+  linkcolor=black
 }
-%</beamer>
-%    \end{macrocode}
-%
-% Dragonfly presentations often contain a project code. This is essentially the 
-% equivalent of institute in a standard beamer document. We define project code
-% to be an alias for institute. 
-%
-%    \begin{macrocode}
-%<*beamer>
-\newcommand{\projectcode}{\institute}
-%</beamer>
-%    \end{macrocode}
-%
-% The presentations require commands to set and store the values used for the 
-% title and normal page footers. These are defined simply with short hand commands
-% to assign a known variable. 
-%
-%    \begin{macrocode}
-%<*beamer>
-\newcommand{\@titlefooter}{}
-\newcommand{\@pagefooter}{}
-\newcommand{\titlefooter}{%
-  \renewcommand{\@titlefooter}%
-}
-\newcommand{\pagefooter}[1]{%
-  \renewcommand{\@pagefooter}{#1}  
-}
-%</beamer>
+%</common>
 %    \end{macrocode}
 %
 % \section{Bibliography}
@@ -807,45 +896,6 @@ journal = \@charlb New Zealand Aquatic Environment and Biodiversity Report No. \
 %</report>
 %    \end{macrocode}
 %
-%
-% \subsection{Titles}
-%
-% We need to set the headings to be correct
-%
-%    \begin{macrocode}
-%<*report>
-\RequirePackage[bf,sf,pagestyles]{titlesec}
-
-\titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{\thesection.}{1em}{}
-\titleformat{\subsection}{\fontsize{11pt}{13.2pt}\bfseries\omnes}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\fontsize{11pt}{13.2pt}\bfseries\omnes}{\thesubsubsection}{1em}{}
-\titlespacing{\section}{0pt}{\baselineskip}{0pt}
-\titlespacing{\subsection}{0pt}{\baselineskip}{0pt}
-\titlespacing{\subsubsection}{0pt}{\baselineskip}{0pt}
-%</report>
-%    \end{macrocode}
-%
-% \subsection{Page header / footers}
-%
-%    \begin{macrocode}
-%<*report>
-\usepackage{fancyhdr}
-
-\fancypagestyle{toc}{
-    \fancyfoot[LO,RO,LE,RE]{}
-}
-
-\fancypagestyle{plain}{
-    \fancyhf{}
-    \fancyfoot[L]{\color{logo-blue}\small\omnes\bf\thepage}
-    \fancyfoot[R]{\color{grey}\small\omnes\bf \footertitle}
-    \renewcommand{\headrulewidth}{0pt} 
-}
-
-
-%</report>
-%    \end{macrocode}
-%
 % \subsection{Title page}
 %
 % The title page for the report class actually spans two pages. The first is cover page
@@ -863,44 +913,6 @@ journal = \@charlb New Zealand Aquatic Environment and Biodiversity Report No. \
 %</report>
 %    \end{macrocode}
 %
-% The document has two titles. The first is the main title which goes on
-% the cover of the document, while the second is a short title that goes 
-% in the page footer. Both are required.  
-%
-%    \begin{macrocode}
-%<*report>
-\renewcommand\title[2]{%
-  \renewcommand\@title{#2}%
-  \renewcommand\footertitle{#1}%
-}
-\newcommand{\footertitle}{\ClassError{dragonfly-report}{No Footer title defined}{Use \noexpand\title}}
-%</report>
-%    \end{macrocode}
-%
-% Each document starts with a large title image on the front page.
-% The |\titleimage| macro allows users to specify the image to appear.
-% Ideally the image should be at least 600dpi and ideally 210x110 mm.
-% The image must be 210mm wide, and no more than 110 mm high. The default 
-% Image is the wing pattern as a narrow band.
-%
-%    \begin{macrocode}
-%<*report>
-\newcommand{\@titleimage}{pattern}
-\newcommand{\titleimage}[1]{%
-  \renewcommand{\@titleimage}{#1}
-}
-%</report>
-%    \end{macrocode}
-%
-% Additionally to a full title, the document has a subtitle. This goes below the main
-% title and is included in every document
-%    \begin{macrocode}
-%<*report>
-\newcommand{\subtitle}[1]{\renewcommand\@subtitle{#1}}
-\newcommand{\@subtitle}{%
-  \ClassError{dragonfly-report}{No Subtitle Supplied}{Use subtitle}}
-%</report>
-%    \end{macrocode}
 %
 % Authors must be seperated by |\and|. We then need to make the seperator
 % work correctly for printing. 
@@ -911,20 +923,8 @@ journal = \@charlb New Zealand Aquatic Environment and Biodiversity Report No. \
 %</report>
 %    \end{macrocode}
 %
-% The authors list starts with the title ``Authors:'':
-%    \begin{macrocode}
-%<report>\newcommand\@authorslabel{Authors}
-%    \end{macrocode}
+
 %
-% Like in standard document |\date| is allowed. However, it is only used for
-% creating citations, and as such should contain only the year. As such the 
-% default is changed from |\today| to the current year. 
-%
-%    \begin{macrocode}
-%<*report>
-  \renewcommand{\@date}{\the\year}
-%</report>
-%    \end{macrocode}
 %
 % Since the title image is supposed to be a mixture of three images, we 
 % may be required to cite the source of the images. This is also done on 
@@ -1260,7 +1260,6 @@ use, and build upon this work, provided credit is given to the original source.
 %    \begin{macrocode}
 %<*aebr>
 \renewcommand{\normalsize}{\fontsize{10pt}{13.5pt}\selectfont}
-\usepackage[bf,sf,pagestyles]{titlesec}
 
 \titleformat{\section}{\normalfont\bfseries\sffamily\uppercase}{\thesection.}{1em}{}
 \titleformat{\subsection}{\normalfont\bfseries\sffamily}{\thesubsection}{1em}{}
@@ -1277,16 +1276,7 @@ use, and build upon this work, provided credit is given to the original source.
 %
 %    \begin{macrocode}
 %<*aebr>
-\renewcommand\title[2]{%
-  \renewcommand\@title{#2}%
-  \renewcommand\footertitle{#1}%
-}
-
-\newcommand{\subtitle}[1]{}
-\newcommand{\titleimage}[1]{}
 \newcommand{\licence}[1]{}
-
-\newcommand{\footertitle}{\ClassError{dragonfly-report}{No Footer title defined}{Use \noexpand\title}}
 %</aebr>
 %    \end{macrocode}
 %
@@ -1345,10 +1335,8 @@ use, and build upon this work, provided credit is given to the original source.
 % know about. All should have sensible defaults. 
 %    \begin{macrocode}
 %<*aebr>
-\newcommand{\reportmonth}[1]{\renewcommand{\@month}{#1}}
 \newcommand{\issn}[1]{\renewcommand{\@issn}{#1}}
 \newcommand{\isbn}[1]{\renewcommand{\@isbn}{#1}}
-\newcommand{\@month}{MMM}
 \newcommand{\@issn}{XXXX-XXXX}
 \newcommand{\@isbn}{XX-XXXXX-XX}
 \newcommand{\@reportno}{??}
@@ -1360,7 +1348,6 @@ use, and build upon this work, provided credit is given to the original source.
 % declared for report, but not do anything.
 %    \begin{macrocode}
 %<*report>
-\newcommand{\reportmonth}[1]{}
 \newcommand{\issn}[1]{}
 \newcommand{\isbn}[1]{}
 \newcommand{\reportno}[1]{}
@@ -1453,23 +1440,148 @@ This publication is also available on the Ministry for Primary Industries websit
 %</aebr>
 %    \end{macrocode}
 % 
-% AEBR requires special fonts and justified text.
-%    
+% \section{Beamer}
+%
+%
+% We need to disable the navigational symbols put in the bottom right of the slides. 
+%
 %    \begin{macrocode}
-%<*aebr>
-\setmainfont[Mapping=tex-text,
-    ItalicFont     = {Nimbus Roman No9 L Regular Italic},
-    BoldFont       = {Nimbus Roman No9 L Medium},
-    BoldItalicFont = {Nimbus Roman No9 L Medium Italic}]{Nimbus Roman No9 L Regular}
-\setsansfont[Mapping=tex-text,
-  ItalicFont = {Nimbus Sans L Regular Italic},
-  BoldFont = {Nimbus Sans L Bold},
-  BoldItalicFont = {Nimbus Sans L Bold Italic}]%
-{Nimbus Sans L Regular}
-
-%</aebr>
+%<beamer>\setbeamertemplate{navigation symbols}{}
 %    \end{macrocode}
 %
 %
-% \Finale
+% We need a helper function to insert slides which are just a single image with no title
+% or other text. Ideally the image should be at least a little bit centered. 
+%
+%    \begin{macrocode}
+%<*beamer>
+\NewDocumentCommand{\imageslide}{m O {w} o}{
+  \begingroup
+  \usebackgroundtemplate{
+    \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil%
+     \if#2w%
+         \includegraphics[width=\paperwidth,#3]{#1}
+     \else%
+          \includegraphics[height=\paperheight,#3]{#1}
+        \fi%
+        \hfil}\vfil}
+      }
+  \begin{frame}[plain] 
+  \end{frame}
+  \endgroup
+}
+%</beamer>
+%    \end{macrocode}
+%
+%
+% For beamer we need to set the various font elements using special beamer commands. 
+%
+% To start with, we want to make sure that frame titles are right alined, bold, omnes and logo blue.
+%
+%    \begin{macrocode}
+%<*beamer>
+\setbeamertemplate{frametitle}[default][right]
+\setbeamerfont{frametitle}{family=\omnes,series=\bfseries}
+\setbeamercolor{frametitle}{fg=logo-blue}
+
+\setbeamerfont{framesubtitle}{family=\omnes,series=\mdseries}
+\setbeamercolor{framesubtitle}{fg=black}
+
+%</beamer>
+%    \end{macrocode}
+%
+% We now consider the appearance of the title page. First we set the relevant fonts.
+%
+%    \begin{macrocode}
+%<*beamer>
+\setbeamercolor{title}{fg=logo-blue}
+\setbeamerfont{title}{family=\omnes,series=\bfseries,size={\fontsize{18}{20}}}
+\setbeamercolor{subtitle}{fg=logo-blue}
+\setbeamerfont{subtitle}{parent=date,family=\omnes, series=\bfseries}
+\setbeamerfont{institute}{parent=date,size={\fontsize{10}{12}}}
+%</beamer>
+%    \end{macrocode}
+%
+% We need to set out the layout of the title page, which is slightly different from the
+% default that is used. 
+%
+% Every title page uses the Dragonfly logo at the bottom of the slide. 
+%
+%    \begin{macrocode}
+%<beamer>\titlegraphic{\includegraphics[width=0.3\textwidth]{logo}}
+%    \end{macrocode}
+%
+% We now describe the exact layout of the title page. 
+%
+%    \begin{macrocode}
+%<*beamer>
+\setbeamertemplate{title page}
+{
+%</beamer>
+%    \end{macrocode}
+%
+% The top of the title page has a color banner accross the top using a standard
+% dragonfly pattern. 
+%
+%    \begin{macrocode}
+%<*beamer>
+  \vbox{}
+  \vfill
+  \begin{textblock*}{\paperwidth}(0mm,0mm)
+    \includegraphics[width=\paperwidth]{pattern}
+  \end{textblock*}
+%</beamer>
+%    \end{macrocode}
+%
+% The first thing of the page is the title of the presentation. This is followed by
+% a space.
+%
+%    \begin{macrocode}
+%<*beamer>
+  \begin{centering}
+    \begin{beamercolorbox}[sep=8pt,center]{title}
+      \usebeamerfont{title}\inserttitle
+    \end{beamercolorbox}%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%
+    \vskip1em\par
+%</beamer>
+%    \end{macrocode}
+%
+% Following the title is the project code and author. The project code is not always present. It 
+% is currently recorded as the institute to make use of beamers existing implmementation. It is probably
+% necessary to include a |\projectcode| command later. This is followed immediately by the authors.
+%
+%    \begin{macrocode}
+%<*beamer>
+    \begin{beamercolorbox}[center]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+      \vspace{0.2cm}
+      \usebeamerfont{date}\insertdate
+      \par
+    \begin{beamercolorbox}[center]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}  
+      \par
+      \vfill
+%</beamer>
+%    \end{macrocode}
+% Finally the last element is the company logo.
+%
+%    \begin{macrocode}
+%<*beamer>
+      \vfill
+    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+  \end{centering}
+}
+\mode<all>
+%</beamer>
+%    \end{macrocode}
+%
+%
+%
 \endinput
