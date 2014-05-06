@@ -699,6 +699,40 @@ bottom=40mm
 %</aebr>
 %    \end{macrocode}
 %  
+% Since the report title image is supposed to be a mixture of three images, we 
+% may be required to cite the source of the images. This is also done on 
+% the inside cover. We create three commands that take a licence image name
+% and a source to cite the images. If no images are cited the block does not appear.
+% In the AEBR these do nothing. 
+%
+%    \begin{macrocode}
+%<*report>
+\newcommand{\leftimage}[2]{%
+\renewcommand{\@imagereferences}{Image reference:}
+\renewcommand{\@leftimage}{Left: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
+}
+
+\newcommand{\rightimage}[2]{%
+  \renewcommand{\@imagereferences}{Image reference:}
+  \renewcommand{\@rightimage}{Right: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
+}
+\newcommand{\middleimage}[2]{%
+  \renewcommand{\@imagereferences}{Image reference:}
+  \renewcommand{\@middleimage}{Middle: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
+}
+\newcommand{\@leftimage}{}
+\newcommand{\@middleimage}{}
+\newcommand{\@rightimage}{}
+
+\def\@imagereferences{}
+%</report>
+%<*aebr>
+\newcommand{\middleimage}[2]{}
+\newcommand{\rightimage}[2]{}
+\newcommand{\leftimage}[2]{}
+%</aebr>
+%    \end{macrocode}
+%
 % \subsection{Beamer}
 % Beamer title pages are similar to the default beamer ones, but we add some helper
 % function and metadata.
@@ -910,37 +944,6 @@ journal = \@charlb New Zealand Aquatic Environment and Biodiversity Report No. \
 %    \begin{macrocode}
 %<*report>
 \RequirePackage{wallpaper}
-%</report>
-%    \end{macrocode}
-%
-%
-%
-%
-% Since the title image is supposed to be a mixture of three images, we 
-% may be required to cite the source of the images. This is also done on 
-% the inside cover. We create three commands that take a licence image name
-% and a source to cite the images. If no images are cited the block does not appear.
-%
-%    \begin{macrocode}
-%<*report>
-\newcommand{\leftimage}[2]{%
-\renewcommand{\@imagereferences}{Image reference:}
-\renewcommand{\@leftimage}{Left: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
-
-\newcommand{\rightimage}[2]{%
-  \renewcommand{\@imagereferences}{Image reference:}
-  \renewcommand{\@rightimage}{Right: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
-\newcommand{\middleimage}[2]{%
-  \renewcommand{\@imagereferences}{Image reference:}
-  \renewcommand{\@middleimage}{Middle: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
-\newcommand{\@leftimage}{}
-\newcommand{\@middleimage}{}
-\newcommand{\@rightimage}{}
-
-\def\@imagereferences{}
 %</report>
 %    \end{macrocode}
 %
