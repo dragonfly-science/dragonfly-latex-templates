@@ -33,11 +33,6 @@ dragonfly.sty: dragonfly.ins dragonfly.dtx
 dragonfly.pdf: dragonfly.dtx dragonfly.sty
 	latexmk $(LATEXMK_OPTIONS) dragonfly.dtx
 
-example.tex: example.md
-	pandoc --read markdown_github+footnotes+all_symbols_escapable \
-		   --to latex $< \
-		   | sed '/\\itemsep1pt/d' > $@
-
 pkg:
 	debuild -us -uc
 
