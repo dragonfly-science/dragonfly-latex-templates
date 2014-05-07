@@ -1,13 +1,41 @@
 \documentclass{dragonfly-report}
+
+% A report requires two titles. The first is the short title. This is used for the 
+% footer text. The second is the full title. This goes on the front of the report. 
+% You are only allowed to use two LaTeX macros in the title: \\ and \emph. If others
+% are used there may be issues.
 \title{Example}{An Example\\ Report about \emph{sheep}}
+
+% Reports also have a subtitle. This goes below the title on the front page.
 \subtitle{A report for testing purposes}
 
+% Authors must be included for a report. They should be listed with their full names
+% with each author separated by \and.
 \author{John Smith \and Jane E. Smith}
+
+% In this example I have used the subcaption package to create subfloat. These are
+% when you have more than one picture within a single figure, and each gets it's own
+% internal caption.
 \usepackage{subcaption}
 
-%\leftimage{by-nc-nd}{https://www.flickr.com/photos/naoc0804/13923065676/in/explore-2014-04-20}
 
-\titleimage{pattern} %>= 600dpi, 210x110 mm
+% Optionally you can set an image to go on the titlepage. If this is not set it will
+% default to the wing image as a banner accross the top of the page. If an image is
+% included it should have a resulution of >= 600dpi, and ideally should be sized at
+% 210x110 mmm. Wider and taller images may not work correctly. If the image is shorter
+% than written, the width should not be reduced. 
+%\titleimage{pattern}
+
+% Since the title image can be comprised of images under the creative commons licence 
+% there are commands to attribute these images on the inside cover. The first argument
+% is the name of an image file showing the licence being used. The second is a link 
+% to the image. 
+%\leftimage{by-nc-nd}{https://www.flickr.com/photos/naoc0804/13923065676/in/explore-2014-04-20}
+%\middleimage{by-nc-nd}{https://www.flickr.com/photos/naoc0804/13923065676/in/explore-2014-04-20}
+%\rightimage{by-nc-nd}{https://www.flickr.com/photos/naoc0804/13923065676/in/explore-2014-04-20}
+
+
+% Dragonfly reports
 \licence{\bydragonfly}
 
 \usepackage{lipsum}
