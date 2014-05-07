@@ -241,10 +241,11 @@ bottom=40mm
 %</aebr>
 %    \end{macrocode}
 %
-% We also set the fontsize to be 9pt.
+% We also set the fontsize to be 9pt. Unless you are a AEBR document.
 %
 %    \begin{macrocode}
 %<common>\renewcommand{\normalsize}{\fontsize{9pt}{13pt}\selectfont}
+%<aebr>\renewcommand{\normalsize}{\fontsize{10pt}{13.5pt}\selectfont}
 %    \end{macrocode}
 %
 % All formats except for reports need are ragged right.
@@ -300,6 +301,23 @@ bottom=40mm
 %</report>
 %    \end{macrocode}
 %
+%
+% \subsection{AEBR}
+%
+% Unlike dragonfly reports, AEBR reports do not use colour in their section
+% headings, and are constant sized. Otherwise they are similar.
+%
+%    \begin{macrocode}
+%<*aebr>
+\titleformat{\section}{\normalfont\bfseries\sffamily\uppercase}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries\sffamily}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\bfseries\sffamily}{\thesubsubsection}{1em}{}
+\titlespacing{\section}{0pt}{\baselineskip}{0pt}
+\titlespacing{\subsection}{0pt}{\baselineskip}{0pt}
+\titlespacing{\subsubsection}{0pt}{\baselineskip}{0pt}
+%</aebr>
+%    \end{macrocode}
+
 %
 % \subsection{Beamer}
 %
@@ -414,6 +432,34 @@ bottom=40mm
 \end{beamercolorbox}
 }
 %</beamer>
+%    \end{macrocode}
+%
+%
+% \section{Bibliography}
+%
+% Since we are using biblatex with apa we need to use polyglossia to tell
+% biblatex which language we are using. Actually polyglossia doesn't support 
+% british directly so we need a slight hack. We also need the bibliography to be
+% a proper section
+%
+%    \begin{macrocode}
+%<*report|aebr>
+\RequirePackage{csquotes}
+\RequirePackage{polyglossia}
+\setdefaultlanguage[variant=newzealand]{english}
+\RequirePackage[style=mfish,backend=biber]{biblatex}
+\DeclareLanguageMapping{english}{english-mfish}
+\defbibheading{bibliography}[References]{\section{#1}}
+%</report|aebr>
+%    \end{macrocode}
+%
+% We define some helper cite commands for familiarity. 
+%
+%    \begin{macrocode}
+%<*report|aebr>
+\newcommand{\citet}{\cite}
+\newcommand{\citep}{\parencite}
+%</report|aebr>
 %    \end{macrocode}
 %
 %
@@ -911,6 +957,101 @@ bottom=40mm
 %</beamer>
 %    \end{macrocode}
 %
+% \section{Table of Contents}
+%
+% Reports requires a table of contents that is formatted in a very specific way.
+%
+%    \begin{macrocode}
+%<report|aebr>\RequirePackage{tocloft}
+%    \end{macrocode}
+%
+%
+% Dection heading are always shown in capitals
+% in the contents page. This involves rebinding contents line, so that when the 
+% title is used to construct a hyperref url, it doesn't break the url. This is
+% used in report and AEBR.
+%
+%    \begin{macrocode}
+%<*report|aebr>
+\let\dfly@contentsline=\contentsline
+\renewcommand\contentsline[4]{\dfly@contentsline{#1}{\ifstrequal{#1}{section}{\MakeUppercase{#2}}{#2}}{#3}{#4}}
+%</report|aebr>
+%    \end{macrocode}
+%
+%\subsection{Report}
+%  We want the table of contents to be on its own page. So we append 
+% a clear instruction to the end of the writing command
+%
+%    \begin{macrocode}
+%<report>\g@addto@macro\@cfttocfinish{\clearpage}
+%    \end{macrocode}
+%
+% The title of the contents page must be CONTENTS in large, bold, blue omnes.
+%
+%    \begin{macrocode}
+%<*report>
+\renewcommand{\cfttoctitlefont}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\sffamily}
+\addto\captionsenglish{%
+  \renewcommand{\contentsname}{CONTENTS}
+}
+%</report>
+%    \end{macrocode}
+%
+% In this style the toc should only be created to depth 3.
+%    \begin{macrocode}
+%<report>\setcounter{tocdepth}{3}
+%    \end{macrocode}
+%
+% The numbers for all three level of heading are drawn the same. In gray omnes. 
+%
+%    \begin{macrocode}
+%<*report>
+\newcommand{\dfly@pagefont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily\color{gray}}
+\renewcommand{\cftsecpagefont}{\dfly@pagefont}
+\renewcommand{\cftsubsecpagefont}{\dfly@pagefont}
+\renewcommand{\cftsubsubsecpagefont}{\dfly@pagefont}
+%</report>
+%    \end{macrocode}
+% 
+% Similarly all the lines between the heading levels are the same. A line of tiny
+% gray dashes.
+%
+%    \begin{macrocode}
+%<*report>
+\renewcommand{\cftdot}{-}
+\renewcommand{\cftdotsep}{1}
+\newcommand{\dfly@leader}{\phantom{m}\color{gray}\tiny \cftdotfill{\cftdotsep}\phantom{m}}
+
+\renewcommand{\cftsecleader}{\dfly@leader}
+\renewcommand{\cftsubsecleader}{\dfly@leader}
+\renewcommand{\cftsubsubsecleader}{\dfly@leader}
+%</report>
+%    \end{macrocode}
+%
+%   All levels of heading have the same font for being written in. Bold, black omnes. 
+%
+%    \begin{macrocode}
+%<*report>
+\newcommand{\dfly@tocfont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily}
+
+\renewcommand{\cftsecfont}{\dfly@tocfont}
+\renewcommand{\cftsubsecfont}{\dfly@tocfont}
+\renewcommand{\cftsubsubsecfont}{\dfly@tocfont}
+%</report>
+%    \end{macrocode}
+%
+% The spacing in the default table of contents is too small for this report format. 
+% As a result, we increase the item spacing to make it less crowded.
+%
+%    \begin{macrocode}
+%<*report>
+\setlength{\cftparskip}{1ex}
+\setlength{\cftbeforesecskip}{2ex}
+%</report>
+%    \end{macrocode}
+%
+% \subsection{AEBR}
+%
 %  \section{Additional Packages}
 % The hyperref package must be the last one loaded, so we load it here.
 % We also load booktabs as that is expected to be used for all tables. 
@@ -936,33 +1077,6 @@ bottom=40mm
   linkcolor=black
 }
 %</common>
-%    \end{macrocode}
-%
-% \section{Bibliography}
-%
-% Since we are using biblatex with apa we need to use polyglossia to tell
-% biblatex which language we are using. Actually polyglossia doesn't support 
-% british directly so we need a slight hack. We also need the bibliography to be
-% a proper section
-%
-%    \begin{macrocode}
-%<*report|aebr>
-\RequirePackage{csquotes}
-\RequirePackage{polyglossia}
-\setdefaultlanguage[variant=newzealand]{english}
-\RequirePackage[style=mfish,backend=biber]{biblatex}
-\DeclareLanguageMapping{english}{english-mfish}
-\defbibheading{bibliography}[References]{\section{#1}}
-%</report|aebr>
-%    \end{macrocode}
-%
-% We define some helper cite commands for familiarity. 
-%
-%    \begin{macrocode}
-%<*report|aebr>
-\newcommand{\citet}{\cite}
-\newcommand{\citep}{\parencite}
-%</report|aebr>
 %    \end{macrocode}
 %
 % \section{Self Citing}
@@ -1246,99 +1360,6 @@ To be cited as:
 %</report>
 %    \end{macrocode}
 %
-% \subsection{Table of Contents}
-%
-% The table of contents is also specified concretely in the specification
-%
-% The first thing it requires is for the tocloft package to be loaded. This requires
-% the titles option to deal with the language settings. 
-%    \begin{macrocode}
-%<report> \RequirePackage[titles]{tocloft}
-%    \end{macrocode}
-%
-%  Next we want the table of contents to be on its own page. So we append 
-% a clear instruction to the end of the writing command
-%
-%    \begin{macrocode}
-%<report>\g@addto@macro\@cfttocfinish{\cleardoublepage}
-%    \end{macrocode}
-%
-% The title of the contents page must be CONTENTS in large, bold, blue omnes.
-%
-%    \begin{macrocode}
-%<*report>
-\renewcommand{\cfttoctitlefont}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\sffamily}
-\addto\captionsenglish{%
-  \renewcommand{\contentsname}{CONTENTS}
-}
-%</report>
-%    \end{macrocode}
-%
-% In this style the toc should only be created to depth 3.
-%    \begin{macrocode}
-%<report>\setcounter{tocdepth}{3}
-%    \end{macrocode}
-%
-% The numbers for all three level of heading are drawn the same. In gray omnes. 
-%
-%    \begin{macrocode}
-%<*report>
-\newcommand{\dfly@pagefont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily\color{gray}}
-\renewcommand{\cftsecpagefont}{\dfly@pagefont}
-\renewcommand{\cftsubsecpagefont}{\dfly@pagefont}
-\renewcommand{\cftsubsubsecpagefont}{\dfly@pagefont}
-%</report>
-%    \end{macrocode}
-% 
-% Similarly all the lines between the heading levels are the same. A line of tiny
-% gray dashes.
-%
-%    \begin{macrocode}
-%<*report>
-\renewcommand{\cftdot}{-}
-\renewcommand{\cftdotsep}{1}
-\newcommand{\dfly@leader}{\phantom{m}\color{gray}\tiny \cftdotfill{\cftdotsep}\phantom{m}}
-
-\renewcommand{\cftsecleader}{\dfly@leader}
-\renewcommand{\cftsubsecleader}{\dfly@leader}
-\renewcommand{\cftsubsubsecleader}{\dfly@leader}
-%</report>
-%    \end{macrocode}
-%
-%   All levels of heading have the same font for being written in. Bold, black omnes. 
-%
-%    \begin{macrocode}
-%<*report>
-\newcommand{\dfly@tocfont}{\fontsize{11pt}{13.2pt}\bfseries\sffamily}
-
-\renewcommand{\cftsecfont}{\dfly@tocfont}
-\renewcommand{\cftsubsecfont}{\dfly@tocfont}
-\renewcommand{\cftsubsubsecfont}{\dfly@tocfont}
-%</report>
-%    \end{macrocode}
-%
-% The spacing in the default table of contents is too small for this report format. 
-% As a result, we increase the item spacing to make it less crowded.
-%
-%    \begin{macrocode}
-%<*report>
-\setlength{\cftparskip}{1ex}
-\setlength{\cftbeforesecskip}{2ex}
-%</report>
-%    \end{macrocode}
-%
-% Finally we need to make sure that section heading are always shown in capitals
-% in the contents page. This involves rebinding contents line, so that when the 
-% title is used to construct a hyperref url, it doesn't break the url. This is
-% also used in AEBR.
-%
-%    \begin{macrocode}
-%<*report|aebr>
-\let\dfly@contentsline=\contentsline
-\renewcommand\contentsline[4]{\dfly@contentsline{#1}{\ifstrequal{#1}{section}{\MakeUppercase{#2}}{#2}}{#3}{#4}}
-%</report|aebr>
-%    \end{macrocode}
-%
 % \subsection{Creative commons reuse}
 %
 % Where possible, reports are licensed for re-use under a creative commons
@@ -1376,21 +1397,6 @@ use, and build upon this work, provided credit is given to the original source.
 %
 % \section{AEBR}
 %
-% Unlike dragonfly reports, AEBR reports do not use colour in their section
-% headings.
-%
-%    \begin{macrocode}
-%<*aebr>
-\renewcommand{\normalsize}{\fontsize{10pt}{13.5pt}\selectfont}
-
-\titleformat{\section}{\normalfont\bfseries\sffamily\uppercase}{\thesection.}{1em}{}
-\titleformat{\subsection}{\normalfont\bfseries\sffamily}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\normalfont\bfseries\sffamily}{\thesubsubsection}{1em}{}
-\titlespacing{\section}{0pt}{\baselineskip}{0pt}
-\titlespacing{\subsection}{0pt}{\baselineskip}{0pt}
-\titlespacing{\subsubsection}{0pt}{\baselineskip}{0pt}
-%</aebr>
-%    \end{macrocode}
 %
 %
 %    Again, like the report there is space for an executive summary, or some other
