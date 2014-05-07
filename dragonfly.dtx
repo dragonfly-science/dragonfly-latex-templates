@@ -115,7 +115,55 @@
 % \clearpage
 % \tableofcontents
 %  \clearpage
-% \section{Introduction}
+% \section{Class and Package Options}
+%
+% All options are passed down to the common dragonfly layer. 
+%
+% Since we intend on manually hiding certain options we need a command to 
+% clear it from the global options list. This is taken from 
+% \url{http://tex.stackexchange.com/questions/33245/disabling-the-draft-option-in-a-package}.
+%    \begin{macrocode}
+%<*letter|article|report|proposal|aebr|beamer>
+\def\@clearglobaloption#1{%
+  \def\@tempa{#1}%
+  \def\@tempb{\@gobble}%
+  \@for\next:=\@classoptionslist\do
+    {\ifx\next\@tempa
+       \message{Cleared  option \next\space from global list}%
+     \else
+       \edef\@tempb{\@tempb,\next}%
+     \fi}%
+  \let\@classoptionslist\@tempb
+  \expandafter\ifx\@tempb\@gobble
+    \let\@classoptionslist\@empty
+  \fi}
+%</letter|article|report|proposal|aebr|beamer>
+%    \end{macrocode}
+%
+% The dragonfly package needs to recognise the draft option, and just
+% give it to ifdraft.
+%
+%    \begin{macrocode}
+%<*common>
+\DeclareOption{draft}{
+  \PassOptionsToPackage{\CurrentOption}{ifdraft}
+}
+\ProcessOptions\relax
+%</common>
+%    \end{macrocode}
+% 
+% The rest are just default behaviour. 
+%    \begin{macrocode}
+%<*letter|article|report|proposal|aebr|beamer>
+\DeclareOption{draft}{
+  \PassOptionsToPackage{\CurrentOption}{dragonfly}
+  \@clearglobaloption{draft}
+}
+\ProcessOptions\relax
+%</letter|article|report|proposal|aebr|beamer>
+%    \end{macrocode}
+%
+% \section{Templates}
 % Each different class is based on a different template. The following
 % styles have classes implemented:
 %
@@ -131,10 +179,11 @@
 % The basic structure is the same as the base latex article class
 % with small changes to correct the 
 % theme. The beamer theme is based on the default with inner theme circles,
-% and the color theme using Dragonfly colours. 
+% and the color theme using Dragonfly colours.
+%
 %    \begin{macrocode}
-%<letter|article|report>\LoadClass[a4paper]{article}
-%<aebr>\LoadClass[a4paper,twoside]{article}
+%<letter|article|report>\LoadClass[a4paper,final]{article}
+%<aebr>\LoadClass[a4paper,twoside,final]{article}
 %<proposal>\LoadClass[a4paper]{dragonfly-report}
 %<beamer>\mode<presentation>
 %<beamer>\useinnertheme{circles}
@@ -1488,6 +1537,20 @@ This publication is also available on the Ministry for Primary Industries websit
 % Captions are all bold.
 %    \begin{macrocode}
 %<aebr>\usepackage[font={small,bf},labelsep=colon,singlelinecheck=false]{caption}
+%    \end{macrocode}
+%
+% \section{Draft mode}
+% 
+%    \begin{macrocode}
+%<*common>
+\RequirePackage{ifdraft}
+\ifdraft{
+\usepackage{draftwatermark}
+\SetWatermarkColor{black!25}
+\SetWatermarkFontSize{62pt}
+\SetWatermarkText{DRAFT - Not to be quoted}
+}{}
+%</common>
 %    \end{macrocode}
 %
 %  \section{Additional Packages}
