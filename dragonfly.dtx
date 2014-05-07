@@ -392,6 +392,24 @@ bottom=40mm
 %</report>
 %    \end{macrocode}
 %
+% \subsection{AEBR}
+%
+%    Page footers must contain the report name, page and publisher. 
+%
+%    \begin{macrocode}
+%<*aebr>
+\usepackage{fancyhdr}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[LO,RE]{\sffamily\scriptsize Ministry for Primary Industries}
+    \fancyfoot[LE]{\sffamily\scriptsize\thepage\ {\normalsize$\bullet$}\ \footertitle}
+    \fancyfoot[RO]{\sffamily\scriptsize\footertitle\ {\normalsize$\bullet$}\ \thepage}
+    \renewcommand{\footrulewidth}{0.3pt} 
+    \renewcommand{\headrulewidth}{0pt} 
+  }
+%</aebr>
+%   \end{macrocode}
 %
 % \subsection{Beamer}
 %
@@ -743,9 +761,11 @@ bottom=40mm
 %<aebr>\newcommand{\titleimage}[1]{}
 %    \end{macrocode}
 %
-% In the report the authors list starts with the title ``Authors:'':
+% In the report the authors list starts with the title ``Authors:'',
+% while in the proposal ``Prepared by:'':
 %    \begin{macrocode}
 %<report>\newcommand\@authorslabel{Authors}
+%<proposal>\renewcommand\@authorslabel{Prepared by}
 %    \end{macrocode}
 %
 % Like in standard document |\date| is allowed. However, it is only used for
@@ -828,6 +848,7 @@ bottom=40mm
 \newcommand{\reportno}[1]{}
 %</report>
 %    \end{macrocode}
+%
 %
 % \subsection{Beamer}
 % Beamer title pages are similar to the default beamer ones, but we add some helper
@@ -1384,20 +1405,8 @@ use, and build upon this work, provided credit is given to the original source.
 %</report>
 %    \end{macrocode}
 %
-% \section{Proposal}
-%
-% The proposal is essentially a report, but it does not need to have all the stuff on
-% the inside cover. 
-%
-% The first point of difference is that the authors are shown differently on 
-% the title page. 
-%    \begin{macrocode}
-%<proposal>\renewcommand\@authorslabel{Prepared by}
-%    \end{macrocode}
-%
+
 % \section{AEBR}
-%
-%
 %
 %    Again, like the report there is space for an executive summary, or some other
 % unnumbered starting section. 
@@ -1412,22 +1421,6 @@ use, and build upon this work, provided credit is given to the original source.
 %</aebr>
 %    \end{macrocode}
 %
-%    Page footers must contain the report name, page and publisher. 
-%
-%    \begin{macrocode}
-%<*aebr>
-\usepackage{fancyhdr}
-
-\fancypagestyle{plain}{
-    \fancyhf{}
-    \fancyfoot[LO,RE]{\sffamily\scriptsize Ministry for Primary Industries}
-    \fancyfoot[LE]{\sffamily\scriptsize\thepage\ {\normalsize$\bullet$}\ \footertitle}
-    \fancyfoot[RO]{\sffamily\scriptsize\footertitle\ {\normalsize$\bullet$}\ \thepage}
-    \renewcommand{\footrulewidth}{0.3pt} 
-    \renewcommand{\headrulewidth}{0pt} 
-  }
-%</aebr>
-%   \end{macrocode}
 %
 % Captions are all bold.
 %    \begin{macrocode}
