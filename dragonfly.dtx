@@ -1545,10 +1545,19 @@ This publication is also available on the Ministry for Primary Industries websit
 %<*common>
 \RequirePackage{ifdraft}
 \ifdraft{
-\usepackage{draftwatermark}
+\RequirePackage{draftwatermark}
+\RequirePackage{setspace}
+\usepackage[modulo]{lineno}
 \SetWatermarkColor{black!25}
 \SetWatermarkFontSize{62pt}
 \SetWatermarkText{DRAFT - Not to be quoted}
+
+\AtEndPreamble{
+\g@addto@macro\maketitle{
+\linenumbers
+\doublespacing
+}
+}
 }{}
 %</common>
 %    \end{macrocode}
