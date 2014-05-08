@@ -1,11 +1,27 @@
+% This is an example of using the dragonfly-letter class. Note that when writing
+% a letter you should consider whether the letter template is actually appropriate
+% for your task. As for all templates letter accepts a draft option which will 
+% insert a watermark, increase the linespacing and add in line numbers
 \documentclass{dragonfly-letter}
 
+% The lipsum package is used to generate filler text and should not be included
+% in a real letter
 \usepackage{lipsum}
-
-
+ 
+% Every letter has a compulsory title
 \title{An Non optional Title}
+
+% Every letter has a compulsory Author
 \author{An Non optional Example Author}
+
+% Each letter starts with a greeting. At the time of writing the standard is to 
+% not place any punctuation at the end of the greeting line.
 \greeting{Dear Anthony}
+
+% The preamble goes at the top of the letter. The first argument is the date of the 
+% letter, while the second is the address of the recipient. Note that the
+% assess should be written out without using any latex macros to control the spacing.
+% The linebreaks used will be preserved exactly within the preamble command.
 \preamble{\today}{
  67 Fox Road
  Narnia
@@ -13,11 +29,17 @@
  China
  }
 
+% At this point the letter begins. This will also create the letter head.
 \begin{document}
 
-
+% The letter content goes here. This command generates some filler text. 
 \lipsum[1-7]
 
+% The signature is used to place an ending that has a space for a person to sign
+% it. Additionally it can be given an image to use as a signature.
+% In which case it is used as \signature{Regards}[imagefile]{Ending}
+% Note that line breaks are preserved in the signature for ease of writing
+% multiline endings.
 \signature{Cheers}{
 A Person
 But an important one
@@ -25,5 +47,8 @@ With a multi line
 Signature
 }
 
+% We place text after the signature if we require. 
 P.S. Look a postscript in postscript!
+
+%Nothing beyond this point will be processed as part of the document. 
 \end{document}
