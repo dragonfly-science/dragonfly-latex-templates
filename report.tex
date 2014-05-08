@@ -1,4 +1,6 @@
-\documentclass{dragonfly-report}
+%We start by telling LaTeX that this is a dragonfly report. Optionally we can say that
+% it is a draft (which will add watermarks, line number and extra line spacing). 
+\documentclass[draft]{dragonfly-report}
 
 % A report requires two titles. The first is the short title. This is used for the 
 % footer text. The second is the full title. This goes on the front of the report. 
@@ -35,21 +37,43 @@
 %\rightimage{by-nc-nd}{https://www.flickr.com/photos/naoc0804/13923065676/in/explore-2014-04-20}
 
 
-% Dragonfly reports
+% Dragonfly reports all have a licence attached. The default dragonfly licence can
+% be used with \bydragonfly. The crown licence can be used with \bycrown. 
+% You can also directly enter whichever licence is appropriate. 
 \licence{\bydragonfly}
 
+% The lipsum package should not be used in a real report. It is used to generate
+% filler text to test templates.
 \usepackage{lipsum}
 
+% This is the location of the bibliography file.
 \addbibresource{test.bib}
 
+% The actual document contents begin after here. 
 \begin{document}
+
+% Documents that are provided to MPI working  groups require a special cover sheet
+% when they are printed as a draft. Including this file will create such a title sheet
+% when the draft option is enabled. Do to the range of working groups and goals that 
+% need to be acheived, users may need to edit the mpiDraftCover.tex file themselves
+% to put in the correct details. 
+\input{mpiDraftCover}
+
+% Generates the title page
 \maketitle
+
+% Generates the table of contents
 \tableofcontents
 
+% Puts in an unnumbered section that shows up in the table of contents. If no 
+% arguments are given, the section is called ``Executive Summary''.
 \summary%[Custom Summary]
+
 This has some boring text in it
 
 \section{The First}
+
+% Generate some fake text.
 \lipsum[1]
 
 
@@ -61,21 +85,28 @@ This has some boring text in it
 
 \subsection{Details}
 
+% Generate fake text
 \lipsum[2]
 
 
+% Create a figure with subfigures inside of it. This uses the subcaption package
+% rather than subfig
 \begin{figure}[h]
 
+  % Each subfigure need to know how wide it is. Otherwise it is the same as a normal
+  % figure. 
   \begin{subfigure}{0.45\textwidth}
   \includegraphics[width=40mm,height=40mm]{pattern}
   \caption{This is a caption that is longer than one line. It is improtant to test 
   this behavoir as this a common feature of the dragon fly templates.}
-\end{subfigure}\qquad
+\end{subfigure}\qquad % it is nice to separate subfigures with a small space.
   \begin{subfigure}{0.45\textwidth}
   \includegraphics[width=40mm,height=40mm]{pattern}
   \caption{This is a caption that is longer than one line. It is improtant to test 
   this behavoir as this a common feature of the dragon fly templates.}
 \end{subfigure}
+% The overall figure also gets a caption
+\caption{A figure of figures}
 \end{figure}
 
 \subsubsection{What's This?}
@@ -88,7 +119,8 @@ This has some boring text in it
 Apa comes with a number of ways of citing things.
 The interesting ones are:
 
-
+% Here are a number of ways of citing documents. Note how cite, citet and citep
+% are there as usual
 \begin{itemize}
   \item \cite{abraham_summary_98-09}
   \item \citet{baker_nzclassification_2010}
@@ -104,7 +136,12 @@ The interesting ones are:
   \item \cite{baker_census_2010}
 \end{itemize}
 
-
+% The document is finished, and we want the bibiography to start on a new page, 
+% so we put in a page break.
 \clearpage
+
+% Print the bibliography.
 \printbibliography
+
+% The document is finished
 \end{document}
