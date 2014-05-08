@@ -1,26 +1,70 @@
+% This is an example of a proposal. Like all documents it can be given the draft 
+% option to place a watermark, increase linespacing and add in line numbers.
+% The proposal is almost identical to the report format, so if there is any
+% confusion consult report.tex. 
 \documentclass{dragonfly-proposal}
+
+% A proposal requires two titles. The first is the short title. This is used for the 
+% footer text. The second is the full title. This goes on the front of the report. 
+% You are only allowed to use two LaTeX macros in the title: \\ and \emph. If others
+% are used there may be issues.
 \title{Example}{An Example\\ Report about \emph{sheep}}
+
+% Proposals require a subtitle which goes below the main title on the cover page. 
 \subtitle{A report for testing purposes}
 
+% Authors must be included for a proposal. They should be listed with their full names
+% with each author separated by \and.
 \author{John Smith \and Jane E. Smith}
+
+% In this example I have used the subcaption package to create subfloats. These are
+% when you have more than one picture within a single figure, and each gets it's own
+% internal caption. 
 \usepackage{subcaption}
 
+% Optionally you can set an image to go on the titlepage. If this is not set it will
+% default to the wing image as a banner accross the top of the page. If an image is
+% included it should have a resulution of >= 600dpi, and ideally should be sized at
+% 210x110 mmm. Wider and taller images may not work correctly. If the image is shorter
+% than written, the width should not be reduced. 
+%\titleimage{pattern}
+
+% Since the title image can be comprised of images under the creative commons licence 
+% there are commands to attribute these images on the inside cover. The first argument
+% is the name of an image file showing the licence being used. The second is a link 
+% to the image. 
 %\leftimage{by-nc-nd}{https://www.flickr.com/photos/naoc0804/13923065676/in/explore-2014-04-20}
+%\middleimage{by-nc-nd}{https://www.flickr.com/photos/naoc0804/13923065676/in/explore-2014-04-20}
+%\rightimage{by-nc-nd}{https://www.flickr.com/photos/naoc0804/13923065676/in/explore-2014-04-20}
 
-\titleimage{pattern} %>= 600dpi, 210x110 mm
-%\licence{hello}
+% Dragonfly proposals can have a licence attached as for reports.
+%\licence{\bydragonfly}
 
+
+
+% The lipsum package should not be used in a real proposal. It is used to generate
+% filler text to test templates.
 \usepackage{lipsum}
 
+% This is the location of the bibliography file.
 \addbibresource{test.bib}
 
+% The actual document contents begin after here. 
 \begin{document}
+
+
+% Generates the title page
 \maketitle
 
+% Puts in an unnumbered section that shows up in the table of contents. If no 
+% arguments are given, the section is called ``Executive Summary''.
 \summary%[Custom Summary]
 This has some boring text in it
 
+
 \section{The First}
+
+%Filler text
 \lipsum[1]
 
 
@@ -32,6 +76,7 @@ This has some boring text in it
 
 \subsection{Details}
 
+%Filler text
 \lipsum[2]
 
 
@@ -50,15 +95,23 @@ This has some boring text in it
 \end{figure}
 
 \subsubsection{What's This?}
+
+%Filler text
 \lipsum[3] 
 \paragraph{A minor heading}
+
+%Filler text
 \lipsum[5] 
 \subparagraph{A really minor heading}
+
+%Filler text
 \lipsum[4]
 
 Apa comes with a number of ways of citing things.
 The interesting ones are:
 
+% Here are a number of ways of citing documents. Note how cite, citet and citep
+% are there as usual
 \begin{itemize}
   \item \cite{abraham_summary_98-09}
   \item \citet{baker_nzclassification_2010}
@@ -74,7 +127,13 @@ The interesting ones are:
   \item \cite{baker_census_2010}
 \end{itemize}
 
-
+% The document is finished, and we want the bibiography to start on a new page, 
+% so we put in a page break.
 \clearpage
+
+
+% Print the bibliography.
 \printbibliography
+
+% The document is finished
 \end{document}
