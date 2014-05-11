@@ -40,5 +40,10 @@ The example files are:
  - article.tex
 
 
+## Incompatible Packages
+
+The dragonfly templates package will not work correctly with the following packages:
+
+ - subfig (use subcaption instead)
 
 
