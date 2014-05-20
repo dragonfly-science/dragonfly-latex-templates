@@ -2,7 +2,6 @@
 
 \usetheme{Dragonfly}
 
-    
 \title{New Zealand sea lion captures in commercial fisheries}
 \projectcode{ABC2018-02}
 \subtitle{Which is awesome}
@@ -32,8 +31,15 @@ really kind of super long!}
 \end{itemize}
 \end{frame}
 
-\imageslide{pattern}[w]%[ other includegraphics go here ]
+\imageslide{pattern}[w]%[ other includegraphics options go here ]
 
+
+{
+  \usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{damselfly}}
+  \begin{frame}{}{}
+    {\color{logo-blue}Some text on the slide. Titles ommited for fun.}
+  \end{frame}
+}
 \section{Sheep}
 
 \begin{frame}{This frame has no title, just words and a list. But it is still actually
@@ -53,7 +59,8 @@ really kind of super long!}
  \end{frame}
 
  \begin{frame}{Testing}{Subtitles}
-This frame has a table
+This frame has a table\footnote{And a long descriptive footnote that shows up at the bottom 
+of the page. This should not overlap the logo image.}
 
 \begin{table}[htbp]
 \caption{Case-studies}
