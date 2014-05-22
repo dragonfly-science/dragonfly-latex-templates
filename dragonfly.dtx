@@ -841,6 +841,11 @@ bottom=40mm
 %
 %    \begin{macrocode}
 %<*report>
+\newcommand{\singleimage}[2]{%
+\renewcommand{\@imagereferences}{Image reference:}
+\renewcommand{\@singleimage}{\includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
+}
+
 \newcommand{\leftimage}[2]{%
 \renewcommand{\@imagereferences}{Image reference:}
 \renewcommand{\@leftimage}{Left: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
@@ -854,6 +859,7 @@ bottom=40mm
   \renewcommand{\@imagereferences}{Image reference:}
   \renewcommand{\@middleimage}{Middle: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
 }
+\newcommand{\@singleimage}{}
 \newcommand{\@leftimage}{}
 \newcommand{\@middleimage}{}
 \newcommand{\@rightimage}{}
@@ -864,6 +870,7 @@ bottom=40mm
 \newcommand{\middleimage}[2]{}
 \newcommand{\rightimage}[2]{}
 \newcommand{\leftimage}[2]{}
+\newcommand{\singleimage}[2]{}
 %</aebr>
 %    \end{macrocode}
 %
@@ -1045,6 +1052,7 @@ bottom=40mm
 \relax%
 \else%
 \begin{tabular}{@{}lll}
+\@singleimage
 \@leftimage
 \@middleimage
 \@rightimage
