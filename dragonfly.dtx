@@ -1063,7 +1063,7 @@ To be cited as:
 
 {
   \renewcommand{\\}{}
-\citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \@subtitle.
+  \citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@subtitle}{}{\@subtitle.}
 }
 
 \@licence
