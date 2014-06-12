@@ -14,7 +14,7 @@ have the right version of LaTeX installed. To do this run the command:
 
 Which should give the output
 
-	    XeTeX 3.1415926-2.4-0.9998 (TeX Live 2012/Debian)
+	   XeTeX 3.1415926-2.4-0.9998 (TeX Live 2012/Debian)
         kpathsea version 6.1.0
         Copyright 2012 SIL International and Jonathan Kew.
         There is NO warranty.  Redistribution of this software is
@@ -31,7 +31,7 @@ Which should give the output
         Compiled with poppler version 0.18.4
 
 
-If you don't get that output you need to install the backport for
+If you have an older version of LaTeX you will need to install the backport for
 LaTeX. Open the file `/etc/apt/sources.list` and ensure that it
 contains the line:
 
@@ -40,10 +40,27 @@ contains the line:
 Then you will need to run
 
         sudo apt-get update
-	    sudo apt-get upgrade
+	   sudo apt-get upgrade
 
 Now when you run `xelatex --version` you should get the same output as
 above.
+
+### Checking for the fonts
+
+In order to use the package you will need to have the following fonts installed:
+
+ - Palatino Linotype
+ - Omnes
+ - Times New Roman
+ - Arial
+
+To check if the font is present run `fc-list` and see if the font name is present
+in the output.
+
+All of the font files must be places in an appropriate location 
+where the fonts can be seen by the system. Two possible locations for Linux 
+systems are `~/.fonts` and `/usr/local/share/fonts`.
+
 
 ### Installing the Package
 To install the package run the following commands
@@ -52,6 +69,58 @@ To install the package run the following commands
           cd dragonfly-latex-templates
           make pkg
           sudo dpkg -i ../dragonfly-latex-templates_1.0_all.deb
+
+#### Manual Installation
+
+The package will only build on 64-bit linux machines. This is an unfortunate 
+side effect that comes from the latex version installed on the machines at the
+moment being a little bit too old. As a result the biber binary and biblatex package
+are included in this repository. 
+
+In the case of manual installation, the following steps are required. 
+
+
+**Get the correct biber binary**
+
+If you are not on a x64 linux machine you will need to replace the biber binary in
+the repository with the correct one for your OS and architecture. Binaries can be found
+at http://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/1.8/binaries/.
+Note that you must use version 1.8.
+
+**Build the package** 
+
+Run `make all`
+
+**Identify where you can install latex files**
+
+On Linux and OS X run the command: `kpsepath tex | tr ':' '\n'` which will give a list
+of directories which latex will look for files in. 
+
+**Install the dragonfly templates**
+
+Create a directory called `dragonfly` in the latex tree and place all the `.sty`
+and `.cls` files into it. Copy the biblatex-mfish into the same directory as the 
+`dragonfly` directory. You should now have two new directories. A common 
+location for these would be 
+
+ * /usr/share/texlive/texmf-dist/tex/latex/dragonfly
+ * /usr/share/texlive/texmf-dist/tex/latex/biblatex-mfish
+
+
+**Install biblatex and biber**
+
+On many systems this may not be necessary as the package may work using the 
+system versions of biblatex and biber. If this is not the case then you will
+need to find the biber binary on your system and replace it with the binary
+that you downloaded earlier in `Get the correct biber binary`. You will also
+need to find the `biblatex` directory in your latex system and replace it with
+the biblatex directory included with this repository. The following command
+will help you find the biblatex directory: `kpsewhich biblatex.sty`.
+
+
+**Tell latex about the new package**
+
+To ensure that LaTeX is aware of the new package you will need to run: `texhash`.
 
 ## Using the package
 
