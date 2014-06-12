@@ -7,6 +7,8 @@ else
 	LATEXMK_OPTIONS=-xelatex
 endif
 
+all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf aebr.pdf
+
 aebr.pdf: aebr.tex test.bib dragonfly.sty AEBR.jpg biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
 	$(PREFIX) latexmk $(LATEXMK_OPTIONS) aebr.tex
 
@@ -24,8 +26,6 @@ presentation.pdf: presentation.tex dragonfly.sty pattern.eps logo.eps
 
 letter.pdf: letter.tex dragonfly.sty logo.eps
 	latexmk $(LATEXMK_OPTIONS) letter.tex
-
-all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf aebr.pdf
 
 dragonfly.sty: dragonfly.ins dragonfly.dtx 
 	latex dragonfly.ins
