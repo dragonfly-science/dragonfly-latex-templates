@@ -14,7 +14,7 @@ have the right version of LaTeX installed. To do this run the command:
 
 Which should give the output
 
-	   XeTeX 3.1415926-2.4-0.9998 (TeX Live 2012/Debian)
+        XeTeX 3.1415926-2.4-0.9998 (TeX Live 2012/Debian)
         kpathsea version 6.1.0
         Copyright 2012 SIL International and Jonathan Kew.
         There is NO warranty.  Redistribution of this software is
@@ -40,7 +40,7 @@ contains the line:
 Then you will need to run
 
         sudo apt-get update
-	   sudo apt-get upgrade
+        sudo apt-get upgrade
 
 Now when you run `xelatex --version` you should get the same output as
 above.
