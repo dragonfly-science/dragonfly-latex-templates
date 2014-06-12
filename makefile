@@ -40,7 +40,8 @@ pkg:
 
 cleanClass:
 	rm -f dragonfly.sty dragonfly-report.cls dragonfly-letter.cls \
-		dragonfly-article.cls dragonfly.pdf
+		dragonfly-article.cls dragonfly-proposal.cls dragonfly.pdf \
+		aebr.cls
 
 clean: cleanClass
 	rm -f  *.pdf *.aux *.log *.out *.backup *.glo *.idx \
