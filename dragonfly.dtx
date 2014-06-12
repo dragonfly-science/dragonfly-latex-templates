@@ -904,6 +904,16 @@ bottom=40mm
 %</report>
 %    \end{macrocode}
 %
+% The report also has a customisable citation note that goes at the end of the 
+% citation. This defaults to the subtitle. 
+%
+%    \begin{macrocode}
+%<*report>
+\newcommand{\citationnote}[1]{\renewcommand{\@citationnote}{#1}}
+\newcommand{\@citationnote}{\@subtitle}
+%</report>
+%<aebr>\newcommand{\citationnote}[1]{}
+%    \end{macrocode}
 %
 % \subsection{Report and Propsal}
 %
@@ -1063,7 +1073,7 @@ To be cited as:
 {
   \renewcommand{\\}{}
   \renewcommand{\blx@maxcitenames}{25} %The number of authors here can be large
-  \citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@subtitle}{}{\@subtitle.}
+  \citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@citationnote}{}{\@citationnote.}
 }
 
 \@licence
