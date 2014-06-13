@@ -98,7 +98,7 @@
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 %
-% \changes{0.1}{22014/03/07}{Initial Version}
+% \changes{0.1}{2014/03/07}{Initial Version}
 %
 % \GetFileInfo{dragonfly.dtx}
 %
@@ -279,14 +279,13 @@ bottom=40mm
 %    \begin{macrocode}
 %<*aebr>
 \setmainfont[Mapping=tex-text,
-    ItalicFont     = {Nimbus Roman No9 L Regular Italic},
-    BoldFont       = {Nimbus Roman No9 L Medium},
-    BoldItalicFont = {Nimbus Roman No9 L Medium Italic}]{Nimbus Roman No9 L Regular}
+    ItalicFont     = {Times New Roman Italic},
+    BoldFont       = {Times New Roman Bold},
+    BoldItalicFont = {Times New Roman Bold Italic}]{Times New Roman}
 \setsansfont[Mapping=tex-text,
-  ItalicFont = {Nimbus Sans L Regular Italic},
-  BoldFont = {Nimbus Sans L Bold},
-  BoldItalicFont = {Nimbus Sans L Bold Italic}]%
-{Nimbus Sans L Regular}
+  ItalicFont = {Arial Italic},
+  BoldFont = {Arial Bold},
+  BoldItalicFont = {Arial Bold Italic}]{Arial}
 %</aebr>
 %    \end{macrocode}
 %
@@ -491,10 +490,10 @@ bottom=40mm
 %<*beamer>
 \setbeamertemplate{footline}{
 \leavevmode
-\begin{beamercolorbox}[left,ht=3ex,dp=3ex,leftskip=0.8cm,wd=0.5\paperwidth]{default text}
+\begin{beamercolorbox}[left,ht=4ex,dp=4ex,leftskip=0.8cm,wd=0.5\paperwidth]{default text}
  \includegraphics[width=0.18\textwidth]{logo}
 \end{beamercolorbox}%
-\begin{beamercolorbox}[right,rightskip=2ex,ht=3ex,dp=3ex,wd=0.5\paperwidth]{default text}
+\begin{beamercolorbox}[right,rightskip=2ex,ht=4ex,dp=4ex,wd=0.5\paperwidth]{default text}
              \hfill   \omnes \@pagefooter   
 \end{beamercolorbox}
 }
@@ -841,6 +840,11 @@ bottom=40mm
 %
 %    \begin{macrocode}
 %<*report>
+\newcommand{\singleimage}[2]{%
+\renewcommand{\@imagereferences}{Image reference:}
+\renewcommand{\@singleimage}{\includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
+}
+
 \newcommand{\leftimage}[2]{%
 \renewcommand{\@imagereferences}{Image reference:}
 \renewcommand{\@leftimage}{Left: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
@@ -854,6 +858,7 @@ bottom=40mm
   \renewcommand{\@imagereferences}{Image reference:}
   \renewcommand{\@middleimage}{Middle: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
 }
+\newcommand{\@singleimage}{}
 \newcommand{\@leftimage}{}
 \newcommand{\@middleimage}{}
 \newcommand{\@rightimage}{}
@@ -864,6 +869,7 @@ bottom=40mm
 \newcommand{\middleimage}[2]{}
 \newcommand{\rightimage}[2]{}
 \newcommand{\leftimage}[2]{}
+\newcommand{\singleimage}[2]{}
 %</aebr>
 %    \end{macrocode}
 %
@@ -1045,6 +1051,7 @@ bottom=40mm
 \relax%
 \else%
 \begin{tabular}{@{}lll}
+\@singleimage
 \@leftimage
 \@middleimage
 \@rightimage
@@ -1055,7 +1062,8 @@ To be cited as:
 
 {
   \renewcommand{\\}{}
-\citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \@subtitle.
+  \renewcommand{\blx@maxcitenames}{25} %The number of authors here can be large
+  \citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@subtitle}{}{\@subtitle.}
 }
 
 \@licence
@@ -1552,9 +1560,9 @@ This publication is also available on the Ministry for Primary Industries websit
 \RequirePackage{draftwatermark}
 \RequirePackage{setspace}
 \usepackage[modulo]{lineno}
-\SetWatermarkColor{black!25}
+\SetWatermarkColor{black!15}
 \SetWatermarkFontSize{62pt}
-\SetWatermarkText{DRAFT - Not to be quoted}
+\SetWatermarkText{\sffamily DRAFT - Not to be quoted}
 
 \AtEndPreamble{
 \g@addto@macro\maketitle{
@@ -1727,11 +1735,15 @@ use, and build upon this work, provided credit is given to the original source.
   \begingroup
   \usebackgroundtemplate{
     \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil%
+      \begingroup
      \if#2w%
-         \includegraphics[width=\paperwidth,#3]{#1}
+         \newcommand{\dfly@imagewidth}{\paperwidth}
      \else%
-          \includegraphics[height=\paperheight,#3]{#1}
-        \fi%
+         \newcommand{\dfly@imagewidth}{\paperwidth}
+      \fi%
+      \IfNoValueTF{#3}{\includegraphics[width=\dfly@imagewidth]{#1}}%
+      {\includegraphics[width=\dfly@imagewidth,#3]{#1}}
+        \endgroup
         \hfil}\vfil}
       }
   \begin{frame}[plain] 

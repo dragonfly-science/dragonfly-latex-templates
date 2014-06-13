@@ -27,17 +27,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  Allow variable max authors/editors limit
 
-\newcommand{\maxprtauth}{12}
-\DeclareBibliographyOption{mfishmaxprtauth}{%
-  \ifstrempty{#1}
-    {}
-    {\renewcommand{\maxprtauth}{#1}}}
-
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.22) Force roman numerals into arabic
@@ -625,18 +615,6 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (APA 6.27) Editors have first names first ...
-% (APA 7.02 Example 27) ... unless there is no author
-
-\DeclareNameFormat{mfishnames}{%
-  \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
-    {\addcomma\addspace\ldots}
-    {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
-      {}
-      {\usebibmacro{name:mfish:first-last}{#1}{#3}{#4}{#5}{#7}}}%
-    \ifthenelse{\value{listcount}=\value{listtotal}}%
-      {\ifmorenames{\andothersdelim\bibstring{andothers}}{}}{}}
 
 \renewbibmacro*{author/editor}{%
   \ifnameundef{author}
@@ -648,7 +626,7 @@
 
 \newbibmacro*{editorinauthpos}{%
     \global\booltrue{bbx:editorinauthpos}%
-    \printnames[mfishauthor][-\value{listtotal}]{editor}%
+    \printnames[mfishauthor]{editor}%
     \setunit{\addspace}%
     \ifnameundef{editor}
       {}
@@ -742,7 +720,7 @@
     {}%
     {\ifnamesequal{editor}{translator}%
        {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
-        \printnames[mfishnames][-\value{listtotal}]{editor}%
+        \printnames[mfishauthor]{editor}%
         \setunit*{\addcomma\addspace}%
         \usebibmacro{mfisheditorstrg}{editor}%
         \setunit*{\addspace\&\space}%
@@ -751,7 +729,7 @@
        {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
         \ifnameundef{editor}%
           {}%
-          {\printnames[mfishnames][-\value{listtotal}]{editor}%
+          {\printnames[mfishauthor]{editor}%
            \setunit{\addcomma\addspace}%
            \usebibmacro{mfisheditorstrg}{editor}%
            \clearname{editor}%
@@ -759,7 +737,7 @@
            \setunit*{\addspace\&\space}}%
         \ifnameundef{translator}%
           {\setunit{}}%
-          {\printnames[mfishnames][-\value{listtotal}]{translator}%
+          {\printnames[mfishauthor]{translator}%
            \setunit{\addcomma\addspace}%
            \printtext{\bibcpstring{translator}}%
            \clearname{translator}%
@@ -775,7 +753,7 @@
     {\setunit{\adddot\addspace}}%
     {\ifnamesequal{editor}{translator}%
       {\usebibmacro{in}%
-       \printnames[mfishnames][-\value{listtotal}]{editor}%
+       \printnames[mfishauthor]{editor}%
        \setunit{\addspace\bibopenparen\global\booltrue{bbx:parens}}%
        \usebibmacro{mfisheditorstrg}{editor}%
        \setunit*{\addspace\&\space}%
@@ -784,12 +762,12 @@
       {\ifnameundef{translator}%
         {}%
         {\setunit{\addspace}%
-         \printtext[parens]{\printnames[mfishnames][-\value{listtotal}]{translator}%
+         \printtext[parens]{\printnames[mfishauthor]{translator}%
          \setunit{\addcomma\addspace}%
          \printtext{\bibcpstring{translator}}}%
          \clearname{translator}%
          \setunit{\adddot\addspace}}%
-       \usebibmacro{in}\addcomma\space%
+       \usebibmacro{in}\addcolon\space%
        \usebibmacro{editorx}}%
      \setunit{\addcomma\addspace}}}
 
@@ -1014,7 +992,7 @@
 \newbibmacro*{producer}{%
   \ifnameundef{producer}
     {}
-    {\printnames[mfishauthor][-\value{listtotal}]{producer}%
+    {\printnames[mfishauthor]{producer}%
      \newunit
      \printtext[parens]{\bibcpstring{producer}}%
      \setunit*{\addcomma\addspace\&\addspace}}}
@@ -1022,7 +1000,7 @@
 \newbibmacro*{director}{%
   \ifnameundef{director}
     {}
-    {\printnames[mfishauthor][-\value{listtotal}]{director}%
+    {\printnames[mfishauthor]{director}%
      \newunit
      \printtext[parens]{\bibcpstring{director}}%
      \setunit*{\addcomma\addspace\&\addspace}}}
@@ -1030,7 +1008,7 @@
 \newbibmacro*{writer}{%
   \ifnameundef{writer}
     {}
-    {\printnames[mfishauthor][-\value{listtotal}]{writer}%
+    {\printnames[mfishauthor]{writer}%
      \newunit
      \printtext[parens]{\bibcpstring{writer}}%
      \setunit*{\addcomma\addspace\&\addspace}}}
@@ -1078,7 +1056,7 @@
     {\usebibmacro{in}%
      \ifnameundef{execproducer}
        {}
-       {\printnames[mfishnames][-\value{listtotal}]{execproducer}%
+       {\printnames[mfishauthor]{execproducer}%
          \addspace
          \printtext[parens]{\bibcpstring{execproducer}}}
      \setunit{\addcomma\addspace}%
@@ -1217,8 +1195,8 @@
     \printfield{pages}%
     \setunit{\addcomma\addspace}%
     \bibstring{byauthor}\addspace
-    \printnames[mfishnames][-\value{listtotal}]{editor}%
-    \printnames[mfishnames][-\value{listtotal}]{author}%
+    \printnames[mfishauthor]{editor}%
+    \printnames[mfishauthor]{author}%
     \setunit{\addcomma\addspace}%
     \usebibmacro{location+publisher}%
     \newunit\newblock
@@ -1232,9 +1210,9 @@
       {\printtext{\mkbibemph{\printfield[mfishcase]{title}}}}%
     \setunit{\addspace}%
     \bibstring{byauthor}\addspace
-    \printnames[mfishnames][-\value{listtotal}]{author}%
-    \printnames[mfishnames][-\value{listtotal}]{producer}%
-    \printnames[mfishnames][-\value{listtotal}]{director}%
+    \printnames[mfishauthor]{author}%
+    \printnames[mfishauthor]{producer}%
+    \printnames[mfishauthor]{director}%
     \setunit{\addcomma\addspace}%
     \printdateextra
     \newunit\newblock
@@ -1996,28 +1974,28 @@
 \newbibmacro*{editorx}{%
   \ifnameundef{editor}
     {}
-    {\printnames[mfishnames][-\value{listtotal}]{editor}%
+    {\printnames[mfishauthor]{editor}%
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{mfisheditorstrg}{editor}}
      \clearname{editor}%
      \newunit}%
   \ifnameundef{editora}
     {}
-    {\printnames[mfishnames][-\value{listtotal}]{editora}%
+    {\printnames[mfishauthor]{editora}%
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{mfisheditorstrg}{editora}}
      \clearname{editora}%
      \newunit}%
   \ifnameundef{editorb}
     {}
-    {\printnames[mfishnames][-\value{listtotal}]{editorb}%
+    {\printnames[mfishauthor]{editorb}%
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{mfisheditorstrg}{editorb}}
      \clearname{editorb}%
      \newunit}%
   \ifnameundef{editorc}
     {}
-    {\printnames[mfishnames][-\value{listtotal}]{editorc}%
+    {\printnames[mfishauthor]{editorc}%
      \setunit{\addspace}%
      \printtext[parens]{\usebibmacro{mfisheditorstrg}{editorc}}
      \clearname{editorc}%
