@@ -904,6 +904,16 @@ bottom=40mm
 %</report>
 %    \end{macrocode}
 %
+% The report also has a customisable citation note that goes at the end of the 
+% citation. This defaults to the subtitle. 
+%
+%    \begin{macrocode}
+%<*report>
+\newcommand{\citationnote}[1]{\renewcommand{\@citationnote}{#1}}
+\newcommand{\@citationnote}{\@subtitle}
+%</report>
+%<aebr>\newcommand{\citationnote}[1]{}
+%    \end{macrocode}
 %
 % \subsection{Report and Propsal}
 %
@@ -974,7 +984,7 @@ bottom=40mm
 % extra spacing following it.
 %    \begin{macrocode}
 %<*report|proposal>
-{\omnes \fontsize{23pt}{27.5pt}\selectfont\textbf{\@title}}
+{\raggedright \omnes \fontsize{23pt}{27.5pt}\selectfont\textbf{\@title}}
 \vspace*{8mm}
 \vspace*{-\baselineskip}
 \vspace*{-\parskip}
@@ -1063,7 +1073,7 @@ To be cited as:
 {
   \renewcommand{\\}{}
   \renewcommand{\blx@maxcitenames}{25} %The number of authors here can be large
-  \citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@subtitle}{}{\@subtitle.}
+  \citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@citationnote}{}{\@citationnote.}
 }
 
 \@licence
