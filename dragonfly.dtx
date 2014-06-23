@@ -1777,9 +1777,25 @@ use, and build upon this work, provided credit is given to the original source.
 %
 % \section{Appendicies}
 %
+%
+% We require appendicies to be printed as ``Appendix X'' in the table of 
+% contents. This is accomplished by using a the appendix package with the
+% titletoc option. 
 %    \begin{macrocode}
 %<*aebr|report>
 \RequirePackage[titletoc]{appendix}
+%</aebr|report>
+%    \end{macrocode}
+%
+% In the appendix we also wish to customize a number of properties. To do this
+% we simply add these to the |\appendics| command.  These are:
+% \begin{itemize}
+%\item Section headings printed as Appendix X 
+%\item Tables, equations and figures get the appendix letter before their number
+%\item Counters are reset to set
+% \end{itemize}
+%    \begin{macrocode}
+%<*aebr|report>
 \g@addto@macro\appendices{
 %</aebr|report>
 %<report>\titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{APPENDIX \thesection }{1em}{}
