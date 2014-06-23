@@ -1774,4 +1774,26 @@ use, and build upon this work, provided credit is given to the original source.
 %<beamer>\mode<all>
 %    \end{macrocode}
 %
+%
+% \section{Appendicies}
+%
+%    \begin{macrocode}
+%<*aebr|report>
+\RequirePackage[titletoc]{appendix}
+\g@addto@macro\appendices{
+%</aebr|report>
+%<report>\titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{APPENDIX \thesection }{1em}{}
+%<aebr>\titleformat{\section}{\normalfont\bfseries\sffamily\uppercase}{APPENDIX \thesection }{1em}{}
+%<*aebr|report>
+\titleformat{\section}{\bfseries\sffamily}{APPENDIX \thesection }{1em}{}
+\renewcommand{\theequation}{\thesection-\arabic{equation}}
+\renewcommand{\thetable}{\thesection-\arabic{table}}
+\renewcommand{\thefigure}{\thesection-\arabic{figure}}
+\setcounter{section}{0}  % reset counter 
+\setcounter{figure}{0}  % reset counter 
+\setcounter{table}{0}  % reset counter 
+\setcounter{equation}{0}  % reset counter 
+}
+%</aebr|report>
+%    \end{macrocode}
 \endinput
