@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PREFIX := TEXINPUTS=.///:
 LATEXMK_VERSION=$(strip $(patsubst Version,,$(shell latexmk -v | grep -oi "version.*")))
 ifeq ($(LATEXMK_VERSION),4.24)
-	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf -e '$$biber = q/.\/biber %B/'
+	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf 
 else
 	LATEXMK_OPTIONS=-xelatex
 endif
@@ -48,4 +48,3 @@ clean: cleanClass
 		 *.fdb_latexmk *.fls *-self.bib *.toc *.snm *.nav \
 		 *.ilg *-blx.bib *.run.xml *.bbl *.ind *.blg *.bcf \
 		 *.xwm
-
