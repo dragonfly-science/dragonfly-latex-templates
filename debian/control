@@ -5,11 +5,11 @@ Priority: extra
 Standards-Version: 3.9.2
 Vcs-git: git@github.com:dragonfly-science/dragonfly-latex-templates.git
 Vcs-browser: https://github.com/dragonfly-science/dragonfly-latex-templates
-Build-Depends: debhelper (>= 9), latexmk, texlive-xetex, texlive-latex-recommended, texlive-latex-extra, texlive-latex3, biber, msttcorefonts
+Build-Depends: debhelper (>= 9), devscripts, texlive-full, biber, msttcorefonts
 
 Package: dragonfly-latex-templates
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, texlive-xetex, latexmk, texlive-latex-recommended, texlive-latex-extra, texlive-latex3, biber, msttcorefonts
+Depends: ${shlibs:Depends}, ${misc:Depends}, texlive-full, biber, msttcorefonts
 Description: LaTeX templates for Dragonfly Science
  Provides a number of standard classes for producing
  documents fitting the format used by dragonfly data
