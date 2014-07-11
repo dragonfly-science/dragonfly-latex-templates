@@ -293,7 +293,7 @@ bottom=40mm
 %
 %    \begin{macrocode}
 %<common>\renewcommand{\normalsize}{\fontsize{11pt}{13pt}\selectfont}
-%<aebr>\renewcommand{\normalsize}{\fontsize{10pt}{13.5pt}\selectfont}
+%<aebr>\renewcommand{\normalsize}{\fontsize{11pt}{13pt}\selectfont}
 %    \end{macrocode}
 %
 % All formats except for reports need are ragged right.
@@ -779,7 +779,6 @@ bottom=40mm
 %    \begin{macrocode}
 %<*report|aebr>
 \renewcommand\title[2]{%
-  \raggedright \hyphenpenalty=10000
   \renewcommand\@title{#2}%
   \renewcommand\footertitle{#1}%
 }
@@ -902,11 +901,17 @@ bottom=40mm
 \newcommand{\@isbn}{XX-XXXXX-XX}
 \newcommand{\@reportno}{??}
 \newcommand{\reportno}[1]{\renewcommand{\@reportno}{#1}}
+\newcommand{\@reportseries}{New Zealand Aquatic Environment and Biodiversity Report}
+\newcommand{\reportseries}[1]{\renewcommand{\@reportseries}{#1}}
+\newcommand{\@reportwallpaper}{AEBR.jpg}
+\newcommand{\reportwallpaper}[1]{\renewcommand{\@reportpaper}{#1}}
 %</aebr>
 %<*report>
 \newcommand{\issn}[1]{}
 \newcommand{\isbn}[1]{}
 \newcommand{\reportno}[1]{}
+\newcommand{\reportseries}[1]{}
+\newcommand{\reportwallpaper}[1]{}
 %</report>
 %    \end{macrocode}
 %
@@ -1130,7 +1135,7 @@ To be cited as:
 %<*aebr>
 \pagestyle{empty}
 \clearpage
-\ThisCenterWallPaper{1.0}{AEBR.jpg}
+\ThisCenterWallPaper{1.0}{\@reportwallpaper}
 %</aebr>
 %    \end{macrocode}
 %
@@ -1172,7 +1177,7 @@ To be cited as:
 %
 %    \begin{macrocode}
 %<*aebr>  
-  New Zealand Aquatic Environment and Biodiversity Report No. {\@reportno}
+  {\@reportseries} {\@reportno}
  
 %</aebr>
 %    \end{macrocode}
@@ -1571,10 +1576,10 @@ This publication is also available on the Ministry for Primary Industries websit
 % page.
 %    \begin{macrocode}
 %<*common>
+\RequirePackage{setspace}
 \RequirePackage{ifdraft}
 \ifdraft{
 \RequirePackage{draftwatermark}
-\RequirePackage{setspace}
 \usepackage[modulo]{lineno}
 \SetWatermarkColor{black!15}
 \SetWatermarkFontSize{62pt}
@@ -1640,7 +1645,7 @@ title = \@charlb \@title \@charrb,^^J%
 author = \@charlb \@author \@charrb,^^J%
 %</report|aebr>
 %<*aebr>
-journal = \@charlb New Zealand Aquatic Environment and Biodiversity Report No. \@reportno \@charrb,^^J%
+journal = \@charlb {\@reportseries} \@reportno \@charrb,^^J%
 %</aebr>
 %<*report|aebr>
 \@charrb
