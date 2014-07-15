@@ -1083,8 +1083,10 @@ To be cited as:
 
 {
   \renewcommand{\\}{}
+  \renewcommand*{\multinamedelim}{;\space}
+  \renewcommand*{\finalnamedelim}{;\space}%
   \renewcommand{\blx@maxcitenames}{25} %The number of authors here can be large
-  \citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@citationnote}{}{\@citationnote.}
+  \citename{this}[article]{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@citationnote}{}{\@citationnote.}
 }
 
 \@licence
@@ -1247,13 +1249,11 @@ This publication is also available on the Ministry for Primary Industries websit
 %</aebr>
 %    \end{macrocode}
 %
-% Finally we turn the header and footer back on, and prevent the two generated
-% pages from contributing to the page count.
+% Finally we turn the header and footer off. These get turned on by the summary command.
 %
 %    \begin{macrocode}
 %<*aebr>
-\pagestyle{plain}
-\addtocounter{page}{-2}
+\pagestyle{empty}
 }
 %</aebr>
 %    \end{macrocode}
@@ -1491,6 +1491,7 @@ This publication is also available on the Ministry for Primary Industries websit
   \renewcommand{\contentsname}{TABLE OF CONTENTS}
 } 
 \g@addto@macro\@cfttocfinish{\cleardoublepage}
+\tocloftpagestyle{empty}
 %</aebr>
 %    \end{macrocode}
 %
@@ -1718,6 +1719,8 @@ use, and build upon this work, provided credit is given to the original source.
 %    \begin{macrocode}
 %<*aebr>
  \NewDocumentCommand{\summary}{O {Executive Summary}}{
+  \pagestyle{plain}
+  \setcounter{page}{1}
   \phantomsection
   \addcontentsline{toc}{section}{\hspace{1.4em}#1}
   \section*{#1}
@@ -1730,6 +1733,8 @@ use, and build upon this work, provided credit is given to the original source.
 %    \begin{macrocode}
 %<*aebr>
 \newcommand{\citeself}{
+  \renewcommand*{\multinamedelim}{;\space}
+  \renewcommand*{\finalnamedelim}{;\space}%
   \textbf{\citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title}.}
   
   \textbf{\emph{\citefield{this}{journaltitle}}. \pageref{LastPage}\ p.}
