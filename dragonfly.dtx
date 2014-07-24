@@ -296,6 +296,18 @@ bottom=40mm
 %<aebr>\renewcommand{\normalsize}{\fontsize{11pt}{13pt}\selectfont}
 %    \end{macrocode}
 %
+% Suppress hyphenation, and try to keep the lines justified.
+%  \url{http://tex.stackexchange.com/questions/31301/how-to-reduce-the-number-of-hyphenation}
+%
+%    \begin{macrocode}
+%<*report|proposal>
+\pretolerance=10000
+\tolerance=2000 
+\emergencystretch=10pt
+%</report|proposal>
+%    \end{macrocode}
+%
+%
 % All formats except for reports need are ragged right.
 %    \begin{macrocode}
 %<letter|article|beamer|proposal>\raggedright
@@ -1160,12 +1172,11 @@ To be cited as:
 %    \begin{macrocode}
 %<*aebr>
   {
-    \hyphenpenalty=10000
     \raggedright 
     \fontsize{18pt}{22pt}
     \bfseries
     \selectfont
-    \@title\par
+    \nohyphens{\@title}\par
   }
 
 %</aebr>
