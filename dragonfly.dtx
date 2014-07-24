@@ -301,11 +301,6 @@ bottom=40mm
 %<letter|article|beamer|proposal>\raggedright
 %    \end{macrocode}
 %
-% And we wish to avoid hyphens where possible.
-%    \begin{macrocode}
-%<common>\hyphenpenalty=10000
-%    \end{macrocode}
-%
 % Paragraphs are not indented, but there is extra spacing between them. 
 %    \begin{macrocode}
 %<common>\setlength{\parskip}{3mm}
@@ -551,6 +546,7 @@ bottom=40mm
 \RequirePackage[absolute,overlay]{textpos}
 \RequirePackage{etoolbox}
 \RequirePackage{xparse}
+\RequirePackage{hyphenat}
 \RequirePackage{graphicx}
 \graphicspath{{./}{/dragonfly/latex/graphics/}}
 %</common>
@@ -995,7 +991,7 @@ bottom=40mm
 % extra spacing following it.
 %    \begin{macrocode}
 %<*report|proposal>
-{\raggedright \omnes \fontsize{23pt}{27.5pt}\selectfont\textbf{\@title}}
+{\raggedright \bf \omnes \fontsize{23}{27.5}\selectfont \nohyphens{\@title}\par }
 \vspace*{8mm}
 \vspace*{-\baselineskip}
 \vspace*{-\parskip}
@@ -1005,7 +1001,7 @@ bottom=40mm
 %
 % The main title is followed by the subtitle in logo-blue.
 %    \begin{macrocode}
-%<report|proposal>{\color{logo-blue} \fontsize{11pt}{13.5}\selectfont \textbf{\@subtitle}}
+%<report|proposal>{\pretolerance=10000 \color{logo-blue} \fontsize{11pt}{13.5}\selectfont \textbf{\@subtitle}\par}
 %    \end{macrocode}
 %
 %    The rest of the page only contains the author information as the bottom of
