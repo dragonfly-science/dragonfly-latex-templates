@@ -1,4 +1,4 @@
-dragonfly-latex-templates (1.0-2dc8e113) trusty; urgency=low
+dragonfly-latex-templates (1.0~2dc8e113) trusty; urgency=medium
 
   [ Roma Klapaukh ]
   * Initial release. (Closes: #XXXXXX)
