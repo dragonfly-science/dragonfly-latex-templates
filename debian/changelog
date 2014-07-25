@@ -1,5 +1,9 @@
-dragonfly-latex-templates (1.0) UNRELEASED; urgency=low
+dragonfly-latex-templates (1.0-2dc8e113) trusty; urgency=low
 
+  [ Roma Klapaukh ]
   * Initial release. (Closes: #XXXXXX)
 
- -- Roma Klapaukh <roma@dragonfly.co.nz>  Thu, 03 Apr 2014 10:59:32 +0000
+  [ Finlay Thompson ]
+  * Updated
+
+ -- Finlay Thompson <finlay@frank>  Fri, 25 Jul 2014 16:27:26 +1200
