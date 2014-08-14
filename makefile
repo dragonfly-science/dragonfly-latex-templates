@@ -7,10 +7,13 @@ else
 	LATEXMK_OPTIONS=-xelatex
 endif
 
-all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf aebr.pdf
+all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf aebr.pdf mpi-far.pdf
 
 aebr.pdf: aebr.tex test.bib dragonfly.sty AEBR.jpg biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
 	$(PREFIX) latexmk $(LATEXMK_OPTIONS) aebr.tex
+
+mpi-far.pdf: mpi-far.tex test.bib dragonfly.sty FAR.jpg biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
+	$(PREFIX) latexmk $(LATEXMK_OPTIONS) mpi-far.tex
 
 report.pdf: report.tex test.bib dragonfly.sty wallpaper.png logo.eps biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
 	$(PREFIX) latexmk $(LATEXMK_OPTIONS) report.tex
@@ -41,7 +44,7 @@ pkg:
 cleanClass:
 	rm -f dragonfly.sty dragonfly-report.cls dragonfly-letter.cls \
 		dragonfly-article.cls dragonfly-proposal.cls dragonfly.pdf \
-		aebr.cls
+		mpi-far.cls aebr.cls
 
 clean: cleanClass
 	rm -f  *.pdf *.aux *.log *.out *.backup *.glo *.idx \
