@@ -1,3 +1,9 @@
+dragonfly-latex-templates (1.1-stable) stable; urgency=medium
+
+  * Added mpi-far class
+
+ -- Finlay Thompson <finlay@frank>  Fri, 15 Aug 2014 14:54:01 +1200
+
 dragonfly-latex-templates (1.0-2dc8e113) stable; urgency=low
 
   [ Roma Klapaukh ]
