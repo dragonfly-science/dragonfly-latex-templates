@@ -1,3 +1,9 @@
+dragonfly-latex-templates (1.2-stable) trusty; urgency=medium
+
+  * Using the times new roman for math
+
+ -- Finlay Thompson <finlay@frank>  Thu, 02 Oct 2014 11:58:55 +1300
+
 dragonfly-latex-templates (1.1-stable) stable; urgency=medium
 
   * Added mpi-far class
