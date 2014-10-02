@@ -433,7 +433,8 @@
   {\usebibmacro{postnote}}
 
 \DeclareCiteCommand{\cite}
-  {\usebibmacro{cite:init}%
+  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
+   \usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
    \usebibmacro{cite:byear}}
@@ -442,7 +443,8 @@
    \usebibmacro{cite:post}}
 
 \DeclareCiteCommand*{\cite}
-  {\usebibmacro{cite:init}%
+  {\renewcommand{\finalnamedelim}{\ifnum\value{liststop}>2 \finalandcomma\fi\addspace\&\space}%
+   \usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
    (\usebibmacro{citeyear})}
