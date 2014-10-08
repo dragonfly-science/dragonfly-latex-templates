@@ -869,9 +869,10 @@ bottom=40mm
 %
 %    \begin{macrocode}
 %<*report>
+\RequirePackage{lettrine}
 \newcommand{\singleimage}[2]{%
 \renewcommand{\@imagereferences}{Image reference:}
-\renewcommand{\@singleimage}{\includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
+\renewcommand{\@singleimage}{\lettrine[lines=2,findent=6pt,nindent=0pt]{\includegraphics[height=1.8ex,keepaspectratio]{#1}}{}{\normalfont #2}}
 }
 
 \newcommand{\leftimage}[2]{%
@@ -1092,19 +1093,6 @@ bottom=40mm
 %<*report>
 {\omnes \color{logo-blue} \fontsize{11pt}{13.2pt}\selectfont \textbf{Cover Notes}}
 
-\@imagereferences
-
-\ifx\@imagereferences\@empty%
-\relax%
-\else%
-\begin{tabular}{@{}lll}
-\@singleimage
-\@leftimage
-\@middleimage
-\@rightimage
-\end{tabular}%
-\fi
-
 To be cited as:
 
 {
@@ -1116,6 +1104,21 @@ To be cited as:
 }
 
 \@licence
+
+%%\@imagereferences
+
+\ifx\@imagereferences\@empty%
+\relax%
+\else%
+\@singleimage
+
+\@leftimage
+
+\@middleimage
+
+\@rightimage
+\fi
+
 %</report>
 %<*report|proposal>
 \clearpage
@@ -1721,14 +1724,20 @@ journal = \@charlb {\@reportseries} \@reportno \@charrb,^^J%
 %<*report>
 \RequirePackage{lettrine}
 \newcommand{\bydragonfly}{
-  \lettrine[lines=2]{\includegraphics[width=2cm]{by}}{}
+  \lettrine[lines=2, findent=4pt]{\includegraphics[height=2ex]{by}}{}
   Copyright Dragonfly Data Science \textcopyright{} This report is licensed for re-use under a Creative
 Commons Attribution 3.0 New Zealand Licence. This allows you to distribute,
 use, and build upon this work, provided credit is given to the original source.
 }
 \newcommand{\bycrown}{
-  \lettrine[lines=2]{\includegraphics[width=2cm]{by}}{}
+  \lettrine[lines=2]{\includegraphics[height=2ex]{by}}{}
   Crown copyright \textcopyright{} This report is licensed for re-use under a Creative
+Commons Attribution 3.0 New Zealand Licence. This allows you to distribute,
+use, and build upon this work, provided credit is given to the original source.
+}
+\newcommand{\ccby}[1]{
+  \lettrine[lines=2]{\includegraphics[height=2ex]{by}}{}
+  Copyright #1. This report is licensed for re-use under a Creative
 Commons Attribution 3.0 New Zealand Licence. This allows you to distribute,
 use, and build upon this work, provided credit is given to the original source.
 }

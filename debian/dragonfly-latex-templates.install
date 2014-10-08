@@ -5,4 +5,4 @@ logo.eps /dragonfly/latex/graphics/
 pattern.eps /dragonfly/latex/graphics/
 wallpaper.png /dragonfly/latex/graphics/
 AEBR.jpg /dragonfly/latex/graphics/
-by.png /dragonfly/latex/graphics/
+graphics/* /dragonfly/latex/graphics/
