@@ -814,6 +814,8 @@ bottom=40mm
 % title and is included in every document. In the AEBR this is ignored.
 %    \begin{macrocode}
 %<*report>
+\newcommand{\extratitlepage}[1]{\renewcommand\@extratitlepage{#1}}
+\newcommand{\@extratitlepage}{}
 \newcommand{\subtitle}[1]{\renewcommand\@subtitle{#1}}
 \newcommand{\@subtitle}{%
   \ClassError{dragonfly-report}{No Subtitle Supplied}{Use subtitle}}
@@ -1034,10 +1036,14 @@ bottom=40mm
 %<report|proposal>{\raggedright \bf \color{logo-blue} \fontsize{11pt}{13.5}\selectfont \nohyphens{\@subtitle}\par}
 %    \end{macrocode}
 %
-%    The rest of the page only contains the author information as the bottom of
-%    the page. 
+%    If you want to put extra content in, you can use the extratitlepage command.
 %    \begin{macrocode}
 %<*report|proposal>
+\vfill%
+      \ifx\@extratitlepage\@empty%
+      \else%
+      {\@extratitlepage}%
+      \fi%
 \vfill%
 \hspace*{90mm}%
 \begin{minipage}[h]{65mm}
