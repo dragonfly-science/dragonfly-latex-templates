@@ -1,3 +1,9 @@
+dragonfly-latex-templates (1.5) trusty; urgency=medium
+
+  * Added \extratitlepage{...} to add notices to title page on reports.
+
+ -- Finlay Thompson <finlay@frank>  Wed, 29 Oct 2014 09:16:49 +1300
+
 dragonfly-latex-templates (1.4) trusty; urgency=medium
 
   [ Edward Abraham ]
