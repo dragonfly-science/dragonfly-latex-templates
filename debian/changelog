@@ -1,3 +1,21 @@
+dragonfly-latex-templates (1.5-stable) stable; urgency=medium
+
+  * Added \extratitlepage{...} to add notices to title page on reports.
+
+ -- Finlay Thompson <finlay@frank>  Wed, 29 Oct 2014 09:16:49 +1300
+
+dragonfly-latex-templates (1.4) trusty; urgency=medium
+
+  * Use & to separate authors in citet and cite
+
+ -- Finlay Thompson <finlay@frank>  Thu, 02 Oct 2014 15:36:06 +1300
+
+dragonfly-latex-templates (1.2-stable) trusty; urgency=medium
+
+  * Using the times new roman for math
+
+ -- Finlay Thompson <finlay@frank>  Thu, 02 Oct 2014 11:58:55 +1300
+
 dragonfly-latex-templates (1.1-stable) stable; urgency=medium
 
   * Added mpi-far class
