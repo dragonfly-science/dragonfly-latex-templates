@@ -1768,18 +1768,20 @@ use, and build upon this work, provided credit is given to the original source.
   \begingroup
   \usebackgroundtemplate{
     \vbox to \paperheight{\vfil\hbox to \paperwidth{\hfil%
-      \begingroup
-     \if#2w%
-         \newcommand{\dfly@imagewidth}{\paperwidth}
-     \else%
-         \newcommand{\dfly@imagewidth}{\paperwidth}
-      \fi%
-      \IfNoValueTF{#3}{\includegraphics[width=\dfly@imagewidth]{#1}}%
-      {\includegraphics[width=\dfly@imagewidth,#3]{#1}}
-        \endgroup
-        \hfil}\vfil}
-      }
-  \begin{frame}[plain] 
+        \begingroup
+        \if#2w%
+           {\newcommand{\dfly@imagewidth}{\paperwidth}
+             \IfNoValueTF{#3}{\includegraphics[width=\dfly@imagewidth]{#1}}%
+                         {\includegraphics[width=\dfly@imagewidth,#3]{#1}}}
+           \else%
+               {\newcommand{\dfly@imageheight}{\paperheight}
+                 \IfNoValueTF{#3}{\includegraphics[height=\dfly@imageheight]{#1}}%
+                             {\includegraphics[height=\dfly@imageheight,#3]{#1}}}
+               \fi%     
+               \endgroup
+               \hfil}\vfil}
+  }
+  \begin{frame}[plain]
   \end{frame}
   \endgroup
 }
