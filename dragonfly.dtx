@@ -1775,6 +1775,7 @@ use, and build upon this work, provided credit is given to the original source.
 \newcommand{\citeself}{
   \renewcommand*{\multinamedelim}{;\space}
   \renewcommand*{\finalnamedelim}{;\space}%
+  \AtNextCite{\defcounter{maxnames}{99}}
   \textbf{\citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title}.}
   
   \textbf{\emph{\citefield{this}{journaltitle}}. \pageref{LastPage}\ p.}
