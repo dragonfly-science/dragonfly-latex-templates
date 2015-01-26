@@ -1763,6 +1763,7 @@ use, and build upon this work, provided credit is given to the original source.
 %    \begin{macrocode}
 %<*aebr|mpi-far>
 \newcommand{\citeself}{
+  \AtNextCite{\defcounter{maxnames}{99}}
   \textbf{\citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title}.}
   
   \textbf{\emph{\citefield{this}{journaltitle}}. \pageref{LastPage}\ p.}
