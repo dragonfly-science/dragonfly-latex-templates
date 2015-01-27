@@ -1,3 +1,9 @@
+dragonfly-latex-templates (1.6) trusty; urgency=medium
+
+  * Fixed \citeself in AEBR and FAR reports to display all authors.
+
+ -- Finlay Thompson <finlay@dragonfly.co.nz>  Tue, 27 Jan 2015 15:16:14 +1300 
+
 dragonfly-latex-templates (1.5) trusty; urgency=medium
 
   * Added \extratitlepage{...} to add notices to title page on reports.
