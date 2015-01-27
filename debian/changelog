@@ -1,3 +1,9 @@
+dragonfly-latex-templates (1.6-stable) stable; urgency=medium
+
+  * Fixed the citeself in AEBR and FAR reports
+
+ -- Finlay Thompson <finlay@frank>  Tue, 27 Jan 2015 15:30:00 +1300
+
 dragonfly-latex-templates (1.5-stable) stable; urgency=medium
 
   * Added \extratitlepage{...} to add notices to title page on reports.
