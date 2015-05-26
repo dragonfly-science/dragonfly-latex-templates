@@ -873,23 +873,11 @@ bottom=40mm
 %<*report>
 \RequirePackage{lettrine}
 \newcommand{\singleimage}[2]{%
-\renewcommand{\@imagereferences}{Image reference:}
+\renewcommand{\@imagereferences}{Cover image:}
 \renewcommand{\@singleimage}{\lettrine[lines=2,findent=6pt,nindent=0pt]{\includegraphics[height=1.8ex,keepaspectratio]{#1}}{}{\normalfont #2}}
 }
 
-\newcommand{\leftimage}[2]{%
-\renewcommand{\@imagereferences}{Image reference:}
-\renewcommand{\@leftimage}{Left: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
 
-\newcommand{\rightimage}[2]{%
-  \renewcommand{\@imagereferences}{Image reference:}
-  \renewcommand{\@rightimage}{Right: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
-\newcommand{\middleimage}[2]{%
-  \renewcommand{\@imagereferences}{Image reference:}
-  \renewcommand{\@middleimage}{Middle: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
 \newcommand{\@singleimage}{}
 \newcommand{\@leftimage}{}
 \newcommand{\@middleimage}{}
@@ -1111,18 +1099,11 @@ To be cited as:
 
 \@licence
 
-%%\@imagereferences
-
 \ifx\@imagereferences\@empty%
 \relax%
 \else%
+\@imagereferences
 \@singleimage
-
-\@leftimage
-
-\@middleimage
-
-\@rightimage
 \fi
 
 %</report>
