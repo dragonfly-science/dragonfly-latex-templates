@@ -1,10 +1,8 @@
 *.cls /usr/share/texlive/texmf-dist/tex/latex/dragonfly
 *.sty /usr/share/texlive/texmf-dist/tex/latex/dragonfly
-biblatex /usr/share/texlive/texmf-dist/tex/latex/
 biblatex-mfish/ /usr/share/texlive/texmf-dist/tex/latex/
 logo.eps /dragonfly/latex/graphics/
 pattern.eps /dragonfly/latex/graphics/
 wallpaper.png /dragonfly/latex/graphics/
 AEBR.jpg /dragonfly/latex/graphics/
-by.png /dragonfly/latex/graphics/
-biber /usr/bin/
+graphics/* /dragonfly/latex/graphics/

@@ -23,7 +23,7 @@
 % \fi
 %
 % \iffalse
-%<common|report|article|letter|beamer|proposal|aebr|mpi-far>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<common|report|article|letter|beamer|proposal>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %
 %<common>\ProvidesPackage{dragonfly}[2014/03/23 v0.1 Common formatting requirements for Dragonfly Science]
 %<report>\ProvidesClass{dragonfly-report}[2014/03/20 v0.1 Report format for Dragonfly Science]
@@ -31,8 +31,6 @@
 %<letter>\ProvidesClass{dragonfly-letter}[2014/03/20 v0.5 Letter format for Dragonfly Science]
 %<beamer>\ProvidesClass{beamerthemeDragonfly}[2014/04/07 v0.1 Beamer format for Dragonfly Science]
 %<proposal>\ProvidesClass{dragonfly-proposal}[2014/04/25 v0.1 Proposal format for Dragonfly Science]
-%<aebr>\ProvidesClass{aebr}[2014/05/05 v0.1 AEBR format]
-%<mpi-far>\ProvidesClass{mpi-far}[2014/08/15 v0.1 MPI FAR format]
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{dragonfly}
@@ -124,7 +122,7 @@
 % clear it from the global options list. This is taken from 
 % \url{http://tex.stackexchange.com/questions/33245/disabling-the-draft-option-in-a-package}.
 %    \begin{macrocode}
-%<*letter|article|report|proposal|aebr|mpi-far|beamer>
+%<*letter|article|report|proposal|beamer>
 \def\@clearglobaloption#1{%
   \def\@tempa{#1}%
   \def\@tempb{\@gobble}%
@@ -138,7 +136,7 @@
   \expandafter\ifx\@tempb\@gobble
     \let\@classoptionslist\@empty
   \fi}
-%</letter|article|report|proposal|aebr|mpi-far|beamer>
+%</letter|article|report|proposal|beamer>
 %    \end{macrocode}
 %
 % The dragonfly package needs to recognise the draft option, and just
@@ -155,13 +153,13 @@
 % 
 % The rest are just default behaviour. 
 %    \begin{macrocode}
-%<*letter|article|report|proposal|aebr|mpi-far|beamer>
+%<*letter|article|report|proposal|beamer>
 \DeclareOption{draft}{
   \PassOptionsToPackage{\CurrentOption}{dragonfly}
   \@clearglobaloption{draft}
 }
 \ProcessOptions\relax
-%</letter|article|report|proposal|aebr|mpi-far|beamer>
+%</letter|article|report|proposal|beamer>
 %    \end{macrocode}
 %
 % \section{Templates}
@@ -184,7 +182,6 @@
 %
 %    \begin{macrocode}
 %<letter|article|report>\LoadClass[a4paper,final,11pt]{article}
-%<aebr|mpi-far>\LoadClass[a4paper,twoside,final,11pt]{article}
 %<proposal>\LoadClass[a4paper,11pt]{dragonfly-report}
 %<beamer>\mode<presentation>
 %<beamer>\useinnertheme{circles}
@@ -195,7 +192,7 @@
 % All of the classese use a commmon style to share general definitions.
 % This is provided by the dragonfly style.
 %    \begin{macrocode}
-%<report|article|letter|beamer|aebr|mpi-far>\RequirePackage{dragonfly}
+%<report|article|letter|beamer>\RequirePackage{dragonfly}
 %    \end{macrocode}
 %
 % \section{Page Layout}
@@ -226,13 +223,6 @@ bottom=40mm
 %</report>
 %    \end{macrocode}
 %
-% \subsection{AEBR}
-%
-% The AEBR style uses estimated margins based on existing reports.
-%
-%    \begin{macrocode}
-%<aebr|mpi-far>\RequirePackage[margin=2.5cm]{geometry}
-%    \end{macrocode}
 %
 % \section{Fonts}
 %
@@ -275,41 +265,11 @@ bottom=40mm
 %</common>
 %    \end{macrocode}
 %
-% AEBR uses standard times like fonts.
-%    
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-\setmainfont[Mapping=tex-text,
-    ItalicFont     = {Times New Roman Italic},
-    BoldFont       = {Times New Roman Bold},
-    BoldItalicFont = {Times New Roman Bold Italic}]{Times New Roman}
-\setsansfont[Mapping=tex-text,
-  ItalicFont = {Arial Italic},
-  BoldFont = {Arial Bold},
-  BoldItalicFont = {Arial Bold Italic}]{Arial}
-\setmathrm[Mapping=tex-text,
-    Numbers=Monospaced,
-    ItalicFont     = {Times New Roman Italic},
-    BoldFont       = {Times New Roman Bold},
-    BoldItalicFont = {Times New Roman Bold Italic}]{Times New Roman}
-\setmathsf[Mapping=tex-text,
-    Numbers=Monospaced,
-    ItalicFont     = {Times New Roman Italic},
-    BoldFont       = {Times New Roman Bold},
-    BoldItalicFont = {Times New Roman Bold Italic}]{Times New Roman}
-\setmathtt[Mapping=tex-text, 
-    Numbers=Monospaced,
-    ItalicFont     = {Times New Roman Italic},
-    BoldFont       = {Times New Roman Bold},
-    BoldItalicFont = {Times New Roman Bold Italic}]{Times New Roman}
-%</aebr|mpi-far>
-%    \end{macrocode}
 %
 % We also set the fontsize to be 11pt. Unless you are a AEBR document.
 %
 %    \begin{macrocode}
 %<common>\renewcommand{\normalsize}{\fontsize{11pt}{13pt}\selectfont}
-%<aebr|mpi-far>\renewcommand{\normalsize}{\fontsize{11pt}{13pt}\selectfont}
 %    \end{macrocode}
 %
 % Suppress hyphenation, and try to keep the lines justified.
@@ -378,22 +338,6 @@ bottom=40mm
 %    \end{macrocode}
 %
 %
-% \subsection{AEBR}
-%
-% Unlike dragonfly reports, AEBR reports do not use colour in their section
-% headings, and are constant sized. Otherwise they are similar.
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-\titleformat{\section}{\normalfont\bfseries\sffamily\uppercase}{\thesection.}{1em}{}
-\titleformat{\subsection}{\normalfont\bfseries\sffamily}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\normalfont\bfseries\sffamily}{\thesubsubsection}{1em}{}
-\titlespacing{\section}{0pt}{\baselineskip}{0pt}
-\titlespacing{\subsection}{0pt}{\baselineskip}{0pt}
-\titlespacing{\subsubsection}{0pt}{\baselineskip}{0pt}
-%</aebr|mpi-far>
-%    \end{macrocode}
-
 %
 % \subsection{Beamer}
 %
@@ -468,25 +412,6 @@ bottom=40mm
 %</report>
 %    \end{macrocode}
 %
-% \subsection{AEBR}
-%
-%    Page footers must contain the report name, page and publisher. 
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-\usepackage{fancyhdr}
-
-\fancypagestyle{plain}{
-    \fancyhf{}
-    \fancyfoot[LO,RE]{\sffamily\scriptsize Ministry for Primary Industries}
-    \fancyfoot[LE]{\sffamily\scriptsize\thepage\ {\normalsize$\bullet$}\ \footertitle}
-    \fancyfoot[RO]{\sffamily\scriptsize\footertitle\ {\normalsize$\bullet$}\ \thepage}
-    \renewcommand{\footrulewidth}{0.3pt} 
-    \renewcommand{\headrulewidth}{0pt} 
-  }
-%</aebr|mpi-far>
-%   \end{macrocode}
-%
 % \subsection{Beamer}
 %
 %    \subsubsection{Meta Data}
@@ -537,23 +462,23 @@ bottom=40mm
 % a proper section
 %
 %    \begin{macrocode}
-%<*report|aebr|mpi-far>
+%<*report>
 \RequirePackage{csquotes}
 \RequirePackage{polyglossia}
 \setdefaultlanguage[variant=newzealand]{english}
 \RequirePackage[style=mfish,backend=biber]{biblatex}
 \DeclareLanguageMapping{english}{english-mfish}
 \defbibheading{bibliography}[References]{\section{#1}}
-%</report|aebr|mpi-far>
+%</report>
 %    \end{macrocode}
 %
 % We define some helper cite commands for familiarity. 
 %
 %    \begin{macrocode}
-%<*report|aebr|mpi-far>
+%<*report>
 \newcommand{\citet}{\cite}
 \newcommand{\citep}{\parencite}
-%</report|aebr|mpi-far>
+%</report>
 %    \end{macrocode}
 %
 %
@@ -801,13 +726,13 @@ bottom=40mm
 % in the page footer. Both are required.  
 %
 %    \begin{macrocode}
-%<*report|aebr|mpi-far>
+%<*report>
 \renewcommand\title[2]{%
   \renewcommand\@title{#2}%
   \renewcommand\footertitle{#1}%
 }
 \newcommand{\footertitle}{\ClassError{dragonfly-report}{No Footer title defined}{Use \noexpand\title}}
-%</report|aebr|mpi-far>
+%</report>
 %    \end{macrocode}%
 %
 % Additionally to a full title, the report has a subtitle. This goes below the main
@@ -820,7 +745,6 @@ bottom=40mm
 \newcommand{\@subtitle}{%
   \ClassError{dragonfly-report}{No Subtitle Supplied}{Use subtitle}}
 %</report>
-%<aebr|mpi-far>\newcommand{\subtitle}[1]{}
 %    \end{macrocode}
 %
 %
@@ -837,7 +761,6 @@ bottom=40mm
   \renewcommand{\@titleimage}{#1}
 }
 %</report>
-%<aebr|mpi-far>\newcommand{\titleimage}[1]{}
 %    \end{macrocode}
 %
 % In the report the authors list starts with the title ``Authors:'',
@@ -853,14 +776,10 @@ bottom=40mm
 % is also a reportmonth command to set the month. 
 %
 %    \begin{macrocode}
-%<*report|aebr|mpi-far>
+%<*report>
   \renewcommand{\@date}{\the\year}
-%</report|aebr|mpi-far>
+%</report>
 %<report>\newcommand{\reportmonth}[1]{}
-%<*aebr|mpi-far>
-\newcommand{\reportmonth}[1]{\renewcommand{\@month}{#1}}
-\newcommand{\@month}{MMM}
-%</aebr|mpi-far>
 %    \end{macrocode}
 %  
 % Since the report title image is supposed to be a mixture of three images, we 
@@ -871,24 +790,13 @@ bottom=40mm
 %
 %    \begin{macrocode}
 %<*report>
+\RequirePackage{lettrine}
 \newcommand{\singleimage}[2]{%
-\renewcommand{\@imagereferences}{Image reference:}
-\renewcommand{\@singleimage}{\includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
+\renewcommand{\@imagereferences}{Cover image:}
+\renewcommand{\@singleimage}{\lettrine[lines=2,findent=6pt,nindent=0pt]{\includegraphics[height=1.8ex,keepaspectratio]{#1}}{}{\normalfont #2}}
 }
 
-\newcommand{\leftimage}[2]{%
-\renewcommand{\@imagereferences}{Image reference:}
-\renewcommand{\@leftimage}{Left: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
 
-\newcommand{\rightimage}[2]{%
-  \renewcommand{\@imagereferences}{Image reference:}
-  \renewcommand{\@rightimage}{Right: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
-\newcommand{\middleimage}[2]{%
-  \renewcommand{\@imagereferences}{Image reference:}
-  \renewcommand{\@middleimage}{Middle: &  \includegraphics[height=2ex,keepaspectratio]{#1} & \href{#2}{\normalfont\color{black}#2}\\}
-}
 \newcommand{\@singleimage}{}
 \newcommand{\@leftimage}{}
 \newcommand{\@middleimage}{}
@@ -896,14 +804,6 @@ bottom=40mm
 
 \def\@imagereferences{}
 %</report>
-%<*aebr|mpi-far>
-\newcommand{\middleimage}[2]{}
-\newcommand{\rightimage}[2]{}
-\newcommand{\leftimage}[2]{}
-\newcommand{\singleimage}[2]{}
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
 %
 % Each report may contain a copyright notice. This has an image for the licence,
 % as well as text. 
@@ -913,27 +813,12 @@ bottom=40mm
 \newcommand{\licence}[1]{\renewcommand{\@licence}{#1}}
 \newcommand{\@licence}{}
 %</report>
-%<aebr|mpi-far>\newcommand{\licence}[1]{}
 %    \end{macrocode}
 %
 % AEBR documens require and ISSN, ISBN and report number. All of these must have 
 % sensible defaults for before they are finished. These should not be implemented
 % in report.
 %    \begin{macrocode}
-%<aebr>\newcommand{\@reportwallpaper}{AEBR.jpg}
-%<aebr>\newcommand{\@reportseries}{New Zealand Aquatic Environment and Biodiversity Report}
-%<mpi-far>\newcommand{\@reportwallpaper}{FAR.jpg}
-%<mpi-far>\newcommand{\@reportseries}{New Zealand Fisheries Assessment Report}
-%<*aebr|mpi-far>
-\newcommand{\issn}[1]{\renewcommand{\@issn}{#1}}
-\newcommand{\isbn}[1]{\renewcommand{\@isbn}{#1}}
-\newcommand{\@issn}{XXXX-XXXX}
-\newcommand{\@isbn}{XX-XXXXX-XX}
-\newcommand{\@reportno}{??}
-\newcommand{\reportno}[1]{\renewcommand{\@reportno}{#1}}
-\newcommand{\reportseries}[1]{\renewcommand{\@reportseries}{#1}}
-\newcommand{\reportwallpaper}[1]{\renewcommand{\@reportpaper}{#1}}
-%</aebr|mpi-far>
 %<*report>
 \newcommand{\issn}[1]{}
 \newcommand{\isbn}[1]{}
@@ -951,7 +836,6 @@ bottom=40mm
 \newcommand{\citationnote}[1]{\renewcommand{\@citationnote}{#1}}
 \newcommand{\@citationnote}{\@subtitle}
 %</report>
-%<aebr|mpi-far>\newcommand{\citationnote}[1]{}
 %    \end{macrocode}
 %
 % \subsection{Report and Propsal}
@@ -1098,28 +982,25 @@ bottom=40mm
 %<*report>
 {\omnes \color{logo-blue} \fontsize{11pt}{13.2pt}\selectfont \textbf{Cover Notes}}
 
-\@imagereferences
-
-\ifx\@imagereferences\@empty%
-\relax%
-\else%
-\begin{tabular}{@{}lll}
-\@singleimage
-\@leftimage
-\@middleimage
-\@rightimage
-\end{tabular}%
-\fi
-
 To be cited as:
 
 {
   \renewcommand{\\}{}
+  \renewcommand*{\multinamedelim}{;\space}
+  \renewcommand*{\finalnamedelim}{;\space}%
   \renewcommand{\blx@maxcitenames}{25} %The number of authors here can be large
-  \citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@citationnote}{}{\@citationnote.}
+  \citename{this}[article]{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@citationnote}{}{\@citationnote.}
 }
 
 \@licence
+
+\ifx\@imagereferences\@empty%
+\relax%
+\else%
+\@imagereferences
+\@singleimage
+\fi
+
 %</report>
 %<*report|proposal>
 \clearpage
@@ -1128,167 +1009,6 @@ To be cited as:
 %</report|proposal>
 %    \end{macrocode}
 %
-% \subsection{AEBR}
-%
-% The AEBR title page is two pages which do not count towards the total number of pages.
-% It contains an image on the first page as well as the usual information.
-%
-% We use the wallpaper package to support background images. 
-%    \begin{macrocode}
-%<aebr|mpi-far>\RequirePackage{wallpaper}
-%    \end{macrocode}
-%
-% We redefine the maketitle command to generate the right content. 
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-\renewcommand{\maketitle}{
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% We start by generating metadata for the pdf. We need to at least set the pdf
-% author and title. 
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-  {
-    \renewcommand{\and}{ and }
-    \hypersetup{  
-      pdfinfo={  
-        Title={\footertitle},  
-        Author={\@author}
-      }  
-    }
-  }
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% The first page is fully covered by the special title image used by AEBRs. 
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-\pagestyle{empty}
-\clearpage
-\ThisCenterWallPaper{1.0}{\@reportwallpaper}
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% The text is overlayed into a small box over the image, such that is it over the 
-% white part of the image. 
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-\begin{textblock*}{0.7\textwidth}(86.1mm,61.5mm)
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% The entire titlepage is written in sans serif font. 
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>  
-  {\sffamily
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% The title is written in large bold font. It is ragged right rather than justified
-% and should avoid hyphenation. 
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-  {
-    \raggedright 
-    \fontsize{18pt}{22pt}
-    \bfseries
-    \selectfont
-    \nohyphens{\@title}\par
-  }
-
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% Each report then states that is an AEBR and its number.
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>  
-  {\@reportseries} {\@reportno}
- 
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% The authors are printed in a slightly indented list. 
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-  {
-    \renewcommand{\and}{\\}
-    \hspace{3em}
-    \begin{tabular}{l}
-    \@author
-  \end{tabular}
-}
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% This is followed by the reports ISSN and ISBN numbers.
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-
-ISSN \@issn{} (online)\\
-ISBN \@isbn{} (online)
-
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% Finally the report text block (and page) finishes with the date (month year).
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-\textbf{\@month{} \@date}
-}
-\end{textblock*}
-\mbox{}
-\clearpage
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% The inside page contains a standard set of text.
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-{
-  \setlength{\parskip}{4ex}
-  \vspace*{4ex}
-Requests for further copies should be directed to:
-
-
-Publications Logistics Officer\\
-Ministry for Primary Industries\\
-PO Box 2526\\
-WELLINGTON 6140
-
-Email: brand@mpi.govt.nz\\
-Telephone: 0800 00 83 33\\
-Facsimile: 04-894 0300
-
-This publication is also available on the Ministry for Primary Industries websites at:\\
-\url{http://www.mpi.govt.nz/news-resources/publications.aspx}\\
-\url{http://fs.fish.govt.nz} go to Document library/Research reports
-
-\textbf{\copyright{} Crown Copyright - Ministry for Primary Industries}
-}
-\clearpage
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% Finally we turn the header and footer back on, and prevent the two generated
-% pages from contributing to the page count.
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-\pagestyle{plain}
-\addtocounter{page}{-2}
-\pagestyle{empty}
-}
-%</aebr|mpi-far>
-%    \end{macrocode}
 %
 % \subsection{Beamer}
 % Beamer title pages are similar to the default beamer ones, but we add some helper
@@ -1423,7 +1143,7 @@ This publication is also available on the Ministry for Primary Industries websit
 % Reports requires a table of contents that is formatted in a very specific way.
 %
 %    \begin{macrocode}
-%<report|aebr|mpi-far>\RequirePackage{tocloft}
+%<report>\RequirePackage{tocloft}
 %    \end{macrocode}
 %
 %
@@ -1433,10 +1153,10 @@ This publication is also available on the Ministry for Primary Industries websit
 % used in report and AEBR.
 %
 %    \begin{macrocode}
-%<*report|aebr|mpi-far>
+%<*report>
 \let\dfly@contentsline=\contentsline
 \renewcommand\contentsline[4]{\dfly@contentsline{#1}{\ifstrequal{#1}{section}{\MakeUppercase{#2}}{#2}}{#3}{#4}}
-%</report|aebr|mpi-far>
+%</report>
 %    \end{macrocode}
 %
 %\subsection{Report}
@@ -1511,29 +1231,6 @@ This publication is also available on the Ministry for Primary Industries websit
 %</report>
 %    \end{macrocode}
 %
-% \subsection{AEBR}
-%
-% The table of contents should have it's own page. And since it is printed it should
-% clear a double page. It should be called the TABLE OF CONTENTS. 
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-\RequirePackage{tocloft}
-\renewcommand{\cfttoctitlefont}{\bfseries\sffamily}
-\addto\captionsenglish{%
-  \renewcommand{\contentsname}{TABLE OF CONTENTS}
-} 
-\g@addto@macro\@cfttocfinish{\cleardoublepage}
-\tocloftpagestyle{empty}
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-% Section lines should be sans serif.
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-\g@addto@macro\cftsecpagefont{\sffamily}
-\g@addto@macro\cftsecfont{\sffamily}
-%</aebr|mpi-far>
-%    \end{macrocode}
 %
 % \section{Floats}
 % 
@@ -1594,12 +1291,6 @@ This publication is also available on the Ministry for Primary Industries websit
 %    \end{macrocode}
 %
 %
-% \subsection{AEBR}
-%
-% Captions are all bold.
-%    \begin{macrocode}
-%<aebr|mpi-far>\usepackage[font={small,bf},labelsep=colon,singlelinecheck=false]{caption}
-%    \end{macrocode}
 %
 % \section{Draft mode}
 %
@@ -1664,7 +1355,7 @@ This publication is also available on the Ministry for Primary Industries websit
 % need to print out the command rather than actually do emphasis. 
 %
 %    \begin{macrocode}
-%<*report|aebr|mpi-far>
+%<*report>
 \RequirePackage{lastpage}
 \AtBeginDocument{
 {
@@ -1676,11 +1367,8 @@ options = \@charlb skipbib \@charrb,^^J%
 year = \@charlb \@date \@charrb,^^J%
 title = \@charlb \@title \@charrb,^^J%
 author = \@charlb \@author \@charrb,^^J%
-%</report|aebr|mpi-far>
-%<*aebr|mpi-far>
-journal = \@charlb {\@reportseries} \@reportno \@charrb,^^J%
-%</aebr|mpi-far>
-%<*report|aebr|mpi-far>
+%</report>
+%<*report>
 \@charrb
 }
 \newwrite\tempfile
@@ -1689,15 +1377,15 @@ journal = \@charlb {\@reportseries} \@reportno \@charrb,^^J%
 \immediate\closeout\tempfile
 }
 }
-%</report|aebr|mpi-far>
+%</report>
 %    \end{macrocode}
 %
 % We then inform biblatex about this document. 
 %
 %    \begin{macrocode}
-%<*report|aebr|mpi-far>
+%<*report>
 \addbibresource{\jobname-self.bib}
-%</report|aebr|mpi-far>
+%</report>
 %    \end{macrocode}
 %
 % 
@@ -1728,14 +1416,20 @@ journal = \@charlb {\@reportseries} \@reportno \@charrb,^^J%
 %<*report>
 \RequirePackage{lettrine}
 \newcommand{\bydragonfly}{
-  \lettrine[lines=2]{\includegraphics[width=2cm]{by}}{}
+  \lettrine[lines=2, findent=4pt]{\includegraphics[height=2ex]{by}}{}
   Copyright Dragonfly Data Science \textcopyright{} This report is licensed for re-use under a Creative
 Commons Attribution 3.0 New Zealand Licence. This allows you to distribute,
 use, and build upon this work, provided credit is given to the original source.
 }
 \newcommand{\bycrown}{
-  \lettrine[lines=2]{\includegraphics[width=2cm]{by}}{}
+  \lettrine[lines=2]{\includegraphics[height=2ex]{by}}{}
   Crown copyright \textcopyright{} This report is licensed for re-use under a Creative
+Commons Attribution 3.0 New Zealand Licence. This allows you to distribute,
+use, and build upon this work, provided credit is given to the original source.
+}
+\newcommand{\ccby}[1]{
+  \lettrine[lines=2]{\includegraphics[height=2ex]{by}}{}
+  Copyright #1. This report is licensed for re-use under a Creative
 Commons Attribution 3.0 New Zealand Licence. This allows you to distribute,
 use, and build upon this work, provided credit is given to the original source.
 }
@@ -1743,33 +1437,6 @@ use, and build upon this work, provided credit is given to the original source.
 %    \end{macrocode}
 %
 %
-% \section{AEBR}
-%
-%    Again, like the report there is space for an executive summary, or some other
-% unnumbered starting section. 
-%
-%    \begin{macrocode}
-%<*aebr|mpi-far>
- \NewDocumentCommand{\summary}{O {Executive Summary}}{
-  \phantomsection
-  \addcontentsline{toc}{section}{\hspace{1.4em}#1}
-  \section*{#1}
-} 
-%</aebr|mpi-far>
-%    \end{macrocode}
-%
-%
-% We also need a facility to cite the paper that is currently being written (for AEBR). 
-%    \begin{macrocode}
-%<*aebr|mpi-far>
-\newcommand{\citeself}{
-  \AtNextCite{\defcounter{maxnames}{99}}
-  \textbf{\citename{this}{author}\ (\citefield{this}{year}).\ \citefield{this}{title}.}
-  
-  \textbf{\emph{\citefield{this}{journaltitle}}. \pageref{LastPage}\ p.}
-}
-%</aebr|mpi-far>
-%    \end{macrocode}
 % 
 % \section{Beamer}
 %
@@ -1823,9 +1490,9 @@ use, and build upon this work, provided credit is given to the original source.
 % contents. This is accomplished by using a the appendix package with the
 % titletoc option. 
 %    \begin{macrocode}
-%<*aebr|mpi-far|report>
+%<*report>
 \RequirePackage[titletoc]{appendix}
-%</aebr|mpi-far|report>
+%</report>
 %    \end{macrocode}
 %
 % In the appendix we also wish to customize a number of properties. To do this
@@ -1836,12 +1503,11 @@ use, and build upon this work, provided credit is given to the original source.
 %\item Counters are reset to set
 % \end{itemize}
 %    \begin{macrocode}
-%<*aebr|mpi-far|report>
+%<*report>
 \g@addto@macro\appendices{
-%</aebr|mpi-far|report>
+%</report>
 %<report>\titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{APPENDIX \thesection }{1em}{}
-%<aebr|mpi-far>\titleformat{\section}{\normalfont\bfseries\sffamily\uppercase}{APPENDIX \thesection }{1em}{}
-%<*aebr|mpi-far|report>
+%<*report>
 \titleformat{\section}{\bfseries\sffamily}{APPENDIX \thesection }{1em}{}
 \renewcommand{\theequation}{\thesection-\arabic{equation}}
 \renewcommand{\thetable}{\thesection-\arabic{table}}
@@ -1851,6 +1517,6 @@ use, and build upon this work, provided credit is given to the original source.
 \setcounter{table}{0}  % reset counter 
 \setcounter{equation}{0}  % reset counter 
 }
-%</aebr|mpi-far|report>
+%</report>
 %    \end{macrocode}
 \endinput

@@ -2,15 +2,12 @@ SHELL := /bin/bash
 PREFIX := TEXINPUTS=.///:
 LATEXMK_VERSION=$(strip $(patsubst Version,,$(shell latexmk -v | grep -oi "version.*")))
 ifeq ($(LATEXMK_VERSION),4.24)
-	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf -e '$$biber = q/.\/biber %B/'
+	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf 
 else
 	LATEXMK_OPTIONS=-xelatex
 endif
 
-all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf aebr.pdf mpi-far.pdf
-
-aebr.pdf: aebr.tex test.bib dragonfly.sty AEBR.jpg biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
-	$(PREFIX) latexmk $(LATEXMK_OPTIONS) aebr.tex
+all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf 
 
 mpi-far.pdf: mpi-far.tex test.bib dragonfly.sty FAR.jpg biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
 	$(PREFIX) latexmk $(LATEXMK_OPTIONS) mpi-far.tex
@@ -43,12 +40,11 @@ pkg:
 
 cleanClass:
 	rm -f dragonfly.sty dragonfly-report.cls dragonfly-letter.cls \
-		dragonfly-article.cls dragonfly-proposal.cls dragonfly.pdf \
-		mpi-far.cls aebr.cls
+		dragonfly-article.cls dragonfly-proposal.cls dragonfly.pdf 
+		
 
 clean: cleanClass
 	rm -f  *.pdf *.aux *.log *.out *.backup *.glo *.idx \
 		 *.fdb_latexmk *.fls *-self.bib *.toc *.snm *.nav \
 		 *.ilg *-blx.bib *.run.xml *.bbl *.ind *.blg *.bcf \
 		 *.xwm
-

@@ -1,2 +1,4 @@
 #!/bin/sh
+rm -f /usr/share/texlive/texmf-dist/tex/latex/dragonfly/mpi-far.cls
+rm -f /usr/share/texlive/texmf-dist/tex/latex/dragonfly/aebr.cls
 texhash
