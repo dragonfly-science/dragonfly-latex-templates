@@ -1,3 +1,10 @@
+dragonfly-latex-templates (1.8) trusty; urgency=medium
+
+  * Removed the mpi-far and aebr document classes, they are now in the
+    mpi-latex-packages package.
+
+ -- Finlay Thompson <finlay@dragonfly.co.nz>  Thu, 24 Sep 2015 14:16:51 +1200
+
 dragonfly-latex-templates (1.7) trusty; urgency=medium
 
   * Updated cover image references
