@@ -1,3 +1,10 @@
+dragonfly-latex-templates (1.9) trusty; urgency=medium
+
+  * Updated the self-citation bit to ensure doesn't appear in bibliography
+    lists.
+
+ -- Finlay Thompson <finlay@dragonfly.co.nz>  Mon, 23 Nov 2015 17:24:03 +1300
+
 dragonfly-latex-templates (1.8) trusty; urgency=medium
 
   * Removed the mpi-far and aebr document classes, they are now in the
