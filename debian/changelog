@@ -1,3 +1,9 @@
+dragonfly-latex-templates (1.10) trusty; urgency=medium
+
+  * Fixed mfish citeorder 
+
+ -- Finlay Thompson <finlay@dragonfly.co.nz>  Tue, 24 Nov 2015 10:07:57 +1300
+
 dragonfly-latex-templates (1.9) trusty; urgency=medium
 
   * Updated the self-citation bit to ensure doesn't appear in bibliography
