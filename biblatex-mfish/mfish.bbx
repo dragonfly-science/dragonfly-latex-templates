@@ -144,7 +144,7 @@
 % (APA 6.25) sorting is nyt but we need to account for PUBSTATE which comes
 %            after all normal cites for the same author
 
-\DeclareSortingScheme{mfish}{
+\DeclareSortingScheme{mfish}{                                  
   \sort{
     \field{presort}
   }
@@ -161,13 +161,14 @@
     \field{producer}
     \field{execproducer}
     \field{origauthor}
+    \field{sorttitle}
+    \field{title}
   }
   \sort{
     \field{sortyear}
     \field{year}
     \field{pubstate}
   }
-  \sort{\citeorder}
   \sort{
     \field{sorttitle}
     \field{title}
@@ -2090,7 +2091,7 @@
 \DeclareFieldFormat{shorthandwidth}{#1}
 \setlength{\bibitemsep}{0pt}
 
-\DeclareNameAlias{sortname}{default}
+%\DeclareNameAlias{sortname}{default}
 \DeclareNameAlias{author}{sortname}
 \DeclareNameAlias{editor}{sortname}
 \DeclareNameAlias{translator}{sortname}
