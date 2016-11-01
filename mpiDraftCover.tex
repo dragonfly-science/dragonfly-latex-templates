@@ -19,7 +19,13 @@
     
     \textbf{\Large \citefield{this}{title}}
 
-\DeclareNameFormat{fullname}{\usebibmacro{name:first-last}{#1}{#3}{#5}{#7}}
+\DeclareNameFormat{fullname}{%
+    \nameparts{#1}%
+    \usebibmacro{name:first-last}%
+     {\namepartfamily}%
+     {\namepartgiven}%
+     {\namepartprefix}%
+     {\namepartsuffix}}
 \renewcommand*{\multinamedelim}{\addcomma\space}
 \renewcommand*{\finalnamedelim}{\addcomma\&\space}%
 \textbf{\Large \citename{this}[fullname]{author}}
