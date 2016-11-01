@@ -146,9 +146,28 @@
 % (APA 6.13) Groups as names
 %            SHORTAUTHOR brackets in parencites
 
-\DeclareNameFormat{sabrackets}{\ifciteseen
-                                 {\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}
-                                 {\mkbibbrackets{\usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}}}}
+\DeclareNameFormat{sabrackets}{%                     
+  \nameparts{#1}%                                    
+  \ifciteseen                                        
+  {\usebibmacro{labelname:doname}%                   
+     {\namepartfamily}%                              
+     {\namepartfamilyi}%                             
+     {\namepartgiven}%                               
+     {\namepartgiveni}%                              
+     {\namepartprefix}%                              
+     {\namepartprefixi}%                             
+     {\namepartsuffix}%                              
+     {\namepartsuffixi}}                             
+  {\mkbibbrackets{\usebibmacro{labelname:doname}%    
+     {\namepartfamily}%                              
+     {\namepartfamilyi}%                             
+     {\namepartgiven}%                               
+     {\namepartgiveni}%                              
+     {\namepartprefix}%                              
+     {\namepartprefixi}%                             
+     {\namepartsuffix}%                              
+     {\namepartsuffixi}}}}                           
+
 
 \DeclareFieldFormat{shorthand}{\ifciteseen
                                 {#1}
