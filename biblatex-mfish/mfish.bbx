@@ -350,8 +350,13 @@
 \DeclareNameAlias{default}{mfishauthor}
 
 \DeclareNameFormat{mfishauthor}{%
- \usebibmacro{name:mfish:last-first}{#1}{#3}{#4}{#5}{#7}%
-}
+    \nameparts{#1}%
+    \usebibmacro{name:mfish:last-first}%
+        {\namepartfamily}%
+        {\namepartgiven}%
+        {\namepartgiveni}%
+        {\namepartprefix}%
+        {\namepartsuffix}}
 
 \renewbibmacro*{author}{%
   \ifnameundef{author}
