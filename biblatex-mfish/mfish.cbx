@@ -128,8 +128,16 @@
 %  all of the names in the list to work on here
 
 \DeclareNameFormat{labelname}{%
-     \usebibmacro{labelname:doname}{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}%
-}
+    \nameparts{#1}%
+    \usebibmacro{labelname:doname}%
+         {\namepartfamily}%   
+         {\namepartfamilyi}%  
+         {\namepartgiven}%    
+         {\namepartgiveni}%   
+         {\namepartprefix}%   
+         {\namepartprefixi}%  
+         {\namepartsuffix}%   
+         {\namepartsuffixi}}  
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
