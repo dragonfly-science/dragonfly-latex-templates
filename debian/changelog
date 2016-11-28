@@ -1,3 +1,9 @@
+dragonfly-latex-templates (1.13) xenial; urgency=medium
+
+  * Nothing new
+
+ -- Richard Mansfield <richard@taiko>  Mon, 28 Nov 2016 13:57:57 +1300
+
 dragonfly-latex-templates (1.12) xenial; urgency=medium
 
   * Updated to work on xenial ubuntu 16.04
