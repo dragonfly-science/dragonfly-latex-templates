@@ -47,3 +47,5 @@ beamerthemeDragonfly.sty
 *-blx.bib
 *.bcf
 *.xwm
+debian/debhelper-build-stamp
+
