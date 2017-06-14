@@ -99,12 +99,10 @@ of directories which latex will look for files in.
 **Install the dragonfly templates**
 
 Create a directory called `dragonfly` in the latex tree and place all the `.sty`
-and `.cls` files into it. Copy the biblatex-mfish into the same directory as the 
-`dragonfly` directory. You should now have two new directories. A common 
-location for these would be 
+and `.cls` files into it. 
+
 
  * /usr/share/texlive/texmf-dist/tex/latex/dragonfly
- * /usr/share/texlive/texmf-dist/tex/latex/biblatex-mfish
 
 
 **Install biblatex and biber**

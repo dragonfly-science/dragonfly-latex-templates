@@ -9,10 +9,10 @@ endif
 
 all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf 
 
-mpi-far.pdf: mpi-far.tex test.bib dragonfly.sty FAR.jpg biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
+mpi-far.pdf: mpi-far.tex test.bib dragonfly.sty FAR.jpg 
 	$(PREFIX) latexmk $(LATEXMK_OPTIONS) mpi-far.tex
 
-report.pdf: report.tex test.bib dragonfly.sty wallpaper.png logo.eps biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
+report.pdf: report.tex test.bib dragonfly.sty wallpaper.png logo.eps 
 	$(PREFIX) latexmk $(LATEXMK_OPTIONS) report.tex
 
 proposal.pdf: proposal.tex dragonfly.sty wallpaper.png logo.eps

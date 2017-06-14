@@ -48,4 +48,4 @@ beamerthemeDragonfly.sty
 *.bcf
 *.xwm
 debian/debhelper-build-stamp
-
+dragonfly-latex-templates_*

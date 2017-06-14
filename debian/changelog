@@ -1,3 +1,9 @@
+dragonfly-latex-templates (1.14) xenial; urgency=medium
+
+  * Switch to apa style
+
+ -- Edward Abraham <edward@dragonfly.co.nz>  Wed, 14 Jun 2016 13:57:57 +1300
+
 dragonfly-latex-templates (1.13) xenial; urgency=medium
 
   * Nothing new
