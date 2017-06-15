@@ -21,7 +21,6 @@ At this point the following latex classes will be available for you to use:
  - dragonfly-report
  - dragonfly-proposal
  - dragonfly-letter
- - aebr
  - dragonfly-article
 
 You will also have access to the beamer theme `dragonfly`.
