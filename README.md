@@ -35,3 +35,7 @@ there is an example tex file (in the examples directory) showing how it can be u
 The dragonfly templates package will not work correctly with the following packages:
 
  - subfig (use subcaption instead)
+
+## MPI templates
+
+MPI templates (for AEBR's and FAR's) are available at https://github.com/dragonfly-science/mpi-latex-templates
