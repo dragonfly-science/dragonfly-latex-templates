@@ -31,6 +31,7 @@
 *.xdy
 *.tdo
 *.swp
+*.deb
 *.backup
 *.fls
 *.pdf
@@ -39,13 +40,13 @@ example.tex
 dragonfly.sty
 *.cls
 *.substvars
-debian/dragonfly-latex-templates
-debian/files
+package/debian/dragonfly-latex-templates
+package/debian/files
 beamerthemeDragonfly.sty
 *.run.xml
 *-self.bib
 *-blx.bib
 *.bcf
 *.xwm
-debian/debhelper-build-stamp
-dragonfly-latex-templates_*
+package/debian/debhelper-build-stamp
+package/dragonfly-latex-templates_*
