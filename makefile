@@ -1,50 +1,43 @@
-SHELL := /bin/bash
-PREFIX := TEXINPUTS=.///:
-LATEXMK_VERSION=$(strip $(patsubst Version,,$(shell latexmk -v | grep -oi "version.*")))
-ifeq ($(LATEXMK_VERSION),4.24)
-	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf 
-else
-	LATEXMK_OPTIONS=-xelatex
-endif
+IMAGE := docker.dragonfly.co.nz/texlive-17.04:2017-06-15
 
-all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf 
+RUN ?= docker run -it --rm --net=host --user=$$(id -u):$$(id -g) -e RUN= -v$$(pwd):/work -w /work $(IMAGE)
 
-mpi-far.pdf: mpi-far.tex test.bib dragonfly.sty FAR.jpg 
-	$(PREFIX) latexmk $(LATEXMK_OPTIONS) mpi-far.tex
+#SHELL := /bin/bash
+#PREFIX := TEXINPUTS=.///:
+#LATEXMK_VERSION=$(strip $(patsubst Version,,$(shell latexmk -v | grep -oi "version.*")))
+#ifeq ($(LATEXMK_VERSION),4.24)
+#	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf
+#else
+#	LATEXMK_OPTIONS=-xelatex
+#endif
+#
+all: dragonfly.pdf \
+	examples/letter.pdf \
+	examples/presentation.pdf \
+	examples/article.pdf \
+	examples/report.pdf \
+	examples/proposal.pdf
 
-report.pdf: report.tex test.bib dragonfly.sty wallpaper.png logo.eps 
-	$(PREFIX) latexmk $(LATEXMK_OPTIONS) report.tex
+examples/report.pdf: examples/report.tex examples/test.bib dragonfly.sty wallpaper.png logo.eps
+	(cd examples/build && $(RUN) xelatex ../report && $(RUN) biber ../report && $(RUN) xelatex ../report && mv report.pdf ..)
 
-proposal.pdf: proposal.tex dragonfly.sty wallpaper.png logo.eps
-	$(PREFIX) latexmk $(LATEXMK_OPTIONS) proposal.tex
+examples/%.pdf: examples/%.tex dragonfly.sty wallpaper.png logo.eps
+	(cd examples/build && $(RUN) xelatex ../$* && mv $*.pdf ..)
 
-article.pdf: article.tex dragonfly.sty
-	latexmk $(LATEXMK_OPTIONS) article.tex
-
-presentation.pdf: presentation.tex dragonfly.sty pattern.eps logo.eps
-	latexmk $(LATEXMK_OPTIONS) presentation.tex
-
-letter.pdf: letter.tex dragonfly.sty logo.eps
-	latexmk $(LATEXMK_OPTIONS) letter.tex
-
-dragonfly.sty: dragonfly.ins dragonfly.dtx 
-	latex dragonfly.ins
+dragonfly.sty: dragonfly.ins dragonfly.dtx
+	$(RUN) latex dragonfly.ins
 
 dragonfly.pdf: dragonfly.dtx dragonfly.sty
-	latexmk $(LATEXMK_OPTIONS) dragonfly.dtx
+	$(RUN) latexmk -xelatex dragonfly.dtx
 
 pkg:
-	debuild -us -uc
+	$(RUN) debuild -us -uc
 
 .PHONY: cleanClass clean
 
 cleanClass:
 	rm -f dragonfly.sty dragonfly-report.cls dragonfly-letter.cls \
-		dragonfly-article.cls dragonfly-proposal.cls dragonfly.pdf 
-		
+		dragonfly-article.cls dragonfly-proposal.cls dragonfly.pdf
 
 clean: cleanClass
-	rm -f  *.pdf *.aux *.log *.out *.backup *.glo *.idx \
-		 *.fdb_latexmk *.fls *-self.bib *.toc *.snm *.nav \
-		 *.ilg *-blx.bib *.run.xml *.bbl *.ind *.blg *.bcf \
-		 *.xwm
+	rm -f  examples/*.pdf examples/*
