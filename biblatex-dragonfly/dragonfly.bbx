@@ -12,7 +12,7 @@
 %% 
 %% The Current Maintainer of this work is Philip Kime.
 
-\ProvidesFile{mfish.bbx}[2014/04/16\space v6.5\space APA biblatex references style]
+\ProvidesFile{dragonfly.bbx}[2014/04/16\space v6.5\space APA biblatex references style]
 \RequireBiber[3]
 \RequireBibliographyStyle{standard}
 \urlstyle{rm} % APA examples all have URLs in same font as text
@@ -21,7 +21,7 @@
 %  Used to join citations/references to
 %  extrayear
 
-\newcommand{\mfishshortdash}{-}
+\newcommand{\dragonflyshortdash}{-}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -33,7 +33,7 @@
 % (APA 6.22) Force roman numerals into arabic
 %            using etoolbox macros
 
-\newcommand{\mfishnum}[1]{\ifrmnum{#1}{\rmntonum{#1}}{#1}}
+\newcommand{\dragonflynum}[1]{\ifrmnum{#1}{\rmntonum{#1}}{#1}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -65,10 +65,10 @@
 
 % Date formats. Suppress end range of less specific fields
 
-\newcommand*{\mkbibrangemfishlong}[1]{%
+\newcommand*{\mkbibrangedragonflylong}[1]{%
   \ifthenelse{\equal{#1}{url}}
     {\printtext{%
-     \mkbibdatemfishlongmdy{#1year}{#1month}{#1day}%
+     \mkbibdatedragonflylongmdy{#1year}{#1month}{#1day}%
      \iffieldundef{#1endyear}%
        {}%
        {\iffieldequalstr{#1endyear}{}% open-ended range?
@@ -78,11 +78,11 @@
             {\iffieldsequal{#1month}{#1endmonth}%
               {\iffieldsequal{#1day}{#1endday}%
                 {}%
-                {\mkbibdatemfishlongmdy{}{}{#1endday}}}%
-              {\mkbibdatemfishlongmdy{}{#1endmonth}{#1endday}}}%
-            {\mkbibdatemfishlongmdy{#1endyear}{#1endmonth}{#1endday}}}}}}
+                {\mkbibdatedragonflylongmdy{}{}{#1endday}}}%
+              {\mkbibdatedragonflylongmdy{}{#1endmonth}{#1endday}}}%
+            {\mkbibdatedragonflylongmdy{#1endyear}{#1endmonth}{#1endday}}}}}}
     {\printtext{%
-     \mkbibdatemfishlong{#1year}{#1month}{#1day}%
+     \mkbibdatedragonflylong{#1year}{#1month}{#1day}%
      \iffieldundef{#1endyear}%
        {}%
        {\iffieldequalstr{#1endyear}{}% open-ended range?
@@ -92,15 +92,15 @@
             {\iffieldsequal{#1month}{#1endmonth}%
               {\iffieldsequal{#1day}{#1endday}%
                 {}%
-                {\mkbibdatemfishlong{}{}{#1endday}}}%
-              {\mkbibdatemfishlong{}{#1endmonth}{#1endday}}}%
-            {\mkbibdatemfishlong{#1endyear}{#1endmonth}{#1endday}}}}}}}
+                {\mkbibdatedragonflylong{}{}{#1endday}}}%
+              {\mkbibdatedragonflylong{}{#1endmonth}{#1endday}}}%
+            {\mkbibdatedragonflylong{#1endyear}{#1endmonth}{#1endday}}}}}}}
 
 
 % Only for DATE as only \printdateextra is used
-\newcommand*{\mkbibrangemfishlongextra}[1]{%
+\newcommand*{\mkbibrangedragonflylongextra}[1]{%
     \printtext{%
-     \mkbibdatemfishlongextra{#1year}{#1month}{#1day}%
+     \mkbibdatedragonflylongextra{#1year}{#1month}{#1day}%
      \iffieldundef{#1endyear}%
        {}%
        {\iffieldequalstr{#1endyear}{}% open-ended range?
@@ -110,9 +110,9 @@
             {\iffieldsequal{#1month}{#1endmonth}%
               {\iffieldsequal{#1day}{#1endday}%
                 {}%
-                {\mkbibdatemfishlongextra{}{}{#1endday}}}
-              {\mkbibdatemfishlongextra{}{#1endmonth}{#1endday}}}
-            {\mkbibdatemfishlongextra{#1endyear}{#1endmonth}{#1endday}}}}}}
+                {\mkbibdatedragonflylongextra{}{}{#1endday}}}
+              {\mkbibdatedragonflylongextra{}{#1endmonth}{#1endday}}}
+            {\mkbibdatedragonflylongextra{#1endyear}{#1endmonth}{#1endday}}}}}}
 
 
 %
@@ -144,7 +144,7 @@
 % (APA 6.25) sorting is nyt but we need to account for PUBSTATE which comes
 %            after all normal cites for the same author
 
-\DeclareSortingScheme{mfish}{                                  
+\DeclareSortingScheme{dragonfly}{                                  
   \sort{
     \field{presort}
   }
@@ -192,7 +192,7 @@
 % edge cases which can't be handled as this needs treating in the style
 % after biber has finished. Very unlikely though.
 \ExecuteBibliographyOptions{labeldate=true,%
-                            sorting=mfish,%
+                            sorting=dragonfly,%
                             autocite=inline,%
                             backref=true,%
                             pagetracker=true,%
@@ -207,10 +207,10 @@
                             minbibnames=25,%
                             abbreviate=true,%
                             mincrossrefs=999,%
-                            date=mfishlong,%
-                            datelabel=mfishlong,%
-                            origdate=mfishlong,%
-                            urldate=mfishlong,%
+                            date=dragonflylong,%
+                            datelabel=dragonflylong,%
+                            origdate=dragonflylong,%
+                            urldate=dragonflylong,%
                             eventdate=comp,%
                             sortcase=false}
 
@@ -236,11 +236,11 @@
 % It is not APA standard to have backrefs in the bib
 % Some users might like it though.
 
-\newbool{mfish:backref}
-\DeclareBibliographyOption{mfishbackref}{%
+\newbool{dragonfly:backref}
+\DeclareBibliographyOption{dragonflybackref}{%
   \ifstrequal{#1}{true}
-    {\global\booltrue{mfish:backref}}
-    {\global\boolfalse{mfish:backref}}}
+    {\global\booltrue{dragonfly:backref}}
+    {\global\boolfalse{dragonfly:backref}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -318,9 +318,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Set up some standard APA formats
 
-\DeclareFieldFormat{volume}{\mfishnum{#1}}
+\DeclareFieldFormat{volume}{\dragonflynum{#1}}
 \DeclareFieldFormat{series}{#1}
-\DeclareFieldFormat{chapter}{\bibcpstring{chapter}~\mfishnum{#1}}
+\DeclareFieldFormat{chapter}{\bibcpstring{chapter}~\dragonflynum{#1}}
 \DeclareFieldFormat{volumes}{\bibcpstring{volumes}~#1}
 \DeclareFieldFormat{addendum}{\mkbibparens{#1}}
 \DeclareFieldFormat{part}{#1}
@@ -347,11 +347,11 @@
 %     to do \printnames[format][-\value{listtotal}]{field} to ensure we get
 %     all of the names in the list to work on
 
-\DeclareNameAlias{default}{mfishauthor}
+\DeclareNameAlias{default}{dragonflyauthor}
 
-\DeclareNameFormat{mfishauthor}{%
+\DeclareNameFormat{dragonflyauthor}{%
     \nameparts{#1}%
-    \usebibmacro{name:mfish:family-first}%
+    \usebibmacro{name:dragonfly:family-first}%
         {\namepartfamily}%
         {\namepartgiven}%
         {\namepartgiveni}%
@@ -904,14 +904,14 @@
                              {\ifinteger{\thefield{number}}
                                {\addspace\mkbibemph{\bibcpstring{number}~\mfishnum{#1}}\adddot}
                                {\mfishnum{#1}}}
-                             {\mkbibemph{\mfishnum{#1}}}}
+                             {\mkbibemph{\dragonflynum{#1}}}}
 
 \DeclareFieldFormat[report]{number}{\mkbibparens{\iffieldundef{type}
                                                   {}
                                                   {\printfield{type}\setunit{\addspace}}%
-                                                  \bibcpstring{number}~\mfishnum{#1}}}
+                                                  \bibcpstring{number}~\dragonflynum{#1}}}
 
-\newbibmacro*{mfish:reportnum}{%
+\newbibmacro*{dragonfly:reportnum}{%
   \iffieldundef{number}%
     {}%
     {\printfield{number}}}
@@ -934,7 +934,7 @@
 %            and pages (with no prefix)
 
 \DeclareFieldFormat[periodical]{pages}{\mkbibemph{#1}}
-\DeclareFieldFormat[periodical]{number}{\mkbibemph{\mfishnum{#1}}}
+\DeclareFieldFormat[periodical]{number}{\mkbibemph{\dragonflynum{#1}}}
 \DeclareListFormat[periodical]{location}{\mkbibemph{#1}}
 
 %
@@ -946,8 +946,8 @@
 
 \DeclareListFormat[proceedings]{location}{\mkbibemph{#1}}
 \DeclareFieldFormat[proceedings]{pages}{#1}
-\DeclareFieldFormat[proceedings]{number}{\mkbibemph{\mfishnum{#1}}}
-\DeclareFieldFormat[proceedings]{volume}{\mkbibemph{\mfishnum{#1}}}
+\DeclareFieldFormat[proceedings]{number}{\mkbibemph{\dragonflynum{#1}}}
+\DeclareFieldFormat[proceedings]{volume}{\mkbibemph{\dragonflynum{#1}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -976,12 +976,12 @@
 \DeclareFieldFormat[review]{title}{%
   \entrydata*{\thefield{related}}{%
     \iffieldequalstr{entrytype}{article}
-      {\mkbibemph{\printtext[mfishcase]{\thefield{savedtitle}}}}
-      {\printtext[mfishcase]{\thefield{savedtitle}}}}}
+      {\mkbibemph{\printtext[dragonflycase]{\thefield{savedtitle}}}}
+      {\printtext[dragonflycase]{\thefield{savedtitle}}}}}
 
 \DeclareFieldFormat[review]{pages}{#1}
-\DeclareFieldFormat[review]{volume}{\mkbibemph{\mfishnum{#1}}}
-\DeclareFieldFormat[review]{number}{\mkbibparens{\mfishnum{#1}}}
+\DeclareFieldFormat[review]{volume}{\mkbibemph{\dragonflynum{#1}}}
+\DeclareFieldFormat[review]{number}{\mkbibparens{\dragonflynum{#1}}}
 
 \newbibmacro*{reviewauthor}{%
   \ifnameundef{author}
@@ -997,7 +997,7 @@
 \newbibmacro*{producer}{%
   \ifnameundef{producer}
     {}
-    {\printnames[mfishauthor]{producer}%
+    {\printnames[dragonflyauthor]{producer}%
      \newunit
      \printtext[parens]{\bibcpstring{producer}}%
      \setunit*{\addcomma\addspace\&\addspace}}}
@@ -1005,7 +1005,7 @@
 \newbibmacro*{director}{%
   \ifnameundef{director}
     {}
-    {\printnames[mfishauthor]{director}%
+    {\printnames[dragonflyauthor]{director}%
      \newunit
      \printtext[parens]{\bibcpstring{director}}%
      \setunit*{\addcomma\addspace\&\addspace}}}
@@ -1013,7 +1013,7 @@
 \newbibmacro*{writer}{%
   \ifnameundef{writer}
     {}
-    {\printnames[mfishauthor]{writer}%
+    {\printnames[dragonflyauthor]{writer}%
      \newunit
      \printtext[parens]{\bibcpstring{writer}}%
      \setunit*{\addcomma\addspace\&\addspace}}}
@@ -1061,7 +1061,7 @@
     {\usebibmacro{in}%
      \ifnameundef{execproducer}
        {}
-       {\printnames[mfishauthor]{execproducer}%
+       {\printnames[dragonflyauthor]{execproducer}%
          \addspace
          \printtext[parens]{\bibcpstring{execproducer}}}
      \setunit{\addcomma\addspace}%
@@ -1072,9 +1072,9 @@
   \ifthenelse{\iffieldundef{maintitle}\AND\iffieldundef{mainsubtitle}}
     {}
     {\printtext[maintitle]{%
-       \printfield[mfishcase]{maintitle}%
+       \printfield[dragonflycase]{maintitle}%
        \setunit{\subtitlepunct}%
-       \printfield[mfishcase]{mainsubtitle}}%
+       \printfield[dragonflycase]{mainsubtitle}}%
     \setunit{\addspace}}
   \printfield{maintitleaddon}}
 
@@ -1156,11 +1156,11 @@
 \DeclareFieldFormat[software]{title}{#1}
 \DeclareFieldFormat[software]{version}{\mkbibparens{\bibcpstring{version}~#1}}
 
-\newbibmacro*{mfish:softwaretitle}{%
+\newbibmacro*{dragonfly:softwaretitle}{%
   \printtext[title]{%
-  \printfield[mfishcase]{title}%
+  \printfield[dragonflycase]{title}%
   \setunit{\subtitlepunct}%
-  \printfield[mfishcase]{subtitle}}%
+  \printfield[dragonflycase]{subtitle}}%
   \setunit{\addspace}%
   \iffieldundef{version}%
      {}
@@ -1174,7 +1174,7 @@
 % Hacky bits to suppress final period in some cases.
 % * If there is an ORIGYEAR field (APA 7.02:21)
 % * Unless there is a RELATED and ADDENDUM
-\newbibmacro*{mfish:finpunct}{%
+\newbibmacro*{dragonfly:finpunct}{%
   \iffieldundef{origyear}
     {\ifboolexpr{
        test {\iffieldundef{addendum}}
@@ -1195,13 +1195,13 @@
 
 \renewbibmacro*{related:reprintfrom}[1]{%
   \entrydata*{#1}{%
-    \printtext{\mkbibemph{\printfield[mfishcase]{title}}}%
+    \printtext{\mkbibemph{\printfield[dragonflycase]{title}}}%
     \setunit{\bibpagespunct}%
     \printfield{pages}%
     \setunit{\addcomma\addspace}%
     \bibstring{byauthor}\addspace
-    \printnames[mfishauthor]{editor}%
-    \printnames[mfishauthor]{author}%
+    \printnames[dragonflyauthor]{editor}%
+    \printnames[dragonflyauthor]{author}%
     \setunit{\addcomma\addspace}%
     \usebibmacro{location+publisher}%
     \newunit\newblock
@@ -1211,13 +1211,13 @@
   \setunit{}% Sanitize this in case no author
   \entrydata*{#1}{%
     \ifentrytype{article}
-      {\printtext{\printfield[mfishcase]{title}}}
-      {\printtext{\mkbibemph{\printfield[mfishcase]{title}}}}%
+      {\printtext{\printfield[dragonflycase]{title}}}
+      {\printtext{\mkbibemph{\printfield[dragonflycase]{title}}}}%
     \setunit{\addspace}%
     \bibstring{byauthor}\addspace
-    \printnames[mfishauthor]{author}%
-    \printnames[mfishauthor]{producer}%
-    \printnames[mfishauthor]{director}%
+    \printnames[dragonflyauthor]{author}%
+    \printnames[dragonflyauthor]{producer}%
+    \printnames[dragonflyauthor]{director}%
     \setunit{\addcomma\addspace}%
     \printdateextra
     \newunit\newblock
@@ -1250,8 +1250,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:finpunct}%
-  \usebibmacro{mfish:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{newsarticle}{%
@@ -1277,8 +1277,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:finpunct}%
-  \usebibmacro{mfish:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{book}{%
@@ -1306,8 +1306,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{booklet}{%
@@ -1333,8 +1333,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{proceedings}{%
@@ -1366,8 +1366,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{collection}{%
@@ -1393,8 +1393,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{inbook}{%
@@ -1426,8 +1426,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{incollection}{%
@@ -1459,8 +1459,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{inproceedings}{%
@@ -1484,7 +1484,7 @@
   \newunit\newblock
   \printlist{organization}%
   \newunit
-  \printfield[mfishcase]{eventtitle}%
+  \printfield[dragonflycase]{eventtitle}%
   \newunit
   \printfield{venue}%
   \newunit\newblock
@@ -1500,8 +1500,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{manual}{%
@@ -1533,8 +1533,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{online}{%
@@ -1565,8 +1565,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{patent}{%
@@ -1593,8 +1593,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{periodical}{%
@@ -1622,8 +1622,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{report}{%
@@ -1632,7 +1632,7 @@
   \usebibmacro{author/editor}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
-  \usebibmacro{mfish:reportnum}%
+  \usebibmacro{dragonfly:reportnum}%
   \newunit\newblock
   \printlist{institution}%
   \newunit\newblock
@@ -1648,8 +1648,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{thesis}{%
@@ -1671,8 +1671,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{review}{%
@@ -1698,8 +1698,8 @@
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \printfield{addendum}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{misc}{%
@@ -1731,8 +1731,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{data}{%
@@ -1760,8 +1760,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{letter}{%
@@ -1787,8 +1787,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{letters}{%
@@ -1814,8 +1814,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{video}{%
@@ -1843,8 +1843,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{movie}{%
@@ -1872,8 +1872,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{audio}{%
@@ -1899,8 +1899,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{music}{%
@@ -1919,8 +1919,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{software}{%
@@ -1928,7 +1928,7 @@
   \usebibmacro{begentry}%
   \usebibmacro{author/editor}%
   \setunit{\labelnamepunct}\newblock
-  \usebibmacro{mfish:softwaretitle}%
+  \usebibmacro{dragonfly:softwaretitle}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
@@ -1939,8 +1939,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}%
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}%
   \usebibmacro{finentry}}
 
 \DeclareBibliographyDriver{unpublished}{%
@@ -1966,8 +1966,8 @@
     {\usebibmacro{related:init}%
      \usebibmacro{related}}
     {}%
-  \usebibmacro{mfish:pageref}%
-  \usebibmacro{mfish:finpunct}
+  \usebibmacro{dragonfly:pageref}%
+  \usebibmacro{dragonfly:finpunct}
   \usebibmacro{finentry}}
 
 %
@@ -1979,34 +1979,34 @@
 \newbibmacro*{editorx}{%
   \ifnameundef{editor}
     {}
-    {\printnames[mfishauthor]{editor}%
+    {\printnames[dragonflyauthor]{editor}%
      \setunit{\addspace}%
-     \printtext[parens]{\usebibmacro{mfisheditorstrg}{editor}}
+     \printtext[parens]{\usebibmacro{dragonflyeditorstrg}{editor}}
      \clearname{editor}%
      \newunit}%
   \ifnameundef{editora}
     {}
-    {\printnames[mfishauthor]{editora}%
+    {\printnames[dragonflyauthor]{editora}%
      \setunit{\addspace}%
-     \printtext[parens]{\usebibmacro{mfisheditorstrg}{editora}}
+     \printtext[parens]{\usebibmacro{dragonflyeditorstrg}{editora}}
      \clearname{editora}%
      \newunit}%
   \ifnameundef{editorb}
     {}
-    {\printnames[mfishauthor]{editorb}%
+    {\printnames[dragonflyauthor]{editorb}%
      \setunit{\addspace}%
-     \printtext[parens]{\usebibmacro{mfisheditorstrg}{editorb}}
+     \printtext[parens]{\usebibmacro{dragonflyeditorstrg}{editorb}}
      \clearname{editorb}%
      \newunit}%
   \ifnameundef{editorc}
     {}
-    {\printnames[mfishauthor]{editorc}%
+    {\printnames[dragonflyauthor]{editorc}%
      \setunit{\addspace}%
-     \printtext[parens]{\usebibmacro{mfisheditorstrg}{editorc}}
+     \printtext[parens]{\usebibmacro{dragonflyeditorstrg}{editorc}}
      \clearname{editorc}%
      \newunit}}
 
-\newbibmacro*{mfisheditorstrg}[1]{%
+\newbibmacro*{dragonflyeditorstrg}[1]{%
   \iffieldundef{#1type}
     {\ifthenelse{\value{#1}>1\OR\ifandothers{#1}}
        {\bibcpstring{editors}}
@@ -2075,8 +2075,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Wrapper for backrefs
 
-\newbibmacro{mfish:pageref}{%
-  \ifbool{mfish:backref}{\usebibmacro{pageref}}{}}
+\newbibmacro{dragonfly:pageref}{%
+  \ifbool{dragonfly:backref}{\usebibmacro{pageref}}{}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
