@@ -361,13 +361,13 @@
 \renewbibmacro*{author}{%
   \ifnameundef{author}
     {\usebibmacro{labeltitle}}
-    {\printnames[mfishauthor]{author}%
+    {\printnames[dragonflyauthor]{author}%
      \setunit*{\addspace}%
      \printfield{nameaddon}%
      \ifnameundef{with}
        {}
        {\setunit{}\addspace\mkbibparens{\printtext{\bibstring{with}\addspace}%
-        \printnames[mfishauthor]{with}}
+        \printnames[dragonflyauthor]{with}}
         \setunit*{\addspace}}}%
   \newunit\newblock%
   \usebibmacro{labelyear+extrayear}}
@@ -428,7 +428,7 @@
 % (APA 6.29) General format of titles.
 %            Ugly Chicago-style lowercasing of English titles
 
-\DeclareFieldFormat{mfishcase}{\MakeSentenceCase*{#1}}
+\DeclareFieldFormat{dragonflycase}{\MakeSentenceCase*{#1}}
 
 \DeclareFieldFormat{issuetitle}{#1\isdot}
 \DeclareFieldFormat{title}{\iffieldequalstr{titleisdescription}{true}{\mkbibbrackets{#1}}{\mkbibemph{#1}\isdot}}
@@ -494,15 +494,15 @@
     {}
     {\iffieldundef{origtitle}
       {\printtext[title]{%
-        \printfield[mfishcase]{title}%
+        \printfield[dragonflycase]{title}%
         \setunit{\subtitlepunct}%
-        \printfield[mfishcase]{subtitle}}}
+        \printfield[dragonflycase]{subtitle}}}
       {\printfield{origtitle}%
        \setunit{\addspace}%
        \printtext[brackets]{%
-        \printfield[mfishcase]{title}%
+        \printfield[dragonflycase]{title}%
         \setunit{\subtitlepunct}%
-        \printfield[mfishcase]{subtitle}}}%
+        \printfield[dragonflycase]{subtitle}}}%
      \setunit{\addspace}%
      \printfield{titleaddon}%
      \iffieldequalstr{entrytype}{book}%
@@ -522,9 +522,9 @@
   \ifthenelse{\iffieldundef{maintitle}\AND\iffieldundef{mainsubtitle}}
     {}
     {\printtext[maintitle]{%
-       \printfield[mfishcase]{maintitle}%
+       \printfield[dragonflycase]{maintitle}%
        \setunit{\subtitlepunct}%
-       \printfield[mfishcase]{mainsubtitle}}%
+       \printfield[dragonflycase]{mainsubtitle}}%
     \setunit{\addspace}}
   \printfield{maintitleaddon}%
   \addcolon}
@@ -535,8 +535,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (APA 6.30) Format of volume and number for articles
 
-\DeclareFieldFormat[article]{volume}{\mkbibemph{\mfishnum{#1}}}
-\DeclareFieldFormat[article]{number}{\mkbibemph{\mkbibparens{\mfishnum{#1}}}}
+\DeclareFieldFormat[article]{volume}{\mkbibemph{\dragonflynum{#1}}}
+\DeclareFieldFormat[article]{number}{\mkbibemph{\mkbibparens{\dragonflynum{#1}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -631,11 +631,11 @@
 
 \newbibmacro*{editorinauthpos}{%
     \global\booltrue{bbx:editorinauthpos}%
-    \printnames[mfishauthor]{editor}%
+    \printnames[dragonflyauthor]{editor}%
     \setunit{\addspace}%
     \ifnameundef{editor}
       {}
-      {\printtext[parens]{\usebibmacro{mfisheditorstrg}{editor}}%
+      {\printtext[parens]{\usebibmacro{dragonflyeditorstrg}{editor}}%
        % need to clear editor so we don't get an "In" clause later
        % But we also need to set a flag to say we did this so we
        % don't lose sight of the fact we once had an editor for
@@ -659,7 +659,7 @@
 % #5 = name affix, a.k.a. 'junior part'
 \renewcommand*{\bibinitdelim}{}
 
-\newbibmacro*{name:mfish:family-first}[5]{%
+\newbibmacro*{name:dragonfly:family-first}[5]{%
   \ifuseprefix
     {\usebibmacro{name:delim}{#4#1}%
      \usebibmacro{name:hook}{#4#1}%
@@ -682,7 +682,7 @@
        \ifpunctmark{'}{}{\addhighpenspace}}%
      \ifblank{#5}{}{\addcomma\addlowpenspace\mkbibnameaffix{#5}\isdot}}}
 
-\newbibmacro*{name:mfish:first-family}[5]{%
+\newbibmacro*{name:dragonfly:first-family}[5]{%
   \ifuseprefix
     {\usebibmacro{name:delim}{#2}%
      \usebibmacro{name:hook}{#2}%
@@ -725,24 +725,24 @@
     {}%
     {\ifnamesequal{editor}{translator}%
        {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
-        \printnames[mfishauthor]{editor}%
+        \printnames[dragonflyauthor]{editor}%
         \setunit*{\addcomma\addspace}%
-        \usebibmacro{mfisheditorstrg}{editor}%
+        \usebibmacro{dragonflyeditorstrg}{editor}%
         \setunit*{\addspace\&\space}%
         \printtext{\bibcpstring{translator}}%
         \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}
        {\printtext{\bibopenparen}\global\booltrue{bbx:parens}%
         \ifnameundef{editor}%
           {}%
-          {\printnames[mfishauthor]{editor}%
+          {\printnames[dragonflyauthor]{editor}%
            \setunit{\addcomma\addspace}%
-           \usebibmacro{mfisheditorstrg}{editor}%
+           \usebibmacro{dragonflyeditorstrg}{editor}%
            \clearname{editor}%
            \setunit{\adddot}%
            \setunit*{\addspace\&\space}}%
         \ifnameundef{translator}%
           {\setunit{}}%
-          {\printnames[mfishauthor]{translator}%
+          {\printnames[dragonflyauthor]{translator}%
            \setunit{\addcomma\addspace}%
            \printtext{\bibcpstring{translator}}%
            \clearname{translator}%
@@ -758,16 +758,16 @@
     {\setunit{\adddot\addspace}}%
     {\ifnamesequal{editor}{translator}%
       {\usebibmacro{in}%
-       \printnames[mfishauthor]{editor}%
+       \printnames[dragonflyauthor]{editor}%
        \setunit{\addspace\bibopenparen\global\booltrue{bbx:parens}}%
-       \usebibmacro{mfisheditorstrg}{editor}%
+       \usebibmacro{dragonflyeditorstrg}{editor}%
        \setunit*{\addspace\&\space}%
        \printtext{\bibcpstring{translator}}%
        \ifbool{bbx:parens}{\printtext{\bibcloseparen}\global\boolfalse{bbx:parens}}{}}
       {\ifnameundef{translator}%
         {}%
         {\setunit{\addspace}%
-         \printtext[parens]{\printnames[mfishauthor]{translator}%
+         \printtext[parens]{\printnames[dragonflyauthor]{translator}%
          \setunit{\addcomma\addspace}%
          \printtext{\bibcpstring{translator}}}%
          \clearname{translator}%
@@ -789,9 +789,9 @@
   \iffieldundef{title}
     {}
     {\printtext[title]{%
-       \printfield[mfishcase]{title}%
+       \printfield[dragonflycase]{title}%
        \setunit{\subtitlepunct}%
-       \printfield[mfishcase]{subtitle}}}}
+       \printfield[dragonflycase]{subtitle}}}}
 
 \renewbibmacro*{title+issuetitle}{%
   \usebibmacro{periodical}%
@@ -866,9 +866,9 @@
   \ifthenelse{\iffieldundef{booktitle}\AND\iffieldundef{booksubtitle}}
     {}
     {\printtext[booktitle]{%
-      \iffieldundef{booktitle}{}{\printfield[mfishcase]{booktitle}\addcomma}%
+      \iffieldundef{booktitle}{}{\printfield[dragonflycase]{booktitle}\addcomma}%
        \setunit{\subtitlepunct}%
-       \printfield[mfishcase]{booksubtitle}}%
+       \printfield[dragonflycase]{booksubtitle}}%
      \setunit{\addspace}}%
   \printfield{booktitleaddon}}
 
@@ -889,8 +889,8 @@
 %            there is a maintitle (what APA calls "series") or not.
 
 \DeclareFieldFormat{volume}{\iffieldundef{maintitle}
-                              {\bibcpstring{volume}~\mfishnum{#1}}
-                              {\mkbibemph{\bibcpstring{volume}~\mfishnum{#1}}}}
+                              {\bibcpstring{volume}~\dragonflynum{#1}}
+                              {\mkbibemph{\bibcpstring{volume}~\dragonflynum{#1}}}}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -902,8 +902,8 @@
 
 \DeclareFieldFormat{number}{\iffieldundef{volume}
                              {\ifinteger{\thefield{number}}
-                               {\addspace\mkbibemph{\bibcpstring{number}~\mfishnum{#1}}\adddot}
-                               {\mfishnum{#1}}}
+                               {\addspace\mkbibemph{\bibcpstring{number}~\dragonflynum{#1}}\adddot}
+                               {\dragonflynum{#1}}}
                              {\mkbibemph{\dragonflynum{#1}}}}
 
 \DeclareFieldFormat[report]{number}{\mkbibparens{\iffieldundef{type}
