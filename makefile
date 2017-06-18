@@ -36,8 +36,11 @@ package/.build: latex/dragonfly.pdf \
 
 .PHONY: clean
 clean:
-	rm -f  examples/*{.log,.aux,.out,.bbl,.pdf,.blg,.bcf,.run.xml,.toc,-self.bib] && \
-	rm -f latex/*{.cls,.idx,.sty,.fdb_latexmk,.log,.fls,.ind,.out,.aux,.glo,.pdf,.toc} && \
-	rm -rf package/debian/dragonfly-latex-templates/ && \
-	rm -f package/dragonfly-latex* && \
-	rm -f package/debian/debhelper-build-stamp 
+	rm -f  examples/*.log examples/*.aux examples/*.out examples/*.bbl examples/*.pdf examples/*.blg \
+		examples/*.bcf examples/*.run.xml examples/*.toc examples/*-self.bib  examples/*.nav examples/*.snm 
+	rm -f latex/*.cls latex/*.idx latex/dragonfly.sty latex/beamerthemeDragonfly.sty  latex/*.fdb_latexmk latex/*.log latex/*.fls latex/*.ind \
+		latex/*.out latex/*.aux latex/*.glo latex/*.pdf latex/*.toc latex/*.ilg
+	rm -rf package/debian/dragonfly-latex-templates/ 
+	rm -f package/dragonfly-latex* 	package/debian/dragonfly-latex-templates.substvars package/debian/files
+	rm -f package/debian/debhelper-build-stamp package/debian/dragonfly-latex-templates.debhelper.log 
+	rm -f dragonfly-latex-templates_*
