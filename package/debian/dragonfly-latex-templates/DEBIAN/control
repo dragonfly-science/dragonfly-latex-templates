@@ -1,0 +1,12 @@
+Package: dragonfly-latex-templates
+Version: 1.14
+Architecture: all
+Maintainer: Finlay Thompson <finlay@dragonfly.co.nz>
+Installed-Size: 891
+Depends: texlive-full, biber, msttcorefonts
+Section: TeX
+Priority: extra
+Description: LaTeX templates for Dragonfly Science
+ Provides a number of standard classes for producing
+ documents fitting the format used by dragonfly data
+ science.

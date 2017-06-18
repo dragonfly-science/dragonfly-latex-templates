@@ -1,0 +1,4 @@
+../latex/*.cls /usr/share/texlive/texmf-dist/tex/latex/dragonfly
+../latex/*.sty /usr/share/texlive/texmf-dist/tex/latex/dragonfly
+../biblatex-dragonfly/ /usr/share/texlive/texmf-dist/tex/latex/
+../graphics/* /dragonfly/latex/graphics/

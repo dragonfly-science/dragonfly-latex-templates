@@ -1,50 +1,43 @@
-SHELL := /bin/bash
-PREFIX := TEXINPUTS=.///:
-LATEXMK_VERSION=$(strip $(patsubst Version,,$(shell latexmk -v | grep -oi "version.*")))
-ifeq ($(LATEXMK_VERSION),4.24)
-	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf 
-else
-	LATEXMK_OPTIONS=-xelatex
-endif
+IMAGE := docker.dragonfly.co.nz/texlive-16.04:2017-06-16
 
-all: dragonfly.pdf letter.pdf presentation.pdf article.pdf report.pdf proposal.pdf 
+TEXINPUTS := .///:..//latex//:..//graphics//:..//biblatex-dragonfly//:
+RUN ?= docker run -it --rm --net=host --user=$$(id -u):$$(id -g) -e RUN= -e TEXINPUTS=$(TEXINPUTS) -v$$(pwd):/work -w /work $(IMAGE)
 
-mpi-far.pdf: mpi-far.tex test.bib dragonfly.sty FAR.jpg biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
-	$(PREFIX) latexmk $(LATEXMK_OPTIONS) mpi-far.tex
+#SHELL := /bin/bash
+#LATEXMK_VERSION=$(strip $(patsubst Version,,$(shell latexmk -v | grep -oi "version.*")))
+#ifeq ($(LATEXMK_VERSION),4.24)
+#	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf
+#else
+#	LATEXMK_OPTIONS=-xelatex
+#endif
+#
+all: package/.build
 
-report.pdf: report.tex test.bib dragonfly.sty wallpaper.png logo.eps biblatex-mfish/mfish.bbx biblatex-mfish/mfish.cbx biblatex-mfish/english-mfish.lbx
-	$(PREFIX) latexmk $(LATEXMK_OPTIONS) report.tex
+examples/report.pdf: examples/report.tex examples/test.bib latex/dragonfly.sty graphics/wallpaper.png graphics/logo.eps
+	$(RUN) bash -c "cd examples && xelatex report && biber report && xelatex report"
 
-proposal.pdf: proposal.tex dragonfly.sty wallpaper.png logo.eps
-	$(PREFIX) latexmk $(LATEXMK_OPTIONS) proposal.tex
+examples/%.pdf: examples/%.tex latex/dragonfly.sty graphics/wallpaper.png graphics/logo.eps
+	$(RUN) bash -c "cd examples && xelatex $*"
 
-article.pdf: article.tex dragonfly.sty
-	latexmk $(LATEXMK_OPTIONS) article.tex
+latex/dragonfly.sty: latex/dragonfly.ins
+	$(RUN) bash -c "cd latex && latex dragonfly.ins"
 
-presentation.pdf: presentation.tex dragonfly.sty pattern.eps logo.eps
-	latexmk $(LATEXMK_OPTIONS) presentation.tex
+latex/dragonfly.pdf: latex/dragonfly.dtx latex/dragonfly.sty
+	$(RUN) bash -c "cd latex && xelatex dragonfly.dtx"
 
-letter.pdf: letter.tex dragonfly.sty logo.eps
-	latexmk $(LATEXMK_OPTIONS) letter.tex
+.PRECIOUS: package/.build
+package/.build: latex/dragonfly.pdf \
+	examples/letter.pdf \
+	examples/presentation.pdf \
+	examples/article.pdf \
+	examples/report.pdf \
+	examples/proposal.pdf
+	$(RUN) bash -c "cd package && debuild -us -uc && mv ../dragonfly-latex*{.dsc,.changes,.build,tar.xz} . && touch .build"
 
-dragonfly.sty: dragonfly.ins dragonfly.dtx 
-	latex dragonfly.ins
-
-dragonfly.pdf: dragonfly.dtx dragonfly.sty
-	latexmk $(LATEXMK_OPTIONS) dragonfly.dtx
-
-pkg:
-	debuild -us -uc
-
-.PHONY: cleanClass clean
-
-cleanClass:
-	rm -f dragonfly.sty dragonfly-report.cls dragonfly-letter.cls \
-		dragonfly-article.cls dragonfly-proposal.cls dragonfly.pdf 
-		
-
-clean: cleanClass
-	rm -f  *.pdf *.aux *.log *.out *.backup *.glo *.idx \
-		 *.fdb_latexmk *.fls *-self.bib *.toc *.snm *.nav \
-		 *.ilg *-blx.bib *.run.xml *.bbl *.ind *.blg *.bcf \
-		 *.xwm
+.PHONY: clean
+clean:
+	rm -f  examples/*{.log,.aux,.out,.bbl,.pdf,.blg,.bcf,.run.xml,.toc,-self.bib] && \
+	rm -f latex/*{.cls,.idx,.sty,.fdb_latexmk,.log,.fls,.ind,.out,.aux,.glo,.pdf,.toc} && \
+	rm -rf package/debian/dragonfly-latex-templates/ && \
+	rm -f package/dragonfly-latex* && \
+	rm -f package/debian/debhelper-build-stamp 
