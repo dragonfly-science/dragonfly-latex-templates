@@ -4,15 +4,10 @@ Dragonfly Latex Templates
 This package generates LaTeX class and style files to create documents in the 
 format needed at Dragonfly Data Science.
 
-## Building the package
-
-1. Checkout the branch corresponding to the version of Ubuntu that you are using (this makes sure that the right
-       version of biber and biblatex are used).
-2. Run `make` (you will need to be on the VPN, so that you have access to docker.dragonfly.co.nz)
-
 ## Installing the package
 
-1. Run `sudo dpkg -i ../dragonfly-latex-templates_XXX_all.deb`, where `XXX` is the version number of the package
+1. Download the latest debian file from https://gorbachev.io/#/report/Dragonfly-Latex-Templates
+2. Run `sudo dpkg -i dragonfly-latex-templates_XXX_all.deb`, where `XXX` is the version number of the package
 
 ## Using the package
 
@@ -36,6 +31,9 @@ The dragonfly templates package will not work correctly with the following packa
 
  - subfig (use subcaption instead)
 
-## MPI templates
+## Building the package
 
-MPI templates (for AEBR's and FAR's) are available at https://github.com/dragonfly-science/mpi-latex-templates
+1. Checkout the branch corresponding to the version of Ubuntu that you are using (this makes sure that the right
+       version of biber and biblatex are used).
+2. Run `make` (you will need to be on the VPN, so that you have access to docker.dragonfly.co.nz)
+
