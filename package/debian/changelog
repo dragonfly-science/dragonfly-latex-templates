@@ -1,8 +1,8 @@
 dragonfly-latex-templates (1.13) xenial; urgency=medium
 
-  * Nothing new
+  * Use the same bibliography formatting as the MPI templates
 
- -- Richard Mansfield <richard@taiko>  Mon, 28 Nov 2016 13:57:57 +1300
+ -- Edward Abraham <edward@dragonfly.co.nz>  Tue, 4 Jul 2017 13:57:57 +1300
 
 dragonfly-latex-templates (1.12) xenial; urgency=medium
 
@@ -52,39 +52,39 @@ dragonfly-latex-templates (1.5) trusty; urgency=medium
 
   * Added \extratitlepage{...} to add notices to title page on reports.
 
- -- Finlay Thompson <finlay@frank>  Wed, 29 Oct 2014 09:16:49 +1300
+ -- Finlay Thompson <finlay@dragonfly.co.nz>  Wed, 29 Oct 2014 09:16:49 +1300
 
 dragonfly-latex-templates (1.4) trusty; urgency=medium
 
   [ Edward Abraham ]
   * Update the cover matter
 
- -- Edward Abraham <edward@tieke>  Wed, 08 Oct 2014 11:36:12 +1300
+ -- Edward Abraham <edward@dragonfly.co.nz>  Wed, 08 Oct 2014 11:36:12 +1300
 
 dragonfly-latex-templates (1.3) trusty; urgency=medium
 
   * Use & to separate authors in citet and cite 
 
- -- Finlay Thompson <finlay@frank>  Thu, 02 Oct 2014 15:31:53 +1300
+ -- Finlay Thompson <finlay@dragonfly.co.nz>  Thu, 02 Oct 2014 15:31:53 +1300
 
 dragonfly-latex-templates (1.2) trusty; urgency=medium
 
   * Using the times new roman for math
 
- -- Finlay Thompson <finlay@frank>  Thu, 02 Oct 2014 11:58:55 +1300
+ -- Finlay Thompson <finlay@dragonfly.co.nz>  Thu, 02 Oct 2014 11:58:55 +1300
 
 dragonfly-latex-templates (1.1) trusty; urgency=medium
 
   * Added the mpi-far class.
 
- -- Finlay Thompson <finlay@frank>  Fri, 15 Aug 2014 11:49:44 +1200
+ -- Finlay Thompson <finlay@dragonfly.co.nz>  Fri, 15 Aug 2014 11:49:44 +1200
 
 dragonfly-latex-templates (1.0~2dc8e113) trusty; urgency=medium
 
   [ Roma Klapaukh ]
-  * Initial release. (Closes: #XXXXXX)
+  * Initial release
 
   [ Finlay Thompson ]
   * Updated
 
- -- Finlay Thompson <finlay@frank>  Fri, 25 Jul 2014 16:27:26 +1200
+ -- Finlay Thompson <finlay@dragonfly.co.nz>  Fri, 25 Jul 2014 16:27:26 +1200
