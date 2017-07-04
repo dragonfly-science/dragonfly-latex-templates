@@ -462,23 +462,47 @@ bottom=40mm
 % a proper section
 %
 %    \begin{macrocode}
-%<*report>
+%<*common>
 \RequirePackage{csquotes}
 \RequirePackage{polyglossia}
+\RequirePackage{xpatch}
 \setdefaultlanguage[variant=newzealand]{english}
-\RequirePackage[style=apa,backend=biber,maxnames=20,minnames=20,uniquename=false]{biblatex}
+\RequirePackage[style=apa,
+    backend=biber,
+    uniquename=false,
+    apamaxprtauth=999]{biblatex}
 \DeclareLanguageMapping{english}{english-apa}
 \defbibheading{bibliography}[References]{\section{#1}}
-%</report>
+
+% Use semicolons in the bibliography:
+\renewcommand{\multinamedelim}{;\addspace}
+\AtBeginBibliography{%
+  \renewcommand*{\finalnamedelim}{;\addspace}
+}
+% Use a comma between multiple citations:
+\renewcommand*{\multicitedelim}{,\addspace}
+
+% A maximum of two authors in citation commands:
+% Patches https://github.com/plk/biblatex-apa/blob/v6.8/tex/latex/biblatex-apa/cbx/apa.cbx
+\xpatchnameformat{labelname}{\ifciteseen}{\ifnumcomp{\value{listtotal}}{>}{2}}{}{Patch of labelname failed}
+
+% Redefine the nameyeardelim command, to put a space between the authors and the year
+% in citations, updates https://github.com/plk/biblatex-apa/blob/v6.8/tex/latex/biblatex-apa/cbx/apa.cbx 
+\renewcommand*{\nameyeardelim}{\space}
+
+% Update the author macro so that there is no period after the authors, for authors without initials
+% Patches https://github.com/plk/biblatex-apa/blob/v6.8/tex/latex/biblatex-apa/bbx/apa.bbx
+\xpatchbibmacro{author}{\newunit\newblock}{}{}{Patch of author macro failed}
+%</common>
 %    \end{macrocode}
 %
 % We define some helper cite commands for familiarity. 
 %
 %    \begin{macrocode}
-%<*report>
+%<*common>
 \newcommand{\citet}{\cite}
 \newcommand{\citep}{\parencite}
-%</report>
+%</common>
 %    \end{macrocode}
 %
 %
@@ -501,7 +525,7 @@ bottom=40mm
 \RequirePackage{xparse}
 \RequirePackage{hyphenat}
 \RequirePackage{graphicx}
-\graphicspath{{./}{/dragonfly/latex/graphics/}}
+\graphicspath{{./}{/usr/share/texlive/texmf-dist/tex/latex/dragonfly/graphics}}
 %</common>
 %    \end{macrocode}
 %
