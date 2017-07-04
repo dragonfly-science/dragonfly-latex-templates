@@ -2,8 +2,8 @@ Source: dragonfly-latex-templates
 Maintainer: Finlay Thompson <finlay@dragonfly.co.nz>
 Section: TeX
 Priority: extra
-Standards-Version: 3.9.2
-Vcs-git: git@github.com:dragonfly-science/dragonfly-latex-templates.git
+Standards-Version: 3.9.8
+Vcs-git: https://github.com/dragonfly-science/dragonfly-latex-templates.git
 Vcs-browser: https://github.com/dragonfly-science/dragonfly-latex-templates
 Build-Depends: debhelper (>= 9), devscripts, texlive-full, biber, msttcorefonts
 
