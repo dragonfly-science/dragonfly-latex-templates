@@ -1,28 +1,18 @@
-IMAGE := docker.dragonfly.co.nz/texlive-17.04:2017-06-16
+IMAGE := docker.dragonfly.co.nz/texlive-16.04:2017-06-16
 
-TEXINPUTS := .///:..//latex//:..//graphics//:
+TEXINPUTS := .///:..//latex//:..//graphics//:..//biblatex-dragonfly//:
 RUN ?= docker run -it --rm --net=host --user=$$(id -u):$$(id -g) -e RUN= -e TEXINPUTS=$(TEXINPUTS) -v$$(pwd):/work -w /work $(IMAGE)
 
-#SHELL := /bin/bash
-#LATEXMK_VERSION=$(strip $(patsubst Version,,$(shell latexmk -v | grep -oi "version.*")))
-#ifeq ($(LATEXMK_VERSION),4.24)
-#	LATEXMK_OPTIONS=-pdflatex=xelatex -latex=xelatex -pdf
-#else
-#	LATEXMK_OPTIONS=-xelatex
-#endif
-#
 all: package/.build
 
-examples/report.pdf: examples/report.tex examples/test.bib latex/dragonfly.sty graphics/wallpaper.png graphics/logo.eps
+examples/report.pdf: examples/report.tex examples/test.bib latex/dragonfly.pdf graphics/wallpaper.png graphics/logo.eps
 	$(RUN) bash -c "cd examples && xelatex report && biber report && xelatex report"
 
-examples/%.pdf: examples/%.tex latex/dragonfly.sty graphics/wallpaper.png graphics/logo.eps
+examples/%.pdf: examples/%.tex latex/dragonfly.pdf graphics/wallpaper.png graphics/logo.eps
 	$(RUN) bash -c "cd examples && xelatex $*"
 
-latex/dragonfly.sty: latex/dragonfly.ins
+latex/dragonfly.pdf: latex/dragonfly.dtx latex/dragonfly.ins
 	$(RUN) bash -c "cd latex && latex dragonfly.ins"
-
-latex/dragonfly.pdf: latex/dragonfly.dtx latex/dragonfly.sty
 	$(RUN) bash -c "cd latex && xelatex dragonfly.dtx"
 
 .PRECIOUS: package/.build
