@@ -31,10 +31,12 @@ The dragonfly templates package will not work correctly with the following packa
 
  - subfig (use subcaption instead)
 
-## Building the package
+## Building the package on Ubuntu
 
 1. Checkout the branch corresponding to the version of Ubuntu that you are using
 (this makes sure that the right version of biber and biblatex are used).  
-2. Run `make`. If you don't  have access to docker.dragonfly.co.nz, then run
-    `RUN= make`, to build without using docker
+2. Run `make`. If you don't have access to docker.dragonfly.co.nz, run
+    `export RUN= && export TEXINPUTS=.///:..//latex//:..//graphics//:..//biblatex-dragonfly//: && make`, 
+    to build without using docker. You will neeed to have the `texlive-full` and `biber`
+    packages installed
 
