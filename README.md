@@ -33,7 +33,8 @@ The dragonfly templates package will not work correctly with the following packa
 
 ## Building the package
 
-1. Checkout the branch corresponding to the version of Ubuntu that you are using (this makes sure that the right
-       version of biber and biblatex are used).
-2. Run `make` (you will need to be on the VPN, so that you have access to docker.dragonfly.co.nz)
+1. Checkout the branch corresponding to the version of Ubuntu that you are using
+(this makes sure that the right version of biber and biblatex are used).  
+2. Run `make`. If you don't  have access to docker.dragonfly.co.nz, then run
+    `RUN= make`, to build without using docker
 
