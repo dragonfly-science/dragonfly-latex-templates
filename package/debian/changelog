@@ -1,3 +1,9 @@
+dragonfly-latex-templates (1.16) xenial; urgency=medium
+
+  * Use uniquelist=false in the bibliography
+
+ -- Edward Abraham <edward@dragonfly.co.nz>  Wed, 15 Nov 2017 13:57:57 +1300
+
 dragonfly-latex-templates (1.15) xenial; urgency=medium
 
   * Use the same bibliography formatting as the MPI templates
