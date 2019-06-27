@@ -494,8 +494,17 @@ bottom=40mm
 % Update the author macro so that there is no period after the authors, for authors without initials
 % Patches https://github.com/plk/biblatex-apa/blob/v6.8/tex/latex/biblatex-apa/bbx/apa.bbx
 \xpatchbibmacro{author}{\newunit\newblock}{}{}{Patch of author macro failed}
+
+
+% Always finish with a period
+\renewbibmacro*{apa:finpunct}{\addperiod}
+
+% Italicise the "In:" in collections in the bibliography:
+\xpatchbibmacro{in}{\bibcpstring{in}\setunit{\space}}{\mkbibemph{\bibcpstring{in}}\addcolon\setunit{\space}}{}{Patch of 'in' macro failed}
+
 %</common>
 %    \end{macrocode}
+
 %
 % We define some helper cite commands for familiarity. 
 %

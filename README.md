@@ -4,7 +4,7 @@ Dragonfly Latex Templates
 This package generates LaTeX class and style files to create documents in the 
 format needed at Dragonfly Data Science.
 
-## Installing the package
+## Installing the package on debian
 
 1. Download the latest debian file from https://gorbachev.io/#/report/Dragonfly-Latex-Templates
 2. Run `sudo dpkg -i dragonfly-latex-templates_XXX_all.deb`, where `XXX` is the version number of the package
