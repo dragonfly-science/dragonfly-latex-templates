@@ -495,12 +495,8 @@ bottom=40mm
 % Patches https://github.com/plk/biblatex-apa/blob/v6.8/tex/latex/biblatex-apa/bbx/apa.bbx
 \xpatchbibmacro{author}{\newunit\newblock}{}{}{Patch of author macro failed}
 
-
-% Always finish with a period
-\renewbibmacro*{apa:finpunct}{\addperiod}
-
-% Italicise the "In:" in collections in the bibliography:
-\xpatchbibmacro{in}{\bibcpstring{in}\setunit{\space}}{\mkbibemph{\bibcpstring{in}}\addcolon\setunit{\space}}{}{Patch of 'in' macro failed}
+% Gets rid of parentheses around page numbe
+\DeclareFieldFormat{addendum}{{#1}}
 
 %</common>
 %    \end{macrocode}
