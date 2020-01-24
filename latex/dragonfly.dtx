@@ -473,7 +473,7 @@ bottom=40mm
     uniquelist=false,
     apamaxprtauth=999]{biblatex}
 \DeclareLanguageMapping{english}{english-apa}
-\defbibheading{bibliography}[References]{\section{#1}}
+\defbibheading{bibliography}[REFERENCES]{\section{#1}}
 
 % Use semicolons in the bibliography:
 \renewcommand{\multinamedelim}{;\addspace}
@@ -1390,9 +1390,10 @@ To be cited as:
 %    \begin{macrocode}
 %<*report>
 \RequirePackage{lastpage}
+\DeclareNameAlias{sortname}{last-first}
 \AtBeginDocument{
 {
-\renewcommand{\and}{ and }
+\renewcommand{\and}{and }
 \renewcommand{\emph}[1]{\@backslashchar emph\@charlb #1\@charrb}
 \renewcommand{\\}{}
 \edef\text{@article\@charlb this,^^J%
@@ -1516,6 +1517,7 @@ use, and build upon this work, provided credit is given to the original source.
 %    \begin{macrocode}
 %<*report>
 \RequirePackage[titletoc]{appendix}
+\addto{\captionsenglish}{\renewcommand*{\appendixname}{APPENDIX \thesection}}
 %</report>
 %    \end{macrocode}
 %
