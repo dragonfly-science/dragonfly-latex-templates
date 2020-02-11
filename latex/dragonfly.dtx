@@ -61,6 +61,7 @@
 \setlength{\cftparskip}{1ex}
 \setlength{\cftbeforesecskip}{2ex}
 
+
 \makeatother
 \usepackage{titlesec}
 
@@ -136,6 +137,7 @@
   \expandafter\ifx\@tempb\@gobble
     \let\@classoptionslist\@empty
   \fi}
+
 %</letter|article|report|proposal|beamer>
 %    \end{macrocode}
 %
@@ -334,10 +336,11 @@ bottom=40mm
 \titlespacing{\section}{0pt}{\baselineskip}{0pt}
 \titlespacing{\subsection}{0pt}{\baselineskip}{0pt}
 \titlespacing{\subsubsection}{0pt}{\baselineskip}{0pt}
+
 %</report>
 %    \end{macrocode}
 %
-%
+%While the headers in both the document body and the printed table of contents are defined by macros, the pdf reader's table of contents is read directly from the .tex, so the case will be displayed as written in the heading.  
 %
 % \subsection{Beamer}
 %
@@ -453,11 +456,10 @@ bottom=40mm
 %</beamer>
 %    \end{macrocode}
 %
-%
 % \section{Bibliography}
 %
 % Since we are using biblatex with apa we need to use polyglossia to tell
-% biblatex which language we are using. Actually polyglossia doesn't support 
+% biblatex which language we are  using. Actually polyglossia doesn't support 
 % british directly so we need a slight hack. We also need the bibliography to be
 % a proper section
 %
@@ -1043,7 +1045,7 @@ To be cited as:
 %    \end{macrocode}
 %
 %
-% \subsection{Beamer}
+%    \subsection{Beamer}
 % Beamer title pages are similar to the default beamer ones, but we add some helper
 % function and metadata.
 %
@@ -1180,7 +1182,7 @@ To be cited as:
 %    \end{macrocode}
 %
 %
-% Dection heading are always shown in capitals
+% Section heading are always shown in capitals
 % in the contents page. This involves rebinding contents line, so that when the 
 % title is used to construct a hyperref url, it doesn't break the url. This is
 % used in report and AEBR.
@@ -1189,6 +1191,7 @@ To be cited as:
 %<*report>
 \let\dfly@contentsline=\contentsline
 \renewcommand\contentsline[4]{\dfly@contentsline{#1}{\ifstrequal{#1}{section}{\MakeUppercase{#2}}{#2}}{#3}{#4}}
+
 %</report>
 %    \end{macrocode}
 %
@@ -1264,7 +1267,6 @@ To be cited as:
 %</report>
 %    \end{macrocode}
 %
-%
 % \section{Floats}
 % 
 % Some of the formats have strict rules concerning figures. These are implemented here.
@@ -1277,7 +1279,8 @@ To be cited as:
 % We start by telling the caption that it should be wider.
 %    
 %    \begin{macrocode}
-%<report>\RequirePackage[labelsep=colon,singlelinecheck=false,width=150mm]{caption}
+%<report>
+\RequirePackage[justification=justified,labelsep=colon,singlelinecheck=false,width=150mm]{caption}
 %    \end{macrocode}
 %
 % The captions are written in the omnes font, and with a bold Figure label. 
@@ -1310,19 +1313,44 @@ To be cited as:
 %
 %    \begin{macrocode}
 %<*report>
-\let\oldtable\table
 \newcommand{\newtablehead}{\hspace{-22mm}
   \addtolength{\textwidth}{22mm}
   \begin{minipage}[t]{\textwidth}}
+
+\let\oldtable\table
+
 \def\table{\@ifnextchar[\table@i \table@ii}
 \def\table@i[#1]{\oldtable[#1]\newtablehead}
 \def\table@ii{\oldtable\newtablehead}
 
 \let\endoldtable\endtable
 \def\endtable{\end{minipage}\endoldtable}
+
+%</report>
+%    \end{macrocode}
+%Finally, we modify the caption setup for the longtable environment to make it consistent with the above specifications.
+%    \begin{macrocode}
+%<*report>
+\RequirePackage{longtable}
+\captionsetup[longtable]{justification=justified,margin=-22mm}
 %</report>
 %    \end{macrocode}
 %
+%\subsection{Sideways Table}
+%The following patch formats the caption in the sidewaystable environment to the width of the table. 
+%    \begin{macrocode}
+%<*common>
+\RequirePackage{threeparttable}
+\RequirePackage{rotating}
+\renewenvironment{sidewaystable}
+{
+\begin{turn}{90}
+\begin{threeparttable}}
+{\end{threeparttable}
+\end{turn}
+}
+%</common>
+%    \end{macrocode}
 %
 %
 % \section{Draft mode}
@@ -1386,7 +1414,6 @@ To be cited as:
 % This must happen at the end of the prelude, so that the title and so on are defined.
 % Note that new lines have the be suppressed while doing this, and |\emph| commands
 % need to print out the command rather than actually do emphasis. 
-%
 %    \begin{macrocode}
 %<*report>
 \RequirePackage{lastpage}
@@ -1402,6 +1429,8 @@ year = \@charlb \@date \@charrb,^^J%
 title = \@charlb \@title \@charrb,^^J%
 author = \@charlb \@author \@charrb,^^J%
 %</report>
+%    \end{macrocode}
+%    \begin{macrocode}
 %<*report>
 \@charrb
 }
@@ -1508,12 +1537,12 @@ use, and build upon this work, provided credit is given to the original source.
 %    \end{macrocode}
 %
 %
-% \section{Appendicies}
+% \section{Appendices}
 %
 %
 % We require appendicies to be printed as ``Appendix X'' in the table of 
 % contents. This is accomplished by using a the appendix package with the
-% titletoc option. 
+% titletoc option. The case printed in the toc will be read from this entry (currently set to uppercase for consistency with section headers).
 %    \begin{macrocode}
 %<*report>
 \RequirePackage[titletoc]{appendix}
@@ -1522,9 +1551,9 @@ use, and build upon this work, provided credit is given to the original source.
 %    \end{macrocode}
 %
 % In the appendix we also wish to customize a number of properties. To do this
-% we simply add these to the |\appendics| command.  These are:
+% we simply add these to the |\appendices| command.  These are:
 % \begin{itemize}
-%\item Section headings printed as Appendix X 
+%\item Section headings printed as APPENDIX X 
 %\item Tables, equations and figures get the appendix letter before their number
 %\item Counters are reset to set
 % \end{itemize}
@@ -1532,9 +1561,9 @@ use, and build upon this work, provided credit is given to the original source.
 %<*report>
 \g@addto@macro\appendices{
 %</report>
-%<report>\titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{APPENDIX \thesection }{1em}{}
+%<report>\titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{Appendix \thesection }{1em}{}
 %<*report>
-\titleformat{\section}{\bfseries\sffamily}{APPENDIX \thesection }{1em}{}
+
 \renewcommand{\theequation}{\thesection-\arabic{equation}}
 \renewcommand{\thetable}{\thesection-\arabic{table}}
 \renewcommand{\thefigure}{\thesection-\arabic{figure}}
