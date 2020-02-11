@@ -1,3 +1,9 @@
+dragonfly-latex-templates (1.19) xenial; urgency=medium
+
+  * Capitalisation of References and Appendix in TOC.
+
+ -- Frank <frank@dragonfly.co.nz> Fri Jan 24 14:18:55 NZST 2020
+
 dragonfly-latex-templates (1.18) xenial; urgency=medium
 
   * Fixed issue #40 about inconsistency of self-cite authors, now all [last name], [first name].
