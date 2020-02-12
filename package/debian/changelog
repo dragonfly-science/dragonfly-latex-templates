@@ -1,21 +1,26 @@
+dragonfly-latex-templates (1.20) xenial; urgency=medium
+
+  * Fixed caption and table alignments
+
+ -- Yvan Richard <yvan@rowi>  Tue, 11 Feb 2020 15:46:30 +1300
+
 dragonfly-latex-templates (1.19) xenial; urgency=medium
 
   * Capitalisation of References and Appendix in TOC.
 
- -- Frank <frank@dragonfly.co.nz> Fri Jan 24 14:18:55 NZST 2020
+ -- Frank <frank@dragonfly.co.nz>  Fri, 24 Jan 2020 14:18:55 +1300
 
 dragonfly-latex-templates (1.18) xenial; urgency=medium
 
-  * Fixed issue #40 about inconsistency of self-cite authors, now all [last name], [first name].
+  * Fixed issue #40 about inconsistency of self-cite authors, now all (last name), (first name)
 
- -- Frank <frank@dragonfly.co.nz> Thu Jan 23 14:18:55 NZST 2020
+ -- Frank <frank@dragonfly.co.nz>  Thu, 23 Jan 2020 14:18:55 +1300
 
 dragonfly-latex-templates (1.17) xenial; urgency=medium
 
-  * Remove parenthesis from addendum in bibliography. Use this for book page
-    numbers
+  * Remove parenthesis from addendum in bibliography. Use this for book page numbers
 
- -- Nikki Wilkinson <nikki@dragonfly.co.nz> Fri Jun 28 13:52:55 NZST 2019
+ -- Nikki Wilkinson <nikki@dragonfly.co.nz>  Fri, 28 Jun 2019 13:52:55 +1300
 
 dragonfly-latex-templates (1.16) xenial; urgency=medium
 
