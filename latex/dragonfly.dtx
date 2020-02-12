@@ -475,7 +475,7 @@ bottom=40mm
     uniquelist=false,
     apamaxprtauth=999]{biblatex}
 \DeclareLanguageMapping{english}{english-apa}
-\defbibheading{bibliography}[REFERENCES]{\section{#1}}
+\defbibheading{bibliography}[References]{\section{#1}}
 
 % Use semicolons in the bibliography:
 \renewcommand{\multinamedelim}{;\addspace}
@@ -1326,6 +1326,14 @@ To be cited as:
 \let\endoldtable\endtable
 \def\endtable{\end{minipage}\endoldtable}
 
+\let\oldthreeparttable\threeparttable
+
+\def\threeparttable{\@ifnextchar[\threeparttable@i \threeparttable@ii}
+\def\threeparttable@i[#1]{\oldthreeparttable[#1]\newtablehead}
+\def\threeparttable@ii{\oldthreeparttable\newtablehead}
+
+\let\endoldthreeparttable\endthreeparttable
+\def\endthreeparttable{\end{minipage}\endoldthreeparttable}
 %</report>
 %    \end{macrocode}
 %Finally, we modify the caption setup for the longtable environment to make it consistent with the above specifications.
@@ -1342,13 +1350,11 @@ To be cited as:
 %<*common>
 \RequirePackage{threeparttable}
 \RequirePackage{rotating}
-\renewenvironment{sidewaystable}
-{
-\begin{turn}{90}
-\begin{threeparttable}}
-{\end{threeparttable}
-\end{turn}
-}
+\let\oldsidewaystable\sidewaystable
+\def\sidewaystable{\begin{turn}{90}\begin{threeparttable}}
+\let\endsidewaystable\endoldsidewaystable
+\def\endsidewaystable{\end{threeparttable}\end{turn}\\}
+
 %</common>
 %    \end{macrocode}
 %
@@ -1542,18 +1548,18 @@ use, and build upon this work, provided credit is given to the original source.
 %
 % We require appendicies to be printed as ``Appendix X'' in the table of 
 % contents. This is accomplished by using a the appendix package with the
-% titletoc option. The case printed in the toc will be read from this entry (currently set to uppercase for consistency with section headers).
+% titletoc option. The case printed in the toc will be read from this entry.
 %    \begin{macrocode}
 %<*report>
 \RequirePackage[titletoc]{appendix}
-\addto{\captionsenglish}{\renewcommand*{\appendixname}{APPENDIX \thesection}}
+\addto{\captionsenglish}{\renewcommand*{\appendixname}{Appendix}}
 %</report>
 %    \end{macrocode}
 %
 % In the appendix we also wish to customize a number of properties. To do this
 % we simply add these to the |\appendices| command.  These are:
 % \begin{itemize}
-%\item Section headings printed as APPENDIX X 
+%\item Section headings printed as Appendix X 
 %\item Tables, equations and figures get the appendix letter before their number
 %\item Counters are reset to set
 % \end{itemize}
@@ -1561,7 +1567,7 @@ use, and build upon this work, provided credit is given to the original source.
 %<*report>
 \g@addto@macro\appendices{
 %</report>
-%<report>\titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{Appendix \thesection }{1em}{}
+%<report>\titleformat{\section}{\color{logo-blue}\fontsize{14pt}{16.8pt}\bfseries\omnes\uppercase}{Appendix \thesection}{1em}{}
 %<*report>
 
 \renewcommand{\theequation}{\thesection-\arabic{equation}}
