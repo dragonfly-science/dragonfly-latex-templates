@@ -2,7 +2,7 @@
 % is interchangeable with AEBR. Optionally we can say that
 % it is a draft (which will add watermarks, line number and extra line spacing). 
 \documentclass[draft]{dragonfly-report}
-
+\captionsetup[tabularx]{justification=justified,width=\textwidth-10mm} %optional parameters to modify caption
 % A report requires two titles. The first is the short title. This is used for the 
 % footer text. The second is the full title. This goes on the front of the report. 
 % You are only allowed to use two LaTeX macros in the title: \\ and \emph. If others
@@ -56,6 +56,7 @@
 %Packages for table building:
 \usepackage{tabularx}
 \usepackage{multirow}
+\usepackage{threeparttable}
 % The actual document contents begin after here. 
 \begin{document}
 
@@ -121,21 +122,23 @@ Row                       &Entry                         &Entry              &En
 \end{tabular}
 \end{table}
 
-\begin{threeparttable}[h]
-\captionsetup[tabularx]{justification=justified,width=\textwidth-10mm} %optional parameters to modify caption
-\caption{For a wider spanning table that extends to the edges of the page, use tabularx with a redefined geometry. The threeparttable environment fits the caption to the table width which is helpful when using tabularx with a longer caption.}
+
+
+\begin{table}
 \newgeometry{left=20mm,right=20mm}
-\begin{tabularx}{\textwidth}{XXXXXX}
+\begin{threeparttable}[c]
+\caption{For a wider spanning table that extends to the edges of the page, use tabularx with a redefined geometry. The threeparttable environment fits the caption to the table width which is helpful when using tabularx with a longer caption.}
+\begin{tabularx}{\linewidth}{XXXXXX}
     \multirow{2}{*}{}         & \multirow{2}{*}{Column} & \multicolumn{2}{l}{Column} & \multirow{2}{*}{Column} & \multirow{2}{*}{Column} \\ \cline{3-4}
                           &                         & \multicolumn{1}{l}{1}      & \multicolumn{1}{l}{2}   &             &                   \\
-\multirow{2}{*}{\rotatebox[origin=c]{90}{\parbox[c]{1cm}{\centering Two Rows}}}  &Entry                         &Entry              &Entry             &Entry                         &Entry                   \\
+\multirow{2}{*}{\rotatebox[origin=c]{90}{\parbox[c]{1cm}{\centering  Two Rows}}}  &Entry                         &Entry              &Entry             &Entry                         &Entry                   \\
                           &Entry                         &Entry              &Entry             &Entry                         &Entry                   \\
 Row                       &Entry                         &Entry              &Entry             &Entry                         &Entry    \\
 Row                       &Entry                         &Entry              &Entry             &Entry                         &Entry              
 \end{tabularx}
 \restoregeometry
 \end{threeparttable}
-
+\end{table}
 \begin{sidewaystable}
  \caption{This is a sideways table}
 \begin{tabular}{lllll}
@@ -145,6 +148,7 @@ Row &        &        &        &  \\
 Row &        &        &        & 
 \end{tabular}
 \end{sidewaystable}
+
 %\subsubsection{What's This?}
 %\lipsum[3] 
 %\paragraph{A minor heading}

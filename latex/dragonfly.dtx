@@ -1326,6 +1326,7 @@ To be cited as:
 \let\endoldtable\endtable
 \def\endtable{\end{minipage}\endoldtable}
 
+
 \let\oldthreeparttable\threeparttable
 
 \def\threeparttable{\@ifnextchar[\threeparttable@i \threeparttable@ii}
@@ -1336,10 +1337,16 @@ To be cited as:
 \def\endthreeparttable{\end{minipage}\endoldthreeparttable}
 %</report>
 %    \end{macrocode}
-%Finally, we modify the caption setup for the longtable environment to make it consistent with the above specifications.
+%Finally, we modify the formatting and caption setup for the longtable environment to make it consistent with the above specifications.
 %    \begin{macrocode}
 %<*report>
 \RequirePackage{longtable}
+\let\oldlongtable\longtable
+\def\longtable{\@ifnextchar[\longtable@i \longtable@ii}
+\def\longtable@i[#1]{\setlength{\LTleft}{-22mm} \oldlongtable}
+\def\longtable@ii{\setlength{\LTleft}{-22mm} \oldlongtable}
+
+
 \captionsetup[longtable]{justification=justified,margin=-22mm}
 %</report>
 %    \end{macrocode}
