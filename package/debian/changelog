@@ -1,3 +1,9 @@
+dragonfly-latex-templates (1.20ubuntu1) UNRELEASED; urgency=medium
+
+  * Fixed alignment of longtables
+
+ - Frank  <frank@frank>  Fri, 14 Feb 2020 14:16:18 +1300
+
 dragonfly-latex-templates (1.20) xenial; urgency=medium
 
   * Fixed caption and table alignments
