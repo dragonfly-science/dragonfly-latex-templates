@@ -1040,6 +1040,10 @@ To be cited as:
 %<*report|proposal>
 \clearpage
 \pagestyle{plain}
+\ifdraft{
+\linenumbers
+\doublespacing
+}{}
 }
 %</report|proposal>
 %    \end{macrocode}
@@ -1379,16 +1383,10 @@ To be cited as:
 \ifdraft{
 \RequirePackage{draftwatermark}
 \usepackage[modulo]{lineno}
+\modulolinenumbers[2]
 \SetWatermarkColor{black!15}
 \SetWatermarkFontSize{62pt}
 \SetWatermarkText{\sffamily DRAFT - Not to be quoted}
-
-\AtEndPreamble{
-\g@addto@macro\maketitle{
-\linenumbers
-\doublespacing
-}
-}
 }{}
 %</common>
 %    \end{macrocode}

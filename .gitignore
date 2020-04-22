@@ -53,3 +53,4 @@ package/dragonfly-latex-templates_*
 dragonfly-latex-templates_1.16_amd64.buildinfo
 package/debian/.debhelper/
 *.*~
+*.buildinfo
