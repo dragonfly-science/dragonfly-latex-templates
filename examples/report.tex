@@ -2,7 +2,7 @@
 % is interchangeable with AEBR. Optionally we can say that
 % it is a draft (which will add watermarks, line number and extra line spacing). 
 \documentclass[draft]{dragonfly-report}
-
+\captionsetup[tabularx]{justification=justified,width=\textwidth-10mm} %optional parameters to modify caption
 % A report requires two titles. The first is the short title. This is used for the 
 % footer text. The second is the full title. This goes on the front of the report. 
 % You are only allowed to use two LaTeX macros in the title: \\ and \emph. If others
@@ -25,7 +25,6 @@
 % when you have more than one picture within a single figure, and each gets it's own
 % internal caption.
 \usepackage{subcaption}
-
 
 % Optionally you can set an image to go on the titlepage. If this is not set it will
 % default to the wing image as a banner accross the top of the page. If an image is
@@ -54,39 +53,41 @@
 % This is the location of the bibliography file.
 \addbibresource{test.bib}
 
+%Packages for table building:
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{threeparttable}
 % The actual document contents begin after here. 
 \begin{document}
 
-
 % Generates the title page
 \maketitle
+
 
 % Generates the table of contents
 \tableofcontents
 
 % Puts in an unnumbered section that shows up in the table of contents. If no 
 % arguments are given, the section is called ``Executive Summary''.
-\summary%[Custom Summary]
+%\summary%[Custom Summary]
 
-This has some boring text in it
+%This has some boring text in it
 
 \section{The First}
 
 % Generate some fake text.
-\lipsum[1]
+%\lipsum[1]
 
 
-\begin{figure}[h]
-  \includegraphics[width=40mm,height=40mm]{pattern}
-  \caption{This is a caption that is longer than one line. It is improtant to test 
-  this behavoir as this a common feature of the dragon fly templates.}
-\end{figure}
+%\begin{figure}[h]
+  %\includegraphics[width=40mm,height=40mm]{pattern}
+  %\caption{This is a caption that is longer than one line. It is improtant to test this behavoir as this a common feature of the dragon fly templates.}
+%\end{figure}
 
-\subsection{Details}
+\subsection{Figures}
 
 % Generate fake text
-\lipsum[2]
-
+%\lipsum[2]
 
 % Create a figure with subfigures inside of it. This uses the subcaption package
 % rather than subfig
@@ -94,27 +95,67 @@ This has some boring text in it
 
   % Each subfigure need to know how wide it is. Otherwise it is the same as a normal
   % figure. 
-  \begin{subfigure}{0.45\textwidth}
+ \begin{subfigure}{0.45\textwidth}
   \includegraphics[width=40mm,height=40mm]{pattern}
-  \caption{This is a caption that is longer than one line. It is improtant to test 
-  this behavoir as this a common feature of the dragon fly templates.}
+  \caption{This is a caption that is longer than one line. It is improtant to test this behavoir as this a common feature of the dragon fly templates.}
 \end{subfigure}\qquad % it is nice to separate subfigures with a small space.
   \begin{subfigure}{0.45\textwidth}
   \includegraphics[width=40mm,height=40mm]{pattern}
-  \caption{This is a caption that is longer than one line. It is improtant to test 
-  this behavoir as this a common feature of the dragon fly templates.}
+  \caption{This is a caption that is longer than one line. It is improtant to test this behavoir as this a common feature of the dragon fly templates.}
 \end{subfigure}
 % The overall figure also gets a caption
 \caption{A figure of figures}
 \end{figure}
 
-\subsubsection{What's This?}
-\lipsum[3] 
-\paragraph{A minor heading}
-\lipsum[5] 
-\subparagraph{A really minor heading}
-\lipsum[4]
+\clearpage
+\subsection{Tables}
 
+\begin{table}[h]
+\caption{Template for a standard table in the report class. Unless centering is specified, its margin sits to the left of the text body. It is positioned by default at the top of the page.}
+\begin{tabular}{llllll}
+\multirow{2}{*}{}         & \multirow{2}{*}{Column} & \multicolumn{2}{l}{Column} & \multirow{2}{*}{Column} & \multirow{2}{*}{Column} \\ \cline{3-4}
+                          &                         & \multicolumn{1}{c}{1}      & \multicolumn{1}{c}{2}   &             &                   \\
+\multirow{2}{*}{\rotatebox[origin=c]{90}{\parbox[c]{1cm}{\centering Two Rows}}}  &Entry                         &Entry              &Entry             &Entry                         &Entry                   \\
+                          &Entry                         &Entry              &Entry             &Entry                         &Entry                   \\
+Row                       &Entry                         &Entry              &Entry             &Entry                         &Entry    \\
+Row                       &Entry                         &Entry              &Entry             &Entry                         &Entry              
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}
+\newgeometry{left=20mm,right=20mm}
+\begin{threeparttable}[c]
+\caption{For a wider spanning table that extends to the edges of the page, use tabularx with a redefined geometry. The threeparttable environment fits the caption to the table width which is helpful when using tabularx with a longer caption.}
+\begin{tabularx}{\linewidth}{XXXXXX}
+    \multirow{2}{*}{}         & \multirow{2}{*}{Column} & \multicolumn{2}{l}{Column} & \multirow{2}{*}{Column} & \multirow{2}{*}{Column} \\ \cline{3-4}
+                          &                         & \multicolumn{1}{l}{1}      & \multicolumn{1}{l}{2}   &             &                   \\
+\multirow{2}{*}{\rotatebox[origin=c]{90}{\parbox[c]{1cm}{\centering  Two Rows}}}  &Entry                         &Entry              &Entry             &Entry                         &Entry                   \\
+                          &Entry                         &Entry              &Entry             &Entry                         &Entry                   \\
+Row                       &Entry                         &Entry              &Entry             &Entry                         &Entry    \\
+Row                       &Entry                         &Entry              &Entry             &Entry                         &Entry              
+\end{tabularx}
+\restoregeometry
+\end{threeparttable}
+\end{table}
+\begin{sidewaystable}
+ \caption{This is a sideways table}
+\begin{tabular}{lllll}
+    & Column & Column & Column &  \\
+Row &        &        &        &  \\
+Row &        &        &        &  \\
+Row &        &        &        & 
+\end{tabular}
+\end{sidewaystable}
+
+%\subsubsection{What's This?}
+%\lipsum[3] 
+%\paragraph{A minor heading}
+%\lipsum[5] 
+%\subparagraph{A really minor heading}
+%\lipsum[4]
+\section{The Second}
 Apa comes with a number of ways of citing things.
 The interesting ones are:
 
@@ -128,7 +169,7 @@ The interesting ones are:
   \item Many authors: \citep{baker_global_2007}
   \item Multiple citations: \citep{baker_global_2007, abraham_summary_98-09, thompson_dolphin_2013} 
   \item Parencite: \parencite{gales_phocarctos_2008}
-  %\item Nptextcite: \nptextcite{ mpi_review_2012}
+  \item Nptextcite: \nptextcite{ mpi_review_2012}
   %\item Fullcite: \fullcite{mpi_review_2012}
   %\item Fullcitebib: \fullcitebib{mpi_review_2012}
   \item Citeyear: \citeyear{robertson_population_2011}
@@ -148,14 +189,14 @@ The interesting ones are:
 \clearpage
 \appendices
 
-\section{}
 
+\section{}
 \begin{figure}
   Some stuff in the figure
-  \caption{A captain}
+  \caption{A caption}
 \end{figure}
 
-\section{Another Appendix}
+\section{}
 
 This just has some text in it.
 \end{document}

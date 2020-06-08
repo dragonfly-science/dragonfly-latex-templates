@@ -4,7 +4,7 @@ Dragonfly Latex Templates
 This package generates LaTeX class and style files to create documents in the 
 format needed at Dragonfly Data Science.
 
-## Installing the package
+## Installing the package on debian
 
 1. Download the latest debian file from https://gorbachev.io/#/report/Dragonfly-Latex-Templates
 2. Run `sudo dpkg -i dragonfly-latex-templates_XXX_all.deb`, where `XXX` is the version number of the package
@@ -35,8 +35,14 @@ The dragonfly templates package will not work correctly with the following packa
 
 1. Checkout the branch corresponding to the version of Ubuntu that you are using
 (this makes sure that the right version of biber and biblatex are used).  
-2. Run `make`. If you don't have access to docker.dragonfly.co.nz, 
+2. Edit package/debian/changelog to update version
+3. Run `make`. If you don't have access to docker.dragonfly.co.nz, 
     run `export RUN= && export TEXINPUTS=.///:..//latex//:..//graphics//: && make`, 
     to build without using docker. You will neeed to have the `texlive-full` and `biber`
     packages installed.
 
+## Update Dragonfly docker image to reflect change
+
+1. Copy new dragonfly-latex-templates_[version]_all.deb to docker.dragonfly.co.nz/dragonfly-reports/
+2. Edit the version of dragonfly-latex-templates_[version]_all.deb in docker.dragonfly.co.nz/dragonfly-reports/Dockerfile
+3. Run make at the root of docker.dragonfly.co.nz

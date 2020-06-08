@@ -1,4 +1,4 @@
-IMAGE := docker.dragonfly.co.nz/texlive-17.04:2017-06-16
+IMAGE := docker.dragonfly.co.nz/texlive-18.04
 
 TEXINPUTS := .///:..//latex//:..//graphics//:
 RUN ?= docker run -it --rm --net=host --user=$$(id -u):$$(id -g) -e RUN= -e TEXINPUTS=$(TEXINPUTS) -v$$(pwd):/work -w /work $(IMAGE)
