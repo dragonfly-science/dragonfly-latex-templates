@@ -867,6 +867,10 @@ bottom=40mm
 %<*report>
 \newcommand{\citationnote}[1]{\renewcommand{\@citationnote}{#1}}
 \newcommand{\@citationnote}{\@subtitle}
+
+%% Define citation to be used in inner cover page:
+\newcommand{\thiscitation}{\citename{this}[article]{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@citationnote}{}{\@citationnote.}}
+
 %</report>
 %    \end{macrocode}
 %
@@ -1023,7 +1027,7 @@ To be cited as:
   \renewcommand*{\multinamedelim}{;\space}
   \renewcommand*{\finalnamedelim}{;\space}%
   \renewcommand{\blx@maxcitenames}{25} %The number of authors here can be large
-  \citename{this}[article]{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@citationnote}{}{\@citationnote.}
+  \thiscitation
   \end{refsection}
 }
 
