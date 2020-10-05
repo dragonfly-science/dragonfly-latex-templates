@@ -1,3 +1,9 @@
+dragonfly-latex-templates (2.01) xenial; urgency=medium
+
+  * Created new command for inner cover page citation
+
+ - Laura  <laura@dragonfly.co.nz>  Tue,  Oct 6 2020 11:25:00 +1300
+
 dragonfly-latex-templates (2.0) xenial; urgency=medium
 
   * Remove width difference between text and caption
