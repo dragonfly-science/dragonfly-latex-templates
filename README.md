@@ -31,6 +31,12 @@ The dragonfly templates package will not work correctly with the following packa
 
  - subfig (use subcaption instead)
 
+## Modifying the package
+
+Key files for the template are found in the `dragonfly` folder. Make sure to update
+the changelog to a new version number following any edits (see `package/debian/changelog`).
+The new version number will be used when the `.deb` is generated.
+
 ## Building the package on Ubuntu
 
 1. Checkout the branch corresponding to the version of Ubuntu that you are using
