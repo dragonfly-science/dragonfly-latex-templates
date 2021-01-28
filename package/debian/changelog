@@ -1,3 +1,9 @@
+dragonfly-latex-templates (2.02) xenial; urgency=medium
+
+  * Fixed new command definition so that reports using the default format still compile
+
+ - Laura  <laura@dragonfly.co.nz>  Thurs,  Jan 28 2021 17:35:00 +1300
+
 dragonfly-latex-templates (2.01) xenial; urgency=medium
 
   * Created new command for inner cover page citation

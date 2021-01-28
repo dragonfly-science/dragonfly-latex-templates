@@ -868,8 +868,6 @@ bottom=40mm
 \newcommand{\citationnote}[1]{\renewcommand{\@citationnote}{#1}}
 \newcommand{\@citationnote}{\@subtitle}
 
-%% Define citation to be used in inner cover page:
-\newcommand{\thiscitation}{\citename{this}[article]{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@citationnote}{}{\@citationnote.}}
 
 %</report>
 %    \end{macrocode}
@@ -1409,6 +1407,7 @@ author = \@charlb \@author \@charrb,^^J%
 %
 %    \begin{macrocode}
 %<*report>
+\newcommand{\thiscitation}{\citename{this}[article]{author}\ (\citefield{this}{year}).\ \citefield{this}{title},\ \pageref{LastPage}\ pages.\ \ifdefempty{\@citationnote}{}{\@citationnote.}}
 \NewDocumentCommand{\summary}{O {Executive Summary}}{
   \phantomsection
   \addcontentsline{toc}{section}{\hspace{1.4em}#1}
