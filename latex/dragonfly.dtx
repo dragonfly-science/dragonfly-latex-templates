@@ -485,17 +485,19 @@ bottom=40mm
 % Use a comma between multiple citations:
 \renewcommand*{\multicitedelim}{,\addspace}
 
+%% Commented out to test (biblatex is updated to v9.15)
 % A maximum of two authors in citation commands:
 % Patches https://github.com/plk/biblatex-apa/blob/v6.8/tex/latex/biblatex-apa/cbx/apa.cbx
-\xpatchnameformat{labelname}{\ifciteseen}{\ifnumcomp{\value{listtotal}}{>}{2}}{}{Patch of labelname failed}
+%\xpatchnameformat{labelname}{\ifciteseen}{\ifnumcomp{\value{listtotal}}{>}{2}}{}{Patch of labelname failed}
 
 % Redefine the nameyeardelim command, to put a space between the authors and the year
 % in citations, updates https://github.com/plk/biblatex-apa/blob/v6.8/tex/latex/biblatex-apa/cbx/apa.cbx 
 \renewcommand*{\nameyeardelim}{\space}
 
+%% Commented out to test (biblatex is updated to v9.15)
 % Update the author macro so that there is no period after the authors, for authors without initials
 % Patches https://github.com/plk/biblatex-apa/blob/v6.8/tex/latex/biblatex-apa/bbx/apa.bbx
-\xpatchbibmacro{author}{\newunit\newblock}{}{}{Patch of author macro failed}
+%\xpatchbibmacro{author}{\newunit\newblock}{}{}{Patch of author macro failed}
 
 % Gets rid of parentheses around page numbe
 \DeclareFieldFormat{addendum}{{#1}}

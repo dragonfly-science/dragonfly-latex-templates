@@ -1,1 +1,2 @@
-docker: docker.dragonfly.co.nz/texlive-18.04
+docker: docker.dragonfly.co.nz/texlive-deb-22.04
+allows: [ docker ]

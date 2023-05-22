@@ -1,4 +1,4 @@
-IMAGE := docker.dragonfly.co.nz/texlive-18.04
+IMAGE := docker.dragonfly.co.nz/texlive-deb-22.04
 
 TEXINPUTS := .///:..//latex//:..//graphics//:
 RUN ?= docker run -it --rm --net=host --user=$$(id -u):$$(id -g) -e RUN= -e TEXINPUTS=$(TEXINPUTS) -v$$(pwd):/work -w /work $(IMAGE)
@@ -16,10 +16,8 @@ latex/dragonfly.pdf: latex/dragonfly.dtx latex/dragonfly.ins
 	$(RUN) bash -c "cd latex && xelatex dragonfly.dtx"
 
 .PRECIOUS: package/.build
-package/.build: latex/dragonfly.pdf \
-	examples/letter.pdf \
+package/.build: examples/letter.pdf \
 	examples/presentation.pdf \
-	examples/article.pdf \
 	examples/report.pdf \
 	examples/proposal.pdf
 	$(RUN) bash -c "cd package && debuild -us -uc && mv ../dragonfly-latex*{.dsc,.changes,.build,tar.xz} . && touch .build"
