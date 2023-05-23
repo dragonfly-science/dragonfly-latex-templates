@@ -478,12 +478,15 @@ bottom=40mm
 \defbibheading{bibliography}[References]{\section{#1}}
 
 % Use semicolons in the bibliography:
-\renewcommand{\multinamedelim}{;\addspace}
-\AtBeginBibliography{%
-  \renewcommand*{\finalnamedelim}{;\addspace}
-}
+%\renewcommand{\multinamedelim}{;\addspace}
+%\AtBeginBibliography{%
+%  \renewcommand*{\finalnamedelim}{;\addspace}
+%}
 % Use a comma between multiple citations:
-\renewcommand*{\multicitedelim}{,\addspace}
+%\renewcommand*{\multicitedelim}{,\addspace}
+%\DeclareDelimFormat[bib]{multinamedelim}{;\addspace}
+%\DeclareDelimAlias[bib]{finalnamedelim}{multinamedelim}
+%\DeclareDelimFormat{multicitedelim}{,\addspace}
 
 %% Commented out to test (biblatex is updated to v9.15)
 % A maximum of two authors in citation commands:
@@ -492,14 +495,14 @@ bottom=40mm
 
 % Redefine the nameyeardelim command, to put a space between the authors and the year
 % in citations, updates https://github.com/plk/biblatex-apa/blob/v6.8/tex/latex/biblatex-apa/cbx/apa.cbx 
-\renewcommand*{\nameyeardelim}{\space}
+%\renewcommand*{\nameyeardelim}{\space}
 
 %% Commented out to test (biblatex is updated to v9.15)
 % Update the author macro so that there is no period after the authors, for authors without initials
 % Patches https://github.com/plk/biblatex-apa/blob/v6.8/tex/latex/biblatex-apa/bbx/apa.bbx
 %\xpatchbibmacro{author}{\newunit\newblock}{}{}{Patch of author macro failed}
 
-% Gets rid of parentheses around page numbe
+% Gets rid of parentheses around page numbers
 \DeclareFieldFormat{addendum}{{#1}}
 
 %</common>
